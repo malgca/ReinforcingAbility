@@ -1,0 +1,30 @@
+C:\Users\malgca\Development\Reinforcing Ability\Old\bin\x86\Release\Reinforcing Ability.exe
+C:\Users\malgca\Development\Reinforcing Ability\Old\bin\x86\Release\Reinforcing Ability.xml
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmCompany.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmContractor.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.GenCutSheetInvoice.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmEscalation.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmInvoiceCutSheet.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmInvoicing.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmJob.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmJobArchive.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmJobRate.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmJobSummaryReport.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmMain.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmMeshInvoice.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmNewCutSheet.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmNotInvoiced.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmReports.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmSundryInv.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmWeight.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frm_printSummaryOfBendingSchedule.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.InvoiceCancel.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmPrintReinforcingSummary.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.frmInvSummary.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.PrintCutSheet.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.PrintCutInv.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.PrintJobRates.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing_Ability.PrintJobs.resources
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing Ability.vbproj.GenerateResource.Cache
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing Ability.exe
+C:\Users\malgca\Development\Reinforcing Ability\Old\obj\x86\Release\Reinforcing Ability.xml
