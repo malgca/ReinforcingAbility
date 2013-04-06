@@ -39,7 +39,7 @@ Public Class frmJob
     Friend WithEvents OleDbInsertCommand1 As System.Data.OleDb.OleDbCommand
     Friend WithEvents OleDbUpdateCommand1 As System.Data.OleDb.OleDbCommand
     Friend WithEvents OleDbDeleteCommand1 As System.Data.OleDb.OleDbCommand
-    Friend WithEvents dsJob As Reinforcing_Ability.dsReinforcingAbility
+    Friend WithEvents dsJob As PresentationTier.dsReinforcingAbility
     Friend WithEvents grpJobDetails As System.Windows.Forms.GroupBox
     Friend WithEvents lblJobNo As System.Windows.Forms.Label
     Friend WithEvents txtJobNo As System.Windows.Forms.TextBox
@@ -89,7 +89,7 @@ Public Class frmJob
         Me.grpJobDetails = New System.Windows.Forms.GroupBox
         Me.lblOrderNo = New System.Windows.Forms.Label
         Me.cbxContractor = New System.Windows.Forms.ComboBox
-        Me.dsJob = New Reinforcing_Ability.dsReinforcingAbility
+        Me.dsJob = New PresentationTier.dsReinforcingAbility
         Me.cbxTonsKilograms = New System.Windows.Forms.ComboBox
         Me.cbxCompanyNo = New System.Windows.Forms.ComboBox
         Me.txtOrderNo = New System.Windows.Forms.TextBox

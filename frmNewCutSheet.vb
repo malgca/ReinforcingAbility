@@ -76,7 +76,7 @@ Public Class frmNewCutSheet
     Friend WithEvents OleDbInsertCommand1 As System.Data.OleDb.OleDbCommand
     Friend WithEvents OleDbUpdateCommand1 As System.Data.OleDb.OleDbCommand
     Friend WithEvents OleDbDeleteCommand1 As System.Data.OleDb.OleDbCommand
-    Friend WithEvents dsCutSheet As Reinforcing_Ability.dsReinforcingAbility
+    Friend WithEvents dsCutSheet As PresentationTier.dsReinforcingAbility
     Friend WithEvents btnSaveAll As System.Windows.Forms.Button
     Friend WithEvents btnPrint As System.Windows.Forms.Button
     Friend WithEvents lblSchedNo As System.Windows.Forms.Label
@@ -92,7 +92,7 @@ Public Class frmNewCutSheet
         Me.lblCutSheetNo = New System.Windows.Forms.Label
         Me.lblJobNo = New System.Windows.Forms.Label
         Me.dvJob = New System.Data.DataView
-        Me.dsCutSheet = New Reinforcing_Ability.dsReinforcingAbility
+        Me.dsCutSheet = New PresentationTier.dsReinforcingAbility
         Me.conCutSheet = New System.Data.OleDb.OleDbConnection
         Me.adpCutSheet = New System.Data.OleDb.OleDbDataAdapter
         Me.OleDbDeleteCommand1 = New System.Data.OleDb.OleDbCommand

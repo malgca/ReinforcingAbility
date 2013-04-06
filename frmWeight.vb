@@ -35,7 +35,7 @@ Public Class frmWeight
     Friend WithEvents OleDbInsertCommand1 As System.Data.OleDb.OleDbCommand
     Friend WithEvents OleDbUpdateCommand1 As System.Data.OleDb.OleDbCommand
     Friend WithEvents OleDbDeleteCommand1 As System.Data.OleDb.OleDbCommand
-    Friend WithEvents dsWeight As Reinforcing_Ability.dsReinforcingAbility
+    Friend WithEvents dsWeight As PresentationTier.dsReinforcingAbility
     Friend WithEvents btnClose As System.Windows.Forms.Button
     Friend WithEvents dvWeight As System.Data.DataView
     Friend WithEvents grdWeight As System.Windows.Forms.DataGrid
@@ -46,7 +46,7 @@ Public Class frmWeight
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.grdWeight = New System.Windows.Forms.DataGrid
         Me.dvWeight = New System.Data.DataView
-        Me.dsWeight = New Reinforcing_Ability.dsReinforcingAbility
+        Me.dsWeight = New PresentationTier.dsReinforcingAbility
         Me.styleWeight = New System.Windows.Forms.DataGridTableStyle
         Me.colType = New System.Windows.Forms.DataGridTextBoxColumn
         Me.colWeight = New System.Windows.Forms.DataGridTextBoxColumn

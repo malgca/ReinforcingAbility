@@ -1,13 +1,16 @@
 # Description: Files and folders to be ignored by git version control system
 # Author: Malusi Gcakasi
-# Last Modified: Apr 06, 2013 03:56 PM
+# Last Modified: Apr 06, 2013 05:18 PM
 
 # Folders to be ignored
 bin/
 obj/
-MyProject/
+My Project/
 
+/*/bin/
+/*/obj/
+/*/My Project/
 # files to be ignored
 # All files created by vim
 *.*.swp?
-.*~
+*~

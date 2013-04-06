@@ -58,7 +58,7 @@ Public Class frmContractor
     Friend WithEvents OleDbDeleteCommand1 As System.Data.OleDb.OleDbCommand
     Friend WithEvents conContractor As System.Data.OleDb.OleDbConnection
     Friend WithEvents adpContractor As System.Data.OleDb.OleDbDataAdapter
-    Friend WithEvents dsContractor As Reinforcing_Ability.dsReinforcingAbility
+    Friend WithEvents dsContractor As PresentationTier.dsReinforcingAbility
     Friend WithEvents cbxCompNo As System.Windows.Forms.ComboBox
     Friend WithEvents btnEdit As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
@@ -91,7 +91,7 @@ Public Class frmContractor
         Me.OleDbInsertCommand1 = New System.Data.OleDb.OleDbCommand
         Me.OleDbSelectCommand1 = New System.Data.OleDb.OleDbCommand
         Me.OleDbUpdateCommand1 = New System.Data.OleDb.OleDbCommand
-        Me.dsContractor = New Reinforcing_Ability.dsReinforcingAbility
+        Me.dsContractor = New PresentationTier.dsReinforcingAbility
         Me.cbxCompNo = New System.Windows.Forms.ComboBox
         Me.btnEdit = New System.Windows.Forms.Button
         Me.grpContractorDetails.SuspendLayout()

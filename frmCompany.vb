@@ -56,7 +56,7 @@ Public Class frmCompany
     Friend WithEvents OleDbInsertCommand1 As System.Data.OleDb.OleDbCommand
     Friend WithEvents OleDbUpdateCommand1 As System.Data.OleDb.OleDbCommand
     Friend WithEvents OleDbDeleteCommand1 As System.Data.OleDb.OleDbCommand
-    Friend WithEvents dsCompany As Reinforcing_Ability.dsReinforcingAbility
+    Friend WithEvents dsCompany As PresentationTier.dsReinforcingAbility
     Friend WithEvents txtCompName As System.Windows.Forms.TextBox
     Friend WithEvents txtVATNo As System.Windows.Forms.TextBox
     Friend WithEvents txtPostalCode As System.Windows.Forms.TextBox
@@ -87,7 +87,7 @@ Public Class frmCompany
         Me.lblRegNo = New System.Windows.Forms.Label
         Me.txtCompNo = New System.Windows.Forms.TextBox
         Me.lblCompNo = New System.Windows.Forms.Label
-        Me.dsCompany = New Reinforcing_Ability.dsReinforcingAbility
+        Me.dsCompany = New PresentationTier.dsReinforcingAbility
         Me.grpContactDetails = New System.Windows.Forms.GroupBox
         Me.txtWebsite = New System.Windows.Forms.TextBox
         Me.lblWebsite = New System.Windows.Forms.Label

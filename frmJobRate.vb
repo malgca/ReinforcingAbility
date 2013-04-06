@@ -36,7 +36,7 @@ Public Class frmJobRate
     Friend WithEvents OleDbDeleteCommand1 As System.Data.OleDb.OleDbCommand
     Friend WithEvents conJobRate As System.Data.OleDb.OleDbConnection
     Friend WithEvents adpJobRate As System.Data.OleDb.OleDbDataAdapter
-    Friend WithEvents dsJobRate As Reinforcing_Ability.dsReinforcingAbility
+    Friend WithEvents dsJobRate As PresentationTier.dsReinforcingAbility
     Friend WithEvents dvJobRate As System.Data.DataView
     Friend WithEvents grdJobRate As System.Windows.Forms.DataGrid
     Friend WithEvents adpJob As System.Data.OleDb.OleDbDataAdapter
@@ -55,7 +55,7 @@ Public Class frmJobRate
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.lblJobNo = New System.Windows.Forms.Label
         Me.dvJob = New System.Data.DataView
-        Me.dsJobRate = New Reinforcing_Ability.dsReinforcingAbility
+        Me.dsJobRate = New PresentationTier.dsReinforcingAbility
         Me.dvJobRate = New System.Data.DataView
         Me.adpJobRate = New System.Data.OleDb.OleDbDataAdapter
         Me.OleDbDeleteCommand1 = New System.Data.OleDb.OleDbCommand
