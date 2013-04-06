@@ -203,7 +203,7 @@ Public Class frmPrintReinforcingSummary
     End Sub
 
 
-    Private Sub FormClosing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Shadows Sub FormClosing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         If Not IsNothing(CallingForm) Then
             CallingForm.Show()
         End If
@@ -228,15 +228,15 @@ Public Class frmPrintReinforcingSummary
     Dim DetailFont As New Font("Arial", 13)
     Dim TimeCardColFont As New Font("Arial", 10, FontStyle.Italic Or FontStyle.Bold)
     Dim ColFont As New Font("Arial", 12, FontStyle.Italic)
-    Dim curArrayPos = 0
-    Dim curpagenum = 1
-    Dim TopMargin = 70
-    Dim LeftMargin = 20
-    Dim RightMargin = 90
-    Dim BottomMargin = 90
-    Dim PageWidth = 873
-    Dim ReportType
-    Dim mes
+    Dim curArrayPos As Integer = 0
+    Dim curpagenum As Integer = 1
+    Dim TopMargin As Integer = 70
+    Dim LeftMargin As Integer = 20
+    Dim RightMargin As Integer = 90
+    Dim BottomMargin As Integer = 90
+    Dim PageWidth As Integer = 873
+    Dim ReportType As String
+    Dim mes As PageElement
     Dim vatperc As String
     'Dim All_Is_OK As Boolean = True
     Dim HasMesh As Boolean = False
@@ -258,6 +258,7 @@ Public Class frmPrintReinforcingSummary
             End If
 
         Catch ex As Exception
+            Return String.Empty
             MessageBox.Show("Error with input string.", "Cannot convert to Rand format.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1)
         End Try
 
@@ -266,7 +267,7 @@ Public Class frmPrintReinforcingSummary
     Private Sub AddCompNameRegNoVatNo(ByVal compNum As String, ByVal includeTelAndAddress As Boolean)
         'Get Company Details
 
-        Dim sql = "SELECT * FROM Company WHERE CompanyNo = '" + compNum + "'"
+        Dim sql As String = "SELECT * FROM Company WHERE CompanyNo = '" + compNum + "'"
         Dim dataset As New Data.DataSet
         Dim adapter As New OleDb.OleDbDataAdapter(sql, DBConnection)
         adapter.Fill(dataset)
@@ -317,18 +318,18 @@ Public Class frmPrintReinforcingSummary
 
     End Sub
 
-    Const ll = 15  'Last Column
-    Const tt = 385 + 50 'T or Kg Column
-    Const wv = tt + 15 ' WeightValue Column
-    Const iv = 285 + 40 ' Invoice Value Column
-    Const vt = 205 + 20 ' Vat Column
-    Const ta = 115 + 5 ' total Column
-    Const idt = 70 ' date column
+    Const ll As Integer = 15  'Last Column
+    Const tt As Integer = 385 + 50 'T or Kg Column
+    Const wv As Integer = tt + 15 ' WeightValue Column
+    Const iv As Integer = 285 + 40 ' Invoice Value Column
+    Const vt As Integer = 205 + 20 ' Vat Column
+    Const ta As Integer = 115 + 5 ' total Column
+    Const idt As Integer = 70 ' date column
 
     Private Sub ReinforcingSummaryPrint(ByVal compNum As String, ByVal jobNo As String, ByVal StartDate As Date, ByVal EndDate As Date)
 
         Try
-            Dim sql = "SELECT * FROM (((invoice inner join job on Job.JobNo = Invoice.invJobNo)" & _
+            Dim sql As String = "SELECT * FROM (((invoice inner join job on Job.JobNo = Invoice.invJobNo)" & _
             "INNER JOIN Contractor on Contractor.ContractorNo = job.ContractorNo) " & _
             "INNER JOIN CuttingSheet on cuttingSheet.invoiceNo = invoice.invoiceNo)" & _
             " WHERE job.JobNo = '" + jobNo + "' " & _
@@ -336,8 +337,8 @@ Public Class frmPrintReinforcingSummary
             "AND invoice.invdate <= #" + EndDate.ToLongDateString + "# " & _
             "ORDER BY invoice.invoiceNo"
 
-            Dim DataSet = New Data.DataSet
-            Dim adapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
+            Dim DataSet As Data.DataSet = New Data.DataSet
+            Dim adapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
             adapter.Fill(DataSet)
 
             If DataSet.tables(0).rows.count = 0 Then
@@ -406,7 +407,8 @@ Public Class frmPrintReinforcingSummary
             PrintArray.Add(field)
             field = New PageElement("CUT SHEET", EntryFontUnderline, 205, False, False, False)
             PrintArray.Add(field)
-            Dim WH, tKg As String
+            Dim WH As String = String.Empty
+            Dim tKg As String = String.Empty
             tKg = DataSet.tables(0).rows(0).item("Tons Or Kilograms").ToString()
             If tKg = "T" Then
                 WH = "TONS"
@@ -425,20 +427,22 @@ Public Class frmPrintReinforcingSummary
             PrintArray.Add(field)
             field = New PageElement("TOTAL", EntryFontUnderline, PageWidth - RightMargin - ll, True, False, True)
             PrintArray.Add(field)
-            Dim t = 0
-            Dim GrandWeight = 0
-            Dim GrandValue = 0
-            Dim GrandVat = 0
-            Dim GrandNett = 0
+            Dim t As Integer = 0
+            Dim GrandWeight As Integer = 0
+            Dim GrandValue As Integer = 0
+            Dim GrandVat As Integer = 0
+            Dim GrandNett As Integer = 0
             Dim addMonthLine As Boolean
-            Dim MonthWeight = 0
-            Dim MonthValue = 0
-            Dim MonthVat = 0
-            Dim MonthNett = 0
-            Dim curMonth, nextMonth, curYear, NextYear
+            Dim MonthWeight As Integer = 0
+            Dim MonthValue As Integer = 0
+            Dim MonthVat As Integer = 0
+            Dim MonthNett As Integer = 0
+            Dim curMonth As Integer
+            Dim nextMonth As Integer
+            Dim curYear As Integer
+            Dim NextYear As Integer
 
-            Dim accum = 0
-
+            Dim accum As Integer = 0
 
             For t = 0 To DataSet.tables(0).rows.count - 1
                 'tKg = DataSet.tables(0).rows(t).item("Tons Or Kilograms").ToString()
@@ -451,15 +455,15 @@ Public Class frmPrintReinforcingSummary
                 field = New PageElement(currInvNo, EntryFont, LeftMargin, False, False, False)
                 PrintArray.Add(field)
 
-                Dim msql = "Select * from InvoiceLine " & _
+                Dim msql As String = "Select * from InvoiceLine " & _
                 "WHERE InvNo = " + currInvNo + " order by [Line#]"
 
-                Dim mDataSet = New Data.DataSet
-                Dim madapter = New OleDb.OleDbDataAdapter(msql, DBConnection)
+                Dim mDataSet As Data.DataSet = New Data.DataSet
+                Dim madapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(msql, DBConnection)
                 madapter.Fill(mDataSet)
-                Dim x
-                Dim itemQty = 0
-                Dim WeightTotal = 0
+                Dim x As Integer
+                Dim itemQty As Integer = 0
+                Dim WeightTotal As Integer = 0
                 Dim itemType As String
                 For x = 0 To mDataSet.Tables(0).Rows.Count - 1
                     itemType = (mDataSet.Tables(0).Rows(x).Item("TypeCode"))
@@ -575,10 +579,10 @@ Public Class frmPrintReinforcingSummary
 
         Try
 
-            Dim sql = "Select * from ((invoice inner join job on Job.JobNo = Invoice.invJobNo) " & _
+            Dim sql As String = "Select * from ((invoice inner join job on Job.JobNo = Invoice.invJobNo) " & _
             "INNER JOIN Contractor on Contractor.ContractorNo = job.ContractorNo) where job.JobNo = '" + jobNo + "' AND invoice.invdate BETWEEN #" + StartDate.ToLongDateString + "# AND #" + EndDate.ToLongDateString + "# AND invoice.invoiceType = 'Mesh' order by invoice.invoiceNo"
             Dim DataSet As Data.DataSet = New Data.DataSet
-            Dim adapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
+            Dim adapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
             adapter.Fill(DataSet)
 
             If DataSet.Tables(0).Rows.Count = 0 Then
@@ -659,20 +663,22 @@ Public Class frmPrintReinforcingSummary
             PrintArray.Add(field)
             field = New PageElement("TOTAL", EntryFontUnderline, PageWidth - RightMargin - ll, True, False, True)
             PrintArray.Add(field)
-            Dim t = 0
-            Dim GrandArea = 0
-            Dim GrandValue = 0
-            Dim GrandVat = 0
-            Dim GrandNett = 0
+            Dim t As Integer = 0
+            Dim GrandArea As Integer = 0
+            Dim GrandValue As Integer = 0
+            Dim GrandVat As Integer = 0
+            Dim GrandNett As Integer = 0
             Dim addMonthLine As Boolean
-            Dim MonthArea = 0
-            Dim MonthValue = 0
-            Dim MonthVat = 0
-            Dim MonthNett = 0
-            Dim curMonth, nextMonth, curYear, NextYear
-            'Dim tKg = "Tons"
-            Dim accum = 0
+            Dim MonthArea As Integer = 0
+            Dim MonthValue As Integer = 0
+            Dim MonthVat As Integer = 0
+            Dim MonthNett As Integer = 0
+            Dim curMonth As Integer
+            Dim nextMonth As Integer
+            Dim curYear As Integer
+            Dim NextYear As Integer
 
+            Dim accum As Integer = 0
 
             For t = 0 To DataSet.Tables(0).Rows.Count - 1
 
@@ -681,12 +687,12 @@ Public Class frmPrintReinforcingSummary
                 field = New PageElement(DataSet.Tables(0).Rows(t).Item("InvoiceNo").ToString(), EntryFont, LeftMargin, False, False, False)
                 PrintArray.Add(field)
 
-                Dim msql = "Select * from InvoiceLine where InvNo = " + DataSet.Tables(0).Rows(t).Item("InvoiceNo").ToString() + " order by [Line#]"
-                Dim mDataSet = New Data.DataSet
-                Dim madapter = New OleDb.OleDbDataAdapter(msql, DBConnection)
+                Dim msql As String = "Select * from InvoiceLine where InvNo = " + DataSet.Tables(0).Rows(t).Item("InvoiceNo").ToString() + " order by [Line#]"
+                Dim mDataSet As Data.DataSet = New Data.DataSet
+                Dim madapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(msql, DBConnection)
                 madapter.Fill(mDataSet)
-                Dim x
-                Dim AreaTotal = 0
+                Dim x As Integer
+                Dim AreaTotal As Integer = 0
                 For x = 0 To mDataSet.Tables(0).Rows.Count - 1
                     Try
                         AreaTotal += Decimal.Parse(mDataSet.Tables(0).Rows(x).Item("Description").ToString().Substring(mDataSet.Tables(0).Rows(x).Item("Description").ToString().IndexOf("=") + 2, mDataSet.Tables(0).Rows(x).Item("Description").ToString().IndexOf("@") - mDataSet.Tables(0).Rows(x).Item("Description").ToString().IndexOf("=") - 6))
@@ -784,9 +790,9 @@ Public Class frmPrintReinforcingSummary
         Try
             Dim currDate As Date = Today
 
-            Dim sql = "Select * from ((invoice inner join job on Job.JobNo = Invoice.invJobNo) inner join Contractor on Contractor.ContractorNo = job.ContractorNo) where job.JobNo = '" + jobNo + "' AND invoice.invdate BETWEEN #" + StartDate.ToLongDateString + "# AND #" + EndDate.ToLongDateString + "# AND invoice.invoiceType = 'Sundry' order by invoice.invoiceNo"
-            Dim DataSet = New Data.DataSet
-            Dim adapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
+            Dim sql As String = "Select * from ((invoice inner join job on Job.JobNo = Invoice.invJobNo) inner join Contractor on Contractor.ContractorNo = job.ContractorNo) where job.JobNo = '" + jobNo + "' AND invoice.invdate BETWEEN #" + StartDate.ToLongDateString + "# AND #" + EndDate.ToLongDateString + "# AND invoice.invoiceType = 'Sundry' order by invoice.invoiceNo"
+            Dim DataSet As Data.DataSet = New Data.DataSet
+            Dim adapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
             adapter.Fill(DataSet)
 
             If DataSet.tables(0).rows.count = 0 Then
@@ -862,16 +868,21 @@ Public Class frmPrintReinforcingSummary
             PrintArray.Add(field)
             field = New PageElement("TOTAL", EntryFontUnderline, PageWidth - RightMargin - ll, True, False, True)
             PrintArray.Add(field)
-            Dim t = 0
-            Dim GrandValue = 0
-            Dim GrandVat = 0
-            Dim GrandNett = 0
+            Dim t As Integer = 0
+            Dim GrandValue As Integer = 0
+            Dim GrandVat As Integer = 0
+            Dim GrandNett As Integer = 0
             Dim addMonthLine As Boolean
-            Dim MonthValue = 0
-            Dim MonthVat = 0
-            Dim MonthNett = 0
-            Dim curMonth, nextMonth, curYear, NextYear
-            Dim accum = 0
+            Dim MonthValue As Integer = 0
+            Dim MonthVat As Integer = 0
+            Dim MonthNett As Integer = 0
+            Dim curMonth As Integer
+            Dim nextMonth As Integer
+            Dim curYear As Integer
+            Dim NextYear As Integer
+
+            Dim accum As Integer = 0
+
             For t = 0 To DataSet.tables(0).rows.count - 1
 
                 addMonthLine = False
@@ -879,9 +890,9 @@ Public Class frmPrintReinforcingSummary
                 field = New PageElement(DataSet.tables(0).rows(t).item("InvoiceNo").ToString(), EntryFont, LeftMargin, False, False, False)
                 PrintArray.Add(field)
 
-                Dim msql = "Select * from InvoiceLine where InvNo = " + DataSet.tables(0).rows(t).item("InvoiceNo").ToString() + " order by [Line#]"
-                Dim mDataSet = New Data.DataSet
-                Dim madapter = New OleDb.OleDbDataAdapter(msql, DBConnection)
+                Dim msql As String = "Select * from InvoiceLine where InvNo = " + DataSet.Tables(0).Rows(t).Item("InvoiceNo").ToString() + " order by [Line#]"
+                Dim mDataSet As Data.DataSet = New Data.DataSet
+                Dim madapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(msql, DBConnection)
                 madapter.Fill(mDataSet)
 
 
@@ -965,9 +976,9 @@ Public Class frmPrintReinforcingSummary
             Exit Sub
         End If
 
-        Dim sql = "SELECT CompanyNo FROM Job WHERE JobNo = '" & cmbJobs.Text & "' ORDER BY JobNo"
-        Dim DataSet = New Data.DataSet
-        Dim adapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
+        Dim sql As String = "SELECT CompanyNo FROM Job WHERE JobNo = '" & cmbJobs.Text & "' ORDER BY JobNo"
+        Dim DataSet As Data.DataSet = New Data.DataSet
+        Dim adapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
         adapter.Fill(DataSet)
 
         If DataSet.tables(0).rows.count = 0 Then
@@ -1043,8 +1054,8 @@ Public Class frmPrintReinforcingSummary
     Private Sub PrintPage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles DocumentToPrint.PrintPage
 
         Me.Cursor = Windows.Forms.Cursors.Arrow
-        Dim curY = TopMargin
-        Dim MaxY = e.PageSettings.Bounds.Height - BottomMargin
+        Dim curY As Integer = TopMargin
+        Dim MaxY As Integer = e.PageSettings.Bounds.Height - BottomMargin
 
         If ReportType = "Reinforcing Summary" Then
             e.Graphics.DrawString("Date Generated : " & Today().ToShortDateString, New Font("Arial", 8, FontStyle.Italic), Brushes.DimGray, LeftMargin, 1065)
@@ -1053,7 +1064,7 @@ Public Class frmPrintReinforcingSummary
 
         While (curY < MaxY) And (curArrayPos < PrintArray.Count)
 
-            Select Case PrintArray(curArrayPos).Text
+            Select Case PrintArray(curArrayPos).Text.ToString()
                 Case "<PAGE BREAK>"
                     curY = MaxY + 1000
                 Case "<SPACE>"
@@ -1132,12 +1143,12 @@ Public Class frmPrintReinforcingSummary
 
     Private Sub populate_cmb_jobs()
         cmbJobs.Items.Clear()
-        Dim sql = "SELECT JobNo FROM Job ORDER BY JobNo"
+        Dim sql As String = "SELECT JobNo FROM Job ORDER BY JobNo"
         Dim dataset As New Data.DataSet
         Dim adapter As New OleDb.OleDbDataAdapter(sql, DBConnection)
         adapter.Fill(dataset)
 
-        Dim aunty
+        Dim aunty As Integer
         For aunty = 0 To dataset.Tables(0).Rows.Count - 1
             cmbJobs.Items.Add(dataset.Tables(0).Rows(aunty).Item("JobNo").ToString())
         Next aunty
@@ -1172,6 +1183,7 @@ Public Class frmPrintReinforcingSummary
             Case 12
                 Return "December"
         End Select
+        Return String.Empty
     End Function
 
     Private Sub dtpStart_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dtpStart.ValueChanged

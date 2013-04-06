@@ -866,7 +866,7 @@ Public Class frmNewCutSheet
                 OleDbDataAdapter(sql, cnnJob)
             adpJob.Fill(dsJob, "Job")
             found = False
-            Dim job As String
+
             If dsJob.Tables("Job").Rows.Count > 0 Then
                 found = True
                 txtJobName.Text = dsJob.Tables("Job").Rows(0).Item("JobName")
@@ -933,7 +933,6 @@ Public Class frmNewCutSheet
     End Sub
 
     Private Sub btnAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdd.Click
-        Dim nextCut, rowCnt As Integer
         Dim compNum As String
         If state = "" Then
             If txtJob.Text = "" Then
@@ -965,12 +964,12 @@ Public Class frmNewCutSheet
             cnnJob.Open()
 
             ' GET ALL THE CUTTING SHEETS FOR THAT JOB
-            Dim sql4 = "SELECT Company.lastCutNum" & _
+            Dim sql4 As String = "SELECT Company.lastCutNum" & _
             " FROM Company " & _
             "WHERE companyNo = '" & inCompany & "'"
 
-            Dim compDS = New Data.DataSet
-            Dim adapter = New OleDb.OleDbDataAdapter(sql4, cnnJob)
+            Dim compDS As Data.DataSet = New Data.DataSet
+            Dim adapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql4, cnnJob)
 
             adapter.Fill(compDS)
             rowCnt = compDS.tables(0).rows.count
@@ -996,7 +995,7 @@ Public Class frmNewCutSheet
         sqlChgJob = "UPDATE Company SET lastCutNum = '" & lastCut & "'" & _
                   " WHERE companyNo = '" & inCompany & "'"
 
-        Dim daJob = New OleDb.OleDbDataAdapter
+        Dim daJob As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter
 
         Try
             cnnJob.Open()

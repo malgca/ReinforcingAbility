@@ -196,7 +196,7 @@ Public Class frmReports
     End Sub
 
 
-    Private Sub FormClosing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Shadows Sub FormClosing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         If Not IsNothing(CallingForm) Then
             CallingForm.Show()
         End If

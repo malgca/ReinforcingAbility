@@ -272,15 +272,15 @@ Public Class frmInvSummary
     Dim RightMargin As Integer = 90
     Dim BottomMargin As Integer = 80
     Dim PageWidth As Integer = 873
-    Dim ReportType
-    Dim mes
+    Dim ReportType As String
+    Dim mes As String
     Dim vatperc As String
     Dim All_Is_OK As Boolean = True
-    Const col1 = 100
-    Const col2 = 250
-    Const col3 = 400
-    Const col4 = 550
-    Const col5 = 700
+    Const col1 As Integer = 100
+    Const col2 As Integer = 250
+    Const col3 As Integer = 400
+    Const col4 As Integer = 550
+    Const col5 As Integer = 700
 
 #End Region
 
@@ -294,12 +294,12 @@ Public Class frmInvSummary
 
 
     Private Sub populateCmbJobs()
-        Dim sql = "SELECT jobno FROM job ORDER BY jobno"
+        Dim sql As String = "SELECT jobno FROM job ORDER BY jobno"
         Dim ds As Data.DataSet = New Data.DataSet
         Dim da As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
         da.Fill(ds)
 
-        Dim i
+        Dim i As Integer
         For i = 0 To ds.Tables(0).Rows.Count - 1
             cmbJobNumber.Items.Add(ds.Tables(0).Rows(i).Item("JobNo").ToString())
         Next i
@@ -375,11 +375,11 @@ Public Class frmInvSummary
         PrintArray.Add(New PageElement("Nett", EntryFont, col5, True, False, False))
         PrintArray.Add(New PageElement(col1, col5 + 75, False))
 
-        Dim TOTALNETT = 0
-        Dim TOTALVAT = 0
-        Dim TOTALVALUE = 0
+        Dim TOTALNETT As Integer= 0
+        Dim TOTALVAT As Integer = 0
+        Dim TOTALVALUE As Integer = 0
 
-        Dim sql
+        Dim sql As String
         If rdbAll.Checked Then
             sql = "SELECT InvoiceNo,invDate,InvTotal,InvVatAmt,InvNett FROM Invoice WHERE InvoiceType = '" & type & "'"
         Else
@@ -390,7 +390,8 @@ Public Class frmInvSummary
         Dim ad As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
         ad.Fill(ds)
 
-        Dim lcv = 0, count = 0
+        Dim lcv As Integer = 0
+        Dim count As Integer = 0
         For lcv = 0 To ds.Tables(0).Rows().Count - 1
             Dim d As Date = ds.Tables(0).Rows(lcv).Item("invDate")
 
@@ -426,8 +427,8 @@ Public Class frmInvSummary
     Private Sub PrintPage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles DocumentToPrint.PrintPage
 
         Me.Cursor = Windows.Forms.Cursors.Arrow
-        Dim curY = TopMargin
-        Dim MaxY = e.PageSettings.Bounds.Height - BottomMargin
+        Dim curY As Integer = TopMargin
+        Dim MaxY As Integer = e.PageSettings.Bounds.Height - BottomMargin
 
         If ReportType = "Reinforcing Summary" Then
             e.Graphics.DrawString("Date Generated : " & Today().ToShortDateString, New Font("Arial", 8, FontStyle.Italic), Brushes.DimGray, LeftMargin, 1065)
@@ -436,7 +437,7 @@ Public Class frmInvSummary
 
         While (curY < MaxY) And (curArrayPos < PrintArray.Count)
 
-            Select Case PrintArray(curArrayPos).Text
+            Select Case PrintArray(curArrayPos).Text.ToString()
                 Case "<PAGE BREAK>"
                     curY = MaxY + 1000
                 Case "<SPACE>"

@@ -121,14 +121,14 @@ Public Class PrintJobs
     Dim DetailFont As New Font("Arial", 13)
     Dim TimeCardColFont As New Font("Arial", 10, FontStyle.Italic Or FontStyle.Bold)
     Dim ColFont As New Font("Arial", 12, FontStyle.Italic)
-    Dim curArrayPos = 0
-    Dim curpagenum = 1
-    Dim TopMargin = 60
-    Dim LeftMargin = 60
-    Dim RightMargin = 90
-    Dim BottomMargin = 90
-    Dim PageWidth = 873
-    Dim ReportType
+    Dim curArrayPos As Integer = 0
+    Dim curpagenum As Integer = 1
+    Dim TopMargin As Integer = 60
+    Dim LeftMargin As Integer = 60
+    Dim RightMargin As Integer = 90
+    Dim BottomMargin As Integer = 90
+    Dim PageWidth As Integer = 873
+    Dim ReportType As String
 
     Dim All_Is_OK As Boolean = True
 #End Region
@@ -161,12 +161,12 @@ Public Class PrintJobs
 
     Private Sub populate_CoNumbers()
         txtCoNum.Items.Clear()
-        Dim sql = "SELECT Company.CompanyNo FROM Company"
+        Dim sql As String = "SELECT Company.CompanyNo FROM Company"
         Dim ds As New Data.DataSet
         Dim ad As New OleDb.OleDbDataAdapter(sql, DBConnection)
         ad.Fill(ds)
 
-        Dim f
+        Dim f As Integer
         For f = 0 To ds.Tables(0).Rows.Count - 1
             txtCoNum.Items.Add(ds.Tables(0).Rows(f).Item("CompanyNo").ToString())
         Next f
@@ -174,12 +174,12 @@ Public Class PrintJobs
 
     Private Sub populate_CoNames()
         txtCoName.Items.Clear()
-        Dim sql2 = "SELECT Company.CompanyName FROM Company"
+        Dim sql2 As String = "SELECT Company.CompanyName FROM Company"
         Dim ds2 As New Data.DataSet
         Dim ad2 As New OleDb.OleDbDataAdapter(sql2, DBConnection)
         ad2.Fill(ds2)
 
-        Dim f
+        Dim f As Integer
         For f = 0 To ds2.Tables(0).Rows.Count - 1
             txtCoName.Items.Add(ds2.Tables(0).Rows(f).Item("CompanyName").ToString())
         Next f
@@ -227,8 +227,8 @@ Public Class PrintJobs
 
     Private Sub JobPrint(ByVal thisCo As String, ByVal thisCoName As String)
         Dim currDate As Date = Today
-        Dim sql
-        Dim x
+        Dim sql As String
+        Dim x As Integer
 
         Dim jobName, jobnum, tonsOrKg, contName As String
         
@@ -239,9 +239,9 @@ Public Class PrintJobs
             "AND Contractor.ContractorNo = Job.ContractorNo " & _
             "ORDER BY JobNo"
 
-        Dim DataSet = New Data.DataSet
+        Dim DataSet As Data.DataSet = New Data.DataSet
 
-        Dim adapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
+        Dim adapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
         Dim recordCount As Integer
 
         Try
@@ -307,8 +307,8 @@ Public Class PrintJobs
     Private Sub PrintPage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles DocumentToPrint.PrintPage
 
         Me.Cursor = Windows.Forms.Cursors.Arrow
-        Dim curY = TopMargin
-        Dim MaxY = e.PageSettings.Bounds.Height - BottomMargin
+        Dim curY As Integer = TopMargin
+        Dim MaxY As Integer = e.PageSettings.Bounds.Height - BottomMargin
 
         If ReportType = "Reinforcing Summary" Then
             e.Graphics.DrawString("Date Generated : " & Today().ToShortDateString, New Font("Arial", 8, FontStyle.Italic), Brushes.DimGray, LeftMargin, 1065)
@@ -317,7 +317,7 @@ Public Class PrintJobs
 
         While (curY < MaxY) And (curArrayPos < PrintArray.Count)
 
-            Select Case PrintArray(curArrayPos).Text
+            Select Case PrintArray(curArrayPos).Text.ToString()
                 Case "<SPACE>"
                     'e.Graphics.DrawLine(Pens.LightGray, LeftMargin, curY, 800, curY)
                     If PrintArray(curArrayPos).includeEol Then

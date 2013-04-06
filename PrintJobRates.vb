@@ -109,14 +109,14 @@ Public Class PrintJobRates
     Dim DetailFont As New Font("Arial", 13)
     Dim TimeCardColFont As New Font("Arial", 10, FontStyle.Italic Or FontStyle.Bold)
     Dim ColFont As New Font("Arial", 12, FontStyle.Italic)
-    Dim curArrayPos = 0
-    Dim curpagenum = 1
-    Dim TopMargin = 90
-    Dim LeftMargin = 60
-    Dim RightMargin = 90
-    Dim BottomMargin = 60
-    Dim PageWidth = 873
-    Dim ReportType
+    Dim curArrayPos As Integer = 0
+    Dim curpagenum As Integer = 1
+    Dim TopMargin As Integer = 90
+    Dim LeftMargin As Integer = 60
+    Dim RightMargin As Integer = 90
+    Dim BottomMargin As Integer = 60
+    Dim PageWidth As Integer = 873
+    Dim ReportType As String
 
     Dim All_Is_OK As Boolean = True
 #End Region
@@ -144,12 +144,12 @@ Public Class PrintJobRates
 
     Private Sub populate_jobNumbers()
         txtJobNum.Items.Clear()
-        Dim sql = "SELECT Job.JobNo FROM Job"
+        Dim sql As String = "SELECT Job.JobNo FROM Job"
         Dim ds As New Data.DataSet
         Dim ad As New OleDb.OleDbDataAdapter(sql, DBConnection)
         ad.Fill(ds)
 
-        Dim f
+        Dim f As Integer
         For f = 0 To ds.Tables(0).Rows.Count - 1
             txtJobNum.Items.Add(ds.Tables(0).Rows(f).Item("JobNo").ToString())
         Next f
@@ -168,6 +168,7 @@ Public Class PrintJobRates
             End If
 
         Catch ex As Exception
+            Return String.Empty
             MessageBox.Show("Error with input string.", "Cannot convert to Rand format.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1)
         End Try
 
@@ -216,8 +217,8 @@ Public Class PrintJobRates
 
     Private Sub JobPrint(ByVal thisJob As String)
 
-        Dim sql
-        Dim x
+        Dim sql As String
+        Dim x As Integer
 
         sql = "SELECT JobNo, TypeCode, Rate " & _
             "FROM JobRate " & _
@@ -225,13 +226,13 @@ Public Class PrintJobRates
             "ORDER BY TypeCode"
 
         '"WHERE JobRate.JobNo = '290'"
-        Dim DataSet = New Data.DataSet
+        Dim DataSet As Data.DataSet = New Data.DataSet
         Dim curType As String
         Dim curRate As Double
-        Dim adapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
+        Dim adapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
         adapter.Fill(DataSet)
 
-        Dim recordCount = DataSet.Tables(0).Rows.Count
+        Dim recordCount As Integer = DataSet.Tables(0).Rows.Count
         If recordCount = "0" Then
             MessageBox.Show("No Job rates exist for Job No. " + thisJob)
             All_Is_OK = False
@@ -271,8 +272,8 @@ Public Class PrintJobRates
     Private Sub PrintPage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles DocumentToPrint.PrintPage
 
         Me.Cursor = Windows.Forms.Cursors.Arrow
-        Dim curY = TopMargin
-        Dim MaxY = e.PageSettings.Bounds.Height - BottomMargin
+        Dim curY As Integer = TopMargin
+        Dim MaxY As Integer = e.PageSettings.Bounds.Height - BottomMargin
 
         If ReportType = "Reinforcing Summary" Then
             e.Graphics.DrawString("Date Generated : " & Today().ToShortDateString, New Font("Arial", 8, FontStyle.Italic), Brushes.DimGray, LeftMargin, 1065)
@@ -281,7 +282,7 @@ Public Class PrintJobRates
 
         While (curY < MaxY) And (curArrayPos < PrintArray.Count)
 
-            Select Case PrintArray(curArrayPos).Text
+            Select Case PrintArray(curArrayPos).Text.ToString()
                 Case "<SPACE>"
                     'e.Graphics.DrawLine(Pens.LightGray, LeftMargin, curY, 800, curY)
                     If PrintArray(curArrayPos).includeEol Then

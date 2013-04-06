@@ -913,7 +913,7 @@ Public Class frmJob
     End Sub
 
     Private Sub disablebinding()
-        Dim temp As Object
+        Dim temp As Object = Nothing
 
         txtJobNo.DataBindings.Clear()
         txtJobNo.Clear()
@@ -1055,7 +1055,7 @@ Public Class frmJob
     End Sub
 
     Private Sub btnEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEdit.Click
-        Dim temp As Object
+        Dim temp As Object = Nothing
         Dim s As String
 
         If state = "" Then

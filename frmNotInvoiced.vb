@@ -92,6 +92,7 @@ Public Class frmNotInvoiced
         Dim cutDetails As ListViewItem
         Dim cutDate As Date
         Dim cutSheet, invoiceNo, cutJob As String
+        cutJob = String.Empty
         Dim sql As String = "SELECT * FROM Cuttingsheet WHERE invoiceNo = 0"
 
         Try

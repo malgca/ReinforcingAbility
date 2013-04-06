@@ -350,12 +350,12 @@ Public Class frmEscalation
     Private Sub populateCmbJobs()
         cmbJobNum.Items.Clear()
         cmbJobName.Items.Clear()
-        Dim sql = "SELECT jobno,jobname FROM job ORDER BY jobno"
+        Dim sql As String = "SELECT jobno,jobname FROM job ORDER BY jobno"
         Dim ds As Data.DataSet = New Data.DataSet
         Dim da As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
         da.Fill(ds)
 
-        Dim i
+        Dim i As Integer
         For i = 0 To ds.Tables(0).Rows.Count - 1
             cmbJobNum.Items.Add(ds.Tables(0).Rows(i).Item("JobNo").ToString())
             cmbJobName.Items.Add(ds.Tables(0).Rows(i).Item("JobName").ToString())
@@ -378,7 +378,7 @@ Public Class frmEscalation
 
 
     Private Sub getJobOrderNum()
-        Dim sql = "SELECT orderNo FROM job WHERE jobno = '" & cmbJobNum.Text & "'"
+        Dim sql As String = "SELECT orderNo FROM job WHERE jobno = '" & cmbJobNum.Text & "'"
         Dim ds As Data.DataSet = New Data.DataSet
         Dim da As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
         da.Fill(ds)
@@ -414,7 +414,7 @@ Public Class frmEscalation
     Dim InvoiceNumber As Long
 
     Private Function getWork(ByVal job As String, ByVal month As Int16, ByVal year As Int16, ByVal mesh As Boolean, ByVal cuttingsheet As Boolean, ByVal sundry As Boolean, ByVal all As Boolean) As Double
-        Dim sql As String
+        Dim sql As String = String.Empty
         If all Then
             sql = "SELECT InvTotal FROM Invoice WHERE InvJobNo = '" & cmbJobNum.Text & "' AND NOT InvoiceType = 'Escalation' AND YEAR(InvDate) = " & year & " AND MONTH(InvDate) = " & month
         End If
@@ -439,7 +439,7 @@ Public Class frmEscalation
 
         Dim TotExVat As Double = 0
 
-        Dim i
+        Dim i As Integer
         For i = 0 To ds.Tables(0).Rows.Count - 1
             TotExVat += ds.Tables(0).Rows(i).Item("InvTotal")
         Next i
@@ -462,7 +462,7 @@ Public Class frmEscalation
             Exit Sub
         End If
 
-        Dim sql = "SELECT * FROM (Job INNER JOIN Company ON Job.companyNo = Company.CompanyNo) INNER JOIN Contractor ON Job.ContractorNo = Contractor.ContractorNo WHERE Job.JobNo = '" & cmbJobNum.Text & "'"
+        Dim sql As String = "SELECT * FROM (Job INNER JOIN Company ON Job.companyNo = Company.CompanyNo) INNER JOIN Contractor ON Job.ContractorNo = Contractor.ContractorNo WHERE Job.JobNo = '" & cmbJobNum.Text & "'"
         Dim ds As Data.DataSet = New Data.DataSet
         Dim da As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
         da.Fill(ds)
@@ -491,14 +491,14 @@ Public Class frmEscalation
         Dim escWork As Double = Math.Round(Work * Factor, 2)
         Dim EscVatAmt As Double = Math.Round(vatAmt * Factor, 2)
         Dim invNett As Double = escWork + EscVatAmt
-        Dim Active = "Yes"
-        Dim Escalated = "No"
-        Dim OnSummary = "Yes"
+        Dim Active As String = "Yes"
+        Dim Escalated As String = "No"
+        Dim OnSummary As String = "Yes"
         Dim Comments As String = "Comments"
         Dim invDate As Date
         invDate = dtpInvdate.Value.Date
 
-        Dim sql4NewInvoice = "INSERT INTO Invoice(InvoiceNo,InvoiceType,InvDate,InvDeliveryNoteNo,InvFactor,Invmonthandyear,InvWork,InvOrdNum,InvRefNum,InvoiceHeading,InvTotal,InvVatAmt,InvDesign,InvNett,InvJobNo,InvActive,InvEscalated,InvOnSummary,InvComments) VALUES " & _
+        Dim sql4NewInvoice As String = "INSERT INTO Invoice(InvoiceNo,InvoiceType,InvDate,InvDeliveryNoteNo,InvFactor,Invmonthandyear,InvWork,InvOrdNum,InvRefNum,InvoiceHeading,InvTotal,InvVatAmt,InvDesign,InvNett,InvJobNo,InvActive,InvEscalated,InvOnSummary,InvComments) VALUES " & _
                 "(  " & _
                     InvoiceNumber.ToString & _
                     ",'" & InvoiceType & _
@@ -669,6 +669,7 @@ Public Class frmEscalation
             End If
 
         Catch ex As Exception
+            Return String.Empty
             MessageBox.Show("Error with input string.", "Cannot convert to Rand format.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1)
         End Try
 

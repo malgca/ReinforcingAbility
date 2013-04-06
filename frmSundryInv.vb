@@ -456,7 +456,7 @@ Public Class frmSundryInv
 
 #End Region
 
-    Dim ItemCount = 0
+    Dim ItemCount As Integer = 0
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
         'Close the form
@@ -481,12 +481,12 @@ Public Class frmSundryInv
     Private Sub populateCmbJobs()
         cmbJobName.Items.Clear()
         cmb_jobNo.Items.Clear()
-        Dim sql = "SELECT jobno,jobname FROM job ORDER BY jobno"
+        Dim sql As String = "SELECT jobno,jobname FROM job ORDER BY jobno"
         Dim ds As Data.DataSet = New Data.DataSet
         Dim da As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
         da.Fill(ds)
 
-        Dim i
+        Dim i As Integer
         For i = 0 To ds.Tables(0).Rows.Count - 1
             cmb_jobNo.Items.Add(ds.Tables(0).Rows(i).Item("JobNo").ToString())
             cmbJobName.Items.Add(ds.Tables(0).Rows(i).Item("JobName").ToString())
@@ -524,7 +524,7 @@ Public Class frmSundryInv
     End Sub
 
     Private Sub updateTotal()
-        Dim i
+        Dim i As Integer
         Dim tot As Double = 0
         For i = 0 To lvwItems.Items.Count - 1
             tot += Double.Parse(lvwItems.Items(i).SubItems(3).Text)
@@ -559,7 +559,7 @@ Public Class frmSundryInv
 
 
     Private Sub getJobDetails()
-        Dim sql = "SELECT jobName, orderNo,ContractorName FROM (job INNER JOIN Contractor On Job.ContractorNo = Contractor.ContractorNo) WHERE jobno = '" & cmb_jobNo.Text & "'"
+        Dim sql As String = "SELECT jobName, orderNo,ContractorName FROM (job INNER JOIN Contractor On Job.ContractorNo = Contractor.ContractorNo) WHERE jobno = '" & cmb_jobNo.Text & "'"
         Dim ds As Data.DataSet = New Data.DataSet
         Dim da As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
         da.Fill(ds)
@@ -589,7 +589,7 @@ Public Class frmSundryInv
             Exit Sub
         End If
 
-        Dim sql = "SELECT * FROM (Job INNER JOIN Company ON Job.companyNo = Company.CompanyNo) INNER JOIN Contractor ON Job.ContractorNo = Contractor.ContractorNo WHERE Job.JobNo = '" & cmb_jobNo.Text & "'"
+        Dim sql As String = "SELECT * FROM (Job INNER JOIN Company ON Job.companyNo = Company.CompanyNo) INNER JOIN Contractor ON Job.ContractorNo = Contractor.ContractorNo WHERE Job.JobNo = '" & cmb_jobNo.Text & "'"
         Dim ds As Data.DataSet = New Data.DataSet
         Dim da As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
         da.Fill(ds)
@@ -613,14 +613,14 @@ Public Class frmSundryInv
         Dim RefNo As String = txtdet1.Text
         Dim JobNo As String = ds.Tables(0).Rows(0).Item("JobNo").ToString()
         Dim VAT As String = ds.Tables(0).Rows(0).Item("VatPerc").ToString()
-        Dim Active = "Yes"
-        Dim Escalated = "No"
-        Dim OnSummary = "Yes"
+        Dim Active As String = "Yes"
+        Dim Escalated As String = "No"
+        Dim OnSummary As String = "Yes"
         Dim Comments As String = txtdet2.Text
         Dim invDate As Date
         invDate = DateTimePicker1.Value.Date
         '"',#" & Format(invDate, "dd/MM/yyyy") & _'
-        Dim sql4NewInvoice = "INSERT INTO Invoice(InvoiceNo,InvoiceType,InvDate,InvDeliveryNoteNo,InvFactor,Invmonthandyear,InvWork,InvOrdNum,InvRefNum,InvoiceHeading,InvTotal,InvVatAmt,InvDesign,InvNett,InvJobNo,InvActive,InvEscalated,InvOnSummary,InvComments) VALUES " & _
+        Dim sql4NewInvoice As String = "INSERT INTO Invoice(InvoiceNo,InvoiceType,InvDate,InvDeliveryNoteNo,InvFactor,Invmonthandyear,InvWork,InvOrdNum,InvRefNum,InvoiceHeading,InvTotal,InvVatAmt,InvDesign,InvNett,InvJobNo,InvActive,InvEscalated,InvOnSummary,InvComments) VALUES " & _
                 "(  " & _
                     InvoiceNumber.ToString & _
                     ",'" & InvoiceType & _
@@ -643,7 +643,9 @@ Public Class frmSundryInv
                     ",'" & Comments & _
                     "')"
 
-        Dim CalcTotal = 0, CalcVat = 0, CalcNett = 0
+        Dim CalcTotal As Integer = 0
+        Dim CalcVat As Integer = 0
+        Dim CalcNett As Integer = 0
 
         Dim command As New OleDb.OleDbCommand(sql4NewInvoice, DBConnection)
         Try
@@ -652,13 +654,15 @@ Public Class frmSundryInv
 
             'Create Invoice Lines
 
-            Dim lcv
-            Dim CurTypeCode = "N/A"
-            Dim TotalLengthForType = 0, TypeMass = 0
-            Dim qty = txtQty.Text
-            Dim Total = 0, rate = 0
-            Dim LineNumberCounter As Int16 = 1
-            Dim DESCRIPTION As String = " "
+            Dim lcv As Integer
+            Dim CurTypeCode As String = "N/A"
+            Dim TotalLengthForType As Integer = 0
+            Dim TypeMass As Integer = 0
+            Dim qty As String = txtQty.Text
+            Dim Total As Integer = 0
+            Dim Rate As Integer = 0
+            Dim LineNumberCounter As Integer = 1
+            Dim DESCRIPTION As String = String.Empty
 
             For lcv = 0 To lvwItems.Items.Count - 1
                 DESCRIPTION = lvwItems.Items(lcv).Text

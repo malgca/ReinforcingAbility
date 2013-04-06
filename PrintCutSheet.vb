@@ -109,14 +109,14 @@ Public Class PrintCutSheet
     Dim DetailFont As New Font("Arial", 13)
     Dim TimeCardColFont As New Font("Arial", 10, FontStyle.Italic Or FontStyle.Bold)
     Dim ColFont As New Font("Arial", 12, FontStyle.Italic)
-    Dim curArrayPos = 0
-    Dim curpagenum = 1
-    Dim TopMargin = 90
-    Dim LeftMargin = 60
-    Dim RightMargin = 90
-    Dim BottomMargin = 60
-    Dim PageWidth = 873
-    Dim ReportType
+    Dim curArrayPos As Integer = 0
+    Dim curpagenum As Integer = 1
+    Dim TopMargin As Integer = 90
+    Dim LeftMargin As Integer = 60
+    Dim RightMargin As Integer = 90
+    Dim BottomMargin As Integer = 60
+    Dim PageWidth As Integer = 873
+    Dim ReportType As String
     
     Dim All_Is_OK As Boolean = True
 #End Region
@@ -144,12 +144,12 @@ Public Class PrintCutSheet
 
     Private Sub populate_cutNumbers()
         txtCutNum.Items.Clear()
-        Dim sql = "SELECT CutSheetNo FROM CuttingSheet ORDER BY CutSheetNo"
+        Dim sql As String = "SELECT CutSheetNo FROM CuttingSheet ORDER BY CutSheetNo"
         Dim ds As New Data.DataSet
         Dim ad As New OleDb.OleDbDataAdapter(sql, DBConnection)
         ad.Fill(ds)
 
-        Dim f
+        Dim f As Integer
         For f = 0 To ds.Tables(0).Rows.Count - 1
             txtCutNum.Items.Add(ds.Tables(0).Rows(f).Item("CutSheetNo").ToString())
         Next f
@@ -197,10 +197,15 @@ Public Class PrintCutSheet
     End Sub
 
     Private Sub CutPrint(ByVal cutNum As String)
-        Const con1 = 495
-        Const con3 = 70
-        Dim sql, schedSql, itemHighSql, itemMildSql
-        Dim x
+        Const con1 As Integer = 495
+        Const con3 As Integer = 70
+        Dim sql As String = String.Empty
+        Dim schedSql As String = String.Empty
+        Dim itemHighSql As String = String.Empty
+        Dim itemMildSql As String = String.Empty
+
+        Dim x As Integer
+
         Dim kgTons, kgTonsDesc As String
         Dim nothingPrinted As Boolean
         Dim totalTensile, curQty, totalQty, curLength, nextLength, gTotTensile, lengthQty As Double
@@ -208,7 +213,7 @@ Public Class PrintCutSheet
         Dim metresMild As Double = 0
         Dim metresHigh As Double = 0
 
-        Dim weightHigh, tonsMild, curWeight, totalMetres As Double
+        Dim weightHigh, curWeight, totalMetres As Double
         gTotTensile = 0
 
         Dim firstSched, lastSched, curType, nextType, curSize, curTensile, nextTensile As String
@@ -221,8 +226,8 @@ Public Class PrintCutSheet
             "AND Job.ContractorNo = Contractor.ContractorNo " & _
            "AND CuttingSheet.CutSheetNo = " & cutNum
 
-        Dim DataSet = New Data.DataSet
-        Dim adapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
+        Dim DataSet As Data.DataSet = New Data.DataSet
+        Dim adapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
         adapter.Fill(DataSet)
 
         If DataSet.tables(0).rows.count.ToString = "0" Then
@@ -259,12 +264,12 @@ Public Class PrintCutSheet
 
 
             Dim schedAdapter As New OleDb.OleDbDataAdapter(schedSql, DBConnection)
-            Dim schedDataSet = New Data.DataSet
+            Dim schedDataSet As Data.DataSet = New Data.DataSet
             schedAdapter.Fill(schedDataSet)
             lastSched = ""
             firstSched = ""
 
-            Dim schedRecCount = schedDataSet.Tables(0).Rows.Count
+            Dim schedRecCount As Integer = schedDataSet.Tables(0).Rows.Count
             If schedRecCount = 0 Then
                 MessageBox.Show("No schedules found for this cutting sheet", "Warning")
             Else
@@ -312,9 +317,9 @@ Public Class PrintCutSheet
 
 
             Dim itemAdapter As New OleDb.OleDbDataAdapter(itemHighSql, DBConnection)
-            Dim itemDSet = New Data.DataSet
+            Dim itemDSet As Data.DataSet = New Data.DataSet
             itemAdapter.Fill(itemDSet)
-            Dim recordCount = itemDSet.Tables(0).Rows.Count
+            Dim recordCount As Integer = itemDSet.Tables(0).Rows.Count
             If recordCount = 0 Then
                 MessageBox.Show("There are no items for this cutting sheet", "Warning")
             End If
@@ -494,8 +499,8 @@ Public Class PrintCutSheet
     Private Sub PrintPage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles DocumentToPrint.PrintPage
 
         Me.Cursor = Windows.Forms.Cursors.Arrow
-        Dim curY = TopMargin
-        Dim MaxY = e.PageSettings.Bounds.Height - BottomMargin
+        Dim curY As Integer = TopMargin
+        Dim MaxY As Integer = e.PageSettings.Bounds.Height - BottomMargin
 
         If ReportType = "Reinforcing Summary" Then
             e.Graphics.DrawString("Date Generated : " & Today().ToShortDateString, New Font("Arial", 8, FontStyle.Italic), Brushes.DimGray, LeftMargin, 1065)
@@ -504,7 +509,7 @@ Public Class PrintCutSheet
 
         While (curY < MaxY) And (curArrayPos < PrintArray.Count)
 
-            Select Case PrintArray(curArrayPos).Text
+            Select Case PrintArray(curArrayPos).Text.ToString()
                 Case "<SPACE>"
                     'e.Graphics.DrawLine(Pens.LightGray, LeftMargin, curY, 800, curY)
                     If PrintArray(curArrayPos).includeEol Then

@@ -350,12 +350,12 @@ Public Class frmJobArchive
         End Try
 
         ' GET ALL THE CUTTING SHEETS FOR THAT JOB
-        Dim sql4 = "SELECT CuttingSheet.CutSheetNo" & _
+        Dim sql4 As String = "SELECT CuttingSheet.CutSheetNo" & _
         " FROM CuttingSheet " & _
         "WHERE [Job No] = '" & inJob & "'"
 
-        Dim DS4SchNo = New Data.DataSet
-        Dim adapter = New OleDb.OleDbDataAdapter(sql4, dbconnection)
+        Dim DS4SchNo As Data.DataSet = New Data.DataSet
+        Dim adapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql4, dbconnection)
 
         adapter.Fill(DS4SchNo)
 
@@ -366,7 +366,7 @@ Public Class frmJobArchive
 
             cutNo = DS4SchNo.Tables(0).rows(i).item("CutSheetNo").ToString()
             'INSERT CUTTING SHEET SCHEDULES
-            Dim sqlIns2 = "INSERT INTO ASchedItem " & _
+            Dim sqlIns2 As String = "INSERT INTO ASchedItem " & _
                     "SELECT SchedItem.CutsheetNo, ScheduleNo FROM SchedItem " & _
             "WHERE SchedItem.CutSheetNo = " & cutNo
             Try
@@ -382,7 +382,7 @@ Public Class frmJobArchive
             End Try
 
             'INSERT CUTTING SHEET ITEMS
-            Dim sqlIns3 = "INSERT INTO ACutItem " & _
+            Dim sqlIns3 As String = "INSERT INTO ACutItem " & _
                     "SELECT CutItem.CutsheetNo, ScheduleNo, Item, TypeCode, Length, Qty FROM CutItem " & _
             "WHERE CutItem.CutSheetNo = " & cutNo
             Try
@@ -412,7 +412,7 @@ Public Class frmJobArchive
 
         dbconnection.Open()
 
-        Dim sqlIns = "INSERT INTO AInvoice " & _
+        Dim sqlIns As String = "INSERT INTO AInvoice " & _
             "SELECT Invoice.invoiceNo, invoiceType, invDate, invoiceHeading, invRefNum, invDeliveryNoteNo, invFactor, invMonthAndYear, invOrdNum , invTotal, invVatAmt, invNett, invJobNo " & _
             "FROM Invoice WHERE Invoice.invJobNo = '" & inJob & "'"
         Try
@@ -429,12 +429,12 @@ Public Class frmJobArchive
         End Try
 
         ' GET ALL THE INVOICE LINES FOR THAT INVOICE
-        Dim sqlInv = "SELECT Invoice.InvoiceNo" & _
+        Dim sqlInv As String = "SELECT Invoice.InvoiceNo" & _
         " FROM Invoice " & _
         "WHERE invJobNo = '" & inJob & "'"
 
-        Dim DSInv = New Data.DataSet
-        Dim adapter = New OleDb.OleDbDataAdapter(sqlInv, dbconnection)
+        Dim DSInv As Data.DataSet = New Data.DataSet
+        Dim adapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sqlInv, dbconnection)
 
         adapter.Fill(DSInv)
 
@@ -446,7 +446,7 @@ Public Class frmJobArchive
             invNo = DSInv.Tables(0).rows(i).item("invoiceNo").ToString()
 
             'INSERT INVOICE LINES
-            Dim sqlIns2 = "INSERT INTO AInvoiceLine " & _
+            Dim sqlIns2 As String = "INSERT INTO AInvoiceLine " & _
                     "SELECT InvoiceLine.InvNo, [line#], TypeCode, Description, Qty, TonsOrKg, costPerUnit, total FROM InvoiceLine " & _
             "WHERE InvoiceLine.InvNo = " & invNo
             Try
@@ -462,7 +462,7 @@ Public Class frmJobArchive
             End Try
 
             ' NOW DELETE ALL INVOICE LINES FOR THAT INVOICE
-            Dim sqlDel = "DELETE * FROM InvoiceLine WHERE InvNo = " & invNo
+            Dim sqlDel As String = "DELETE * FROM InvoiceLine WHERE InvNo = " & invNo
 
             Try
                 command.CommandText = sqlDel
@@ -484,12 +484,10 @@ Public Class frmJobArchive
         Dim OleDbCmdObj1 As OleDb.OleDbCommand = New OleDb.OleDbCommand
         Dim OleDbCmdObj2 As OleDb.OleDbCommand = New OleDb.OleDbCommand
         Dim OleDbCmdObj3 As OleDb.OleDbCommand = New OleDb.OleDbCommand
-        Dim rowCnt, i As Int16
-        Dim invNo As String
 
         dbconnection.Open()
 
-        Dim sqlIns = "INSERT INTO AJob " & _
+        Dim sqlIns As String = "INSERT INTO AJob " & _
             "SELECT Job.jobNo, companyNo, jobName, contractorNo " & _
             "FROM Job WHERE Job.JobNo = '" & inJob & "'"
         Try
@@ -504,7 +502,7 @@ Public Class frmJobArchive
         End Try
 
         ' ADD JOB RATES
-        Dim sqlIns2 = "INSERT INTO AJobRate " & _
+        Dim sqlIns2 As String = "INSERT INTO AJobRate " & _
                 "SELECT JobRate.jobNo,TypeCode, rate FROM JobRate " & _
          "WHERE JobRate.JobNo = '" & inJob & "'"
 
@@ -535,12 +533,12 @@ Public Class frmJobArchive
         dbconnection.Open()
 
         ' GET ALL THE CUTTING SHEETS FOR THAT JOB
-        Dim sqlCut = "SELECT CuttingSheet.cutSheetNo" & _
+        Dim sqlCut As String = "SELECT CuttingSheet.cutSheetNo" & _
         " FROM CuttingSheet " & _
         "WHERE [Job No] = '" & inJob & "'"
 
-        Dim DSCut = New Data.DataSet
-        Dim adapter = New OleDb.OleDbDataAdapter(sqlCut, dbconnection)
+        Dim DSCut As Data.DataSet = New Data.DataSet
+        Dim adapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sqlCut, dbconnection)
 
         adapter.Fill(DSCut)
 
@@ -557,15 +555,11 @@ Public Class frmJobArchive
     End Sub
 
     Private Sub deleteJob(ByVal inJob As String)
-
         Dim command As OleDb.OleDbCommand = New OleDb.OleDbCommand
-        Dim rowCnt, i As Int16
-        Dim cutNo As String
-
         dbconnection.Open()
 
         ' DELETE ALL JOB RATES
-        Dim sqlDel = "DELETE FROM JobRate " & _
+        Dim sqlDel As String = "DELETE FROM JobRate " & _
                 "WHERE JobNo = '" & inJob & "'"
         Try
             command.CommandText = sqlDel
@@ -576,7 +570,7 @@ Public Class frmJobArchive
             MsgBox(ex.Message)
         End Try
         ' DELETE ALL JOB RATES
-        Dim sqlDel2 = "DELETE FROM Job " & _
+        Dim sqlDel2 As String = "DELETE FROM Job " & _
                 "WHERE JobNo = '" & inJob & "'"
         Try
             command.CommandText = sqlDel2
@@ -593,7 +587,7 @@ Public Class frmJobArchive
     Private Sub DeleteCut(ByVal inJob As String)
         Dim command As OleDb.OleDbCommand = New OleDb.OleDbCommand
         ' DELETE ALL CUTTING SHEETS
-        Dim sqlDel2 = "DELETE FROM CuttingSheet " & _
+        Dim sqlDel2 As String = "DELETE FROM CuttingSheet " & _
                 "WHERE [Job No] = '" & inJob & "'"
         Try
             command.CommandText = sqlDel2
@@ -608,7 +602,7 @@ Public Class frmJobArchive
 
     Private Sub deleteCutItems(ByVal inCut As String)
         ' NOW DELETE ALL CUTTING SHEET ITEMS FOR THAT CUTTING SHEET
-        Dim sqlDel1 = "DELETE FROM CutItem WHERE CutSheetNo = " & inCut
+        Dim sqlDel1 As String = "DELETE FROM CutItem WHERE CutSheetNo = " & inCut
         Dim command As OleDb.OleDbCommand = New OleDb.OleDbCommand
 
         Try
@@ -624,7 +618,7 @@ Public Class frmJobArchive
     Private Sub DelCutSched(ByVal inCut As String)
         ' DELETE ALL SCHEDULES FOR CUTTING SHEET
         Dim command As OleDb.OleDbCommand = New OleDb.OleDbCommand
-        Dim sqlDel = "DELETE * FROM SchedItem WHERE CutSheetNo = " & inCut
+        Dim sqlDel As String = "DELETE * FROM SchedItem WHERE CutSheetNo = " & inCut
         Try
             command.CommandText = sqlDel
             command.Connection = dbconnection
@@ -638,7 +632,7 @@ Public Class frmJobArchive
     Private Sub deleteInvoice(ByVal inJob As String)
         Dim rowCnt As Integer
         Dim command As OleDb.OleDbCommand = New OleDb.OleDbCommand
-        Dim sqlDel = "DELETE * FROM Invoice WHERE InvJobNo = '" & inJob & "'"
+        Dim sqlDel As String = "DELETE * FROM Invoice WHERE InvJobNo = '" & inJob & "'"
         dbconnection.Open()
         Try
             command.CommandText = sqlDel
@@ -678,12 +672,12 @@ Public Class frmJobArchive
         cmbJobs.Items.Add("---Select a Job---")
         cmbJobNum.Items.Clear()
         cmbJobNum.Items.Add("----Select a Job ----")
-        Dim sql = "SELECT JobNo, jobname FROM Job ORDER BY JobName"
+        Dim sql As String = "SELECT JobNo, jobname FROM Job ORDER BY JobName"
         Dim dataset As New Data.DataSet
         Dim adapter As New OleDb.OleDbDataAdapter(sql, dbconnection)
         adapter.Fill(dataset)
 
-        Dim aunty
+        Dim aunty As Integer
         For aunty = 0 To dataset.Tables(0).Rows.Count - 1
             jobName = dataset.Tables(0).Rows(aunty).Item("jobname").ToString()
             jobNum = dataset.Tables(0).Rows(aunty).Item("JobNo").ToString()
@@ -695,15 +689,15 @@ Public Class frmJobArchive
 
     Private Sub populate_cmb_jobNames()
 
-        Dim jobNum, jobName, line As String
+        Dim jobName As String
         cmbJobName.Items.Clear()
         cmbJobName.Items.Add("---Select a Job Name ---")
-        Dim sql = "SELECT jobname, jobNo FROM Job ORDER BY JobName"
+        Dim sql As String = "SELECT jobname, jobNo FROM Job ORDER BY JobName"
         Dim dataset As New Data.DataSet
         Dim adapter As New OleDb.OleDbDataAdapter(sql, dbconnection)
         adapter.Fill(dataset)
 
-        Dim aunty
+        Dim aunty As Integer
         For aunty = 0 To dataset.Tables(0).Rows.Count - 1
             jobName = dataset.Tables(0).Rows(aunty).Item("JobName").ToString()
             cmbJobName.Items.Add(jobName)
@@ -713,16 +707,15 @@ Public Class frmJobArchive
     Private Sub populate_cmb_cont()
         Dim i As Integer
         Dim cnt As Double
-        Dim contNum, contName, line As String
+        Dim contNum, contName As String
 
         cmb_contName.Items.Clear()
         cmb_contName.Items.Add("---Select a Contractor ---")
-        Dim sql2 = "SELECT contractorNo, contractorName FROM contractor ORDER BY contractorName"
+        Dim sql2 As String = "SELECT contractorNo, contractorName FROM contractor ORDER BY contractorName"
         Dim dsCont2 As New Data.DataSet
         Dim adapter2 As New OleDb.OleDbDataAdapter(sql2, dbconnection)
         adapter2.Fill(dsCont2)
 
-        Dim aunty2
         Try
             cnt = dsCont2.Tables(0).Rows.Count
             For i = 0 To cnt - 1
@@ -734,12 +727,11 @@ Public Class frmJobArchive
         End Try
         cmbCont.Items.Clear()
         cmbCont.Items.Add("---Select a Contractor Num---")
-        Dim sqlName = "SELECT contractorNo FROM contractor ORDER BY contractorName"
+        Dim sqlName As String = "SELECT contractorNo FROM contractor ORDER BY contractorName"
         Dim dsContName As New Data.DataSet
         Dim adapterName As New OleDb.OleDbDataAdapter(sqlName, dbconnection)
         adapterName.Fill(dsContName)
 
-        Dim aunty3
         Try
             cnt = dsContName.Tables(0).Rows.Count
             For i = 0 To cnt - 1
@@ -774,8 +766,8 @@ Public Class frmJobArchive
 
     Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
         Dim command As OleDb.OleDbCommand = New OleDb.OleDbCommand
-        Dim dsJob = New Data.DataSet
-        Dim discount, count As Integer
+        Dim dsJob As Data.DataSet = New Data.DataSet
+        Dim discount As Integer
         Dim addDisc, design As Double
         Dim jobError As Boolean
         Dim compNo, unitMeas, jobNum, jobName, contNo, tonsOrKg, orderNum As String
@@ -809,22 +801,22 @@ Public Class frmJobArchive
 
                 Dim sqlNewJob As String = "INSERT INTO Job VALUES (?,?,?,?,?,?,?,?,?,?)"
 
-                Dim daJob = New OleDb.OleDbDataAdapter
+                Dim daJob As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter
                 dbconnection.Open()
                 Try
                     daJob.InsertCommand = command
                     daJob.InsertCommand.CommandText = sqlNewJob
                     ' assign values to all the fields
-                    daJob.InsertCommand.Parameters.Add("jobNo", jobNum)
-                    daJob.InsertCommand.Parameters.Add("companyNo", compNo)
-                    daJob.InsertCommand.Parameters.Add("jobName", jobName)
-                    daJob.InsertCommand.Parameters.Add("discount", discount)
-                    daJob.InsertCommand.Parameters.Add("addedDiscount", addDisc)
-                    daJob.InsertCommand.Parameters.Add("design", design)
-                    daJob.InsertCommand.Parameters.Add("[Tons or Kilograms]", tonsOrKg)
-                    daJob.InsertCommand.Parameters.Add("contractorNo", contNo)
-                    daJob.InsertCommand.Parameters.Add("orderNo", orderNum)
-                    daJob.InsertCommand.Parameters.Add("unitOfMeas", unitMeas)
+                    daJob.InsertCommand.Parameters.AddWithValue("jobNo", jobNum)
+                    daJob.InsertCommand.Parameters.AddWithValue("companyNo", compNo)
+                    daJob.InsertCommand.Parameters.AddWithValue("jobName", jobName)
+                    daJob.InsertCommand.Parameters.AddWithValue("discount", discount)
+                    daJob.InsertCommand.Parameters.AddWithValue("addedDiscount", addDisc)
+                    daJob.InsertCommand.Parameters.AddWithValue("design", design)
+                    daJob.InsertCommand.Parameters.AddWithValue("[Tons or Kilograms]", tonsOrKg)
+                    daJob.InsertCommand.Parameters.AddWithValue("contractorNo", contNo)
+                    daJob.InsertCommand.Parameters.AddWithValue("orderNo", orderNum)
+                    daJob.InsertCommand.Parameters.AddWithValue("unitOfMeas", unitMeas)
 
                     daJob.InsertCommand.Connection = dbconnection
                     daJob.InsertCommand.ExecuteNonQuery()
@@ -843,7 +835,7 @@ Public Class frmJobArchive
                    ",[tons or Kilograms]= '" & tonsOrKg & "'" & _
                    " WHERE Job.jobNo = '" & jobNum & "'"
 
-                Dim daJob = New OleDb.OleDbDataAdapter
+                Dim daJob As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter
                 dbconnection.Open()
                 Try
                     daJob.UpdateCommand = command
@@ -860,15 +852,14 @@ Public Class frmJobArchive
     End Sub
 
     Private Sub GetCont(ByVal inCont As String)
-        Dim rowCnt, i As Integer
-        Dim typeCode As String
+        Dim rowCnt As Integer
 
-        Dim sql = "SELECT Contractor.contractorNo, contractorName" & _
+        Dim sql As String = "SELECT Contractor.contractorNo, contractorName" & _
         " FROM Contractor " & _
         " WHERE Contractor.contractorNo = '" & inCont & "'"
 
-        Dim dsCont = New Data.DataSet
-        Dim adpCont = New OleDb.OleDbDataAdapter(sql, dbconnection)
+        Dim dsCont As Data.DataSet = New Data.DataSet
+        Dim adpCont As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, dbconnection)
         Try
             dsCont.Clear()
             adpCont.Fill(dsCont)
@@ -886,7 +877,7 @@ Public Class frmJobArchive
     End Sub
 
     Private Sub GetJob(ByVal inJob As String)
-        Dim rowCnt, i, recId As Integer
+        Dim rowCnt, recId As Integer
         Dim NewJobName, contNum As String
 
         If inJob = "" And state <> "" Then
@@ -894,12 +885,12 @@ Public Class frmJobArchive
             cmbJobs.Focus()
         Else
 
-            Dim sql = "SELECT jobNo, jobName, [Tons or Kilograms], contractorNo, OrderNo " & _
+            Dim sql As String = "SELECT jobNo, jobName, [Tons or Kilograms], contractorNo, OrderNo " & _
              " FROM Job " & _
              " WHERE Job.jobNo = '" & inJob & "'"
 
-            Dim dsJob = New Data.DataSet
-            Dim adpJob = New OleDb.OleDbDataAdapter(sql, dbconnection)
+            Dim dsJob As Data.DataSet = New Data.DataSet
+            Dim adpJob As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, dbconnection)
             Try
                 dsJob.Clear()
                 adpJob.Fill(dsJob)
@@ -934,17 +925,17 @@ Public Class frmJobArchive
             End Try
         End If
     End Sub
-    Private Sub PopulateJobRate(ByVal inJob)
+    Private Sub PopulateJobRate(ByVal inJob As String)
         Dim rowCnt, i As Integer
         Dim typeCode As String
 
         ' GET ALL THE RATES FOR THAT JOB
-        Dim sql = "SELECT ProductType.*" & _
+        Dim sql As String = "SELECT ProductType.*" & _
         " FROM ProductType "
 
-        Dim dsProd = New Data.DataSet
-        Dim dsJobRate = New Data.DataSet
-        Dim adpProd = New OleDb.OleDbDataAdapter(sql, dbconnection)
+        Dim dsProd As Data.DataSet = New Data.DataSet
+        Dim dsJobRate As Data.DataSet = New Data.DataSet
+        Dim adpProd As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, dbconnection)
 
         dsProd.Clear()
         adpProd.Fill(dsProd)
@@ -954,19 +945,19 @@ Public Class frmJobArchive
             createRateRec(inJob, typeCode)
         Next i
     End Sub
-    Private Sub createRateRec(ByVal inJob, ByVal inType)
+    Private Sub createRateRec(ByVal inJob As String, ByVal inType As String)
         Dim command As OleDb.OleDbCommand = New OleDb.OleDbCommand
         Dim curRate As Double
-        Dim daRate = New OleDb.OleDbDataAdapter
+        Dim daRate As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter
 
         Dim sqlIns As String = "INSERT INTO JobRate VALUES (?,?,?)"
         Try
             daRate.InsertCommand = command
             daRate.InsertCommand.CommandText = sqlIns
             ' assign values to all the fields
-            daRate.InsertCommand.Parameters.Add("jobNo", inJob)
-            daRate.InsertCommand.Parameters.Add("typeCode", inType)
-            daRate.InsertCommand.Parameters.Add("rate", curRate)
+            daRate.InsertCommand.Parameters.AddWithValue("jobNo", inJob)
+            daRate.InsertCommand.Parameters.AddWithValue("typeCode", inType)
+            daRate.InsertCommand.Parameters.AddWithValue("rate", curRate)
             daRate.InsertCommand.Connection = dbconnection
             daRate.InsertCommand.ExecuteNonQuery()
         Catch ex As Exception
@@ -974,7 +965,6 @@ Public Class frmJobArchive
         End Try
     End Sub
     Private Sub GroupBox1_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GroupBox1.Enter
-
     End Sub
 
     Private Sub btnEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEdit.Click
@@ -1014,22 +1004,20 @@ Public Class frmJobArchive
     End Sub
 
     Private Sub cmb_contName_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmb_contName.SelectedIndexChanged
-        Dim contRec As Integer
         cmbCont.SelectedIndex = cmb_contName.SelectedIndex
         'contRec = cmb_contName.SelectedIndex.ToString()
         'GetContId(contRec)
     End Sub
     Private Sub GetContId(ByVal inCont As String)
 
-        Dim rowCnt, i As Integer
-        Dim typeCode As String
+        Dim rowCnt As Integer
 
-        Dim sql = "SELECT Contractor.contractorNo, contractorName" & _
+        Dim sql As String = "SELECT Contractor.contractorNo, contractorName" & _
         " FROM Contractor " & _
         " WHERE Contractor.contractorNo = '" & inCont & "'"
 
-        Dim dsCont = New Data.DataSet
-        Dim adpCont = New OleDb.OleDbDataAdapter(sql, dbconnection)
+        Dim dsCont As Data.DataSet = New Data.DataSet
+        Dim adpCont As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, dbconnection)
         Try
             dsCont.Clear()
             adpCont.Fill(dsCont)

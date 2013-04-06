@@ -300,13 +300,15 @@ Public Class GenCutSheetInvoice
                 Dim RefNo As String = "Ref"
                 Dim JobNo As String = DataSet.Tables(0).Rows(0).Item("Job.JobNo").ToString()
                 Dim VAT As String = DataSet.Tables(0).Rows(0).Item("VatPerc").ToString()
-                Dim Active = "Yes"
-                Dim Escalated = "No"
-                Dim OnSummary = "Yes"
+                Dim Active As String = "Yes"
+                Dim Escalated As String = "No"
+                Dim OnSummary As String = "Yes"
                 Dim Comments As String = "Comments"
 
 
-                Dim CalcTotal = 0, CalcVat = 0, CalcNett = 0
+                Dim CalcTotal As Integer = 0
+                Dim CalcVat As Integer = 0
+                Dim CalcNett As Integer = 0
 
                 Dim SQL4NewInvoice As String = "INSERT INTO Invoice(InvoiceNo,InvoiceType,InvDate,InvDeliveryNoteNo,InvFactor,Invmonthandyear,InvWork,InvOrdNum,InvRefNum,InvoiceHeading,InvTotal,InvVatAmt,InvDesign,InvNett,InvJobNo,InvActive,InvEscalated,InvOnSummary,InvComments) VALUES " & _
                 "(  " & _
@@ -339,12 +341,14 @@ Public Class GenCutSheetInvoice
 
                     'Create Invoice Lines
 
-                    Dim lcv
-                    Dim CurTypeCode, NextTypeCode
-                    Dim TotalLengthForType = 0, TypeMass = 0
-                    Dim TotalMassForType = 0
-                    Dim TotalCostForType = 0
-                    Dim LineNumberCounter As Int16 = 1
+                    Dim lcv As Integer
+                    Dim CurTypeCode As String
+                    Dim NextTypeCode As String
+                    Dim TotalLengthForType As Integer = 0
+                    Dim TypeMass As Integer = 0
+                    Dim TotalMassForType As Integer= 0
+                    Dim TotalCostForType As Integer = 0
+                    Dim LineNumberCounter As Integer = 1
                     Dim DESCRIPTION As String = "Description"
 
                     For lcv = 0 To DataSet.Tables(0).Rows.Count - 1
@@ -366,11 +370,11 @@ Public Class GenCutSheetInvoice
                             TypeMass = Double.Parse(DataSet.Tables(0).Rows(lcv).Item("Weight").ToString())
                             If DataSet.Tables(0).Rows(lcv).Item("Tons Or Kilograms").ToString() = "T" Then
                                 TotalMassForType = TotalLengthForType * TypeMass / 1000
-                                TotalMassForType = Decimal.Parse(TotalMassForType.ToString()).Round(TotalMassForType, 3)
+                                TotalMassForType = Decimal.Round(TotalMassForType, 3)
                                 TotalCostForType = TotalMassForType * DataSet.Tables(0).Rows(lcv).Item("Rate")
                             Else ' KG
                                 TotalMassForType = TotalLengthForType * TypeMass
-                                TotalMassForType = Decimal.Parse(TotalMassForType.ToString()).Round(TotalMassForType, 1)
+                                TotalMassForType = Decimal.Round(TotalMassForType, 1)
                                 TotalCostForType = Math.Round(TotalMassForType, 1) * DataSet.Tables(0).Rows(lcv).Item("Rate")
                             End If
 
@@ -459,18 +463,18 @@ Public Class GenCutSheetInvoice
 
     Private Sub popCMB()
         cmb_AllCutSheets.Items.Clear()
-        Dim sql = "SELECT CutSheetNo FROM CuttingSheet WHERE InvoiceNo = 0 ORDER BY CutSheetNo ASC"
+        Dim sql As String = "SELECT CutSheetNo FROM CuttingSheet WHERE InvoiceNo = 0 ORDER BY CutSheetNo ASC"
         Dim DataSet As New Data.DataSet
         Dim Adapter As New OleDb.OleDbDataAdapter(sql, DbConnection)
         Adapter.Fill(DataSet)
-        Dim d
+        Dim d As Integer
         For d = 0 To DataSet.Tables(0).Rows.Count - 1
             cmb_AllCutSheets.Items.Add(DataSet.Tables(0).Rows(d).Item("CutSheetNo").ToString())
         Next d
     End Sub
 
     Private Sub cmb_AllCutSheets_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmb_AllCutSheets.SelectedIndexChanged
-        Dim sql = "SELECT OrderNo FROM (CuttingSheet INNER JOIN Job ON CuttingSheet.[Job No] = Job.JobNo) WHERE CuttingSheet.CutSheetNo = " & cmb_AllCutSheets.Text
+        Dim sql As String = "SELECT OrderNo FROM (CuttingSheet INNER JOIN Job ON CuttingSheet.[Job No] = Job.JobNo) WHERE CuttingSheet.CutSheetNo = " & cmb_AllCutSheets.Text
         Dim ds As New Data.DataSet
         Dim Adapter As New OleDb.OleDbDataAdapter(sql, DbConnection)
         Adapter.Fill(ds)

@@ -14,15 +14,15 @@ Public Class frm_printSummaryOfBendingSchedule
     Dim DetailFont As New Font("Arial", 13)
     Dim TimeCardColFont As New Font("Arial", 10, FontStyle.Italic Or FontStyle.Bold)
     Dim ColFont As New Font("Arial", 12, FontStyle.Italic)
-    Dim curArrayPos = 0
-    Dim curpagenum = 1
-    Dim TopMargin = 60
-    Dim LeftMargin = 60
-    Dim RightMargin = 60
-    Dim BottomMargin = 90
-    Dim PageWidth = 873
-    Dim ReportType
-    Dim mes
+    Dim curArrayPos As Integer = 0
+    Dim curpagenum As Integer = 1
+    Dim TopMargin As Integer = 60
+    Dim LeftMargin As Integer = 60
+    Dim RightMargin As Integer = 60
+    Dim BottomMargin As Integer = 90
+    Dim PageWidth As Integer = 873
+    Dim ReportType As String
+    'Dim mes
     Dim vatperc As String
     Dim All_Is_OK As Boolean = True
 #End Region
@@ -152,12 +152,12 @@ Public Class frm_printSummaryOfBendingSchedule
 
     Private Sub populate_cmb_jobs()
         cmbJobs.Items.Clear()
-        Dim sql = "SELECT JobNo FROM Job ORDER BY JobNo"
+        Dim sql As String = "SELECT JobNo FROM Job ORDER BY JobNo"
         Dim dataset As New Data.DataSet
         Dim adapter As New OleDb.OleDbDataAdapter(sql, DBConnection)
         adapter.Fill(dataset)
 
-        Dim aunty
+        Dim aunty As Integer
         For aunty = 0 To dataset.Tables(0).Rows.Count - 1
             cmbJobs.Items.Add(dataset.Tables(0).Rows(aunty).Item("JobNo").ToString())
         Next aunty
@@ -166,7 +166,7 @@ Public Class frm_printSummaryOfBendingSchedule
     End Sub
     Dim sql As String
 
-    Const d2 = 75
+    Const d2 As Integer = 75
 
     Private Function getColumn(ByVal tC As String) As Integer
         tC = tC.Substring(1)
@@ -246,12 +246,12 @@ Public Class frm_printSummaryOfBendingSchedule
 
         PrintArray = New ArrayList
         Dim p As PageElement
-        Dim TKg As String
+        Dim TKg As String = String.Empty
 
         p = New PageElement("SUMMARY OF BENDING SCHEDULES", EntryFont, 0, True, True, False)
         PrintArray.Add(p)
 
-        Dim sql4compName = "SELECT ContractorName, JobName,CompanyName,job.[Tons or Kilograms] AS TKG " & _
+        Dim sql4compName As String = "SELECT ContractorName, JobName,CompanyName,job.[Tons or Kilograms] AS TKG " & _
                     "FROM Job, Contractor,Company " & _
                     "WHERE Job.ContractorNo = Contractor.ContractorNo " & _
                     "AND Company.CompanyNo = Job.CompanyNo " & _
@@ -263,7 +263,7 @@ Public Class frm_printSummaryOfBendingSchedule
         ad.Fill(ds)
 
         If ds.Tables(0).Rows.Count = 1 Then
-            Const d1 = 85
+            Const d1 As Integer = 85
 
             PrintArray.Add(New PageElement(ds.Tables(0).Rows(0).Item("CompanyName").ToString(), EntryFont, 0, True, True, False))
             PrintArray.Add(New PageElement("Job Number:", EntryFont, LeftMargin, False, False, False))
@@ -288,7 +288,7 @@ Public Class frm_printSummaryOfBendingSchedule
         Dim YTotals(8) As Double
         Dim schedNo, prevSched, cutNo As String
         Dim hasItems, schedChange As Boolean
-        Dim i, f, r, j
+        Dim i, f, r, j As Integer
         Dim typeR, typeY, curTC As String
         typeR = "R"
         typeY = "Y"
@@ -303,13 +303,13 @@ Public Class frm_printSummaryOfBendingSchedule
         prevSched = ""
         curSteel = 0
         ' GET ALL THE SCHEDULES AND CUTTING SHEETS FOR THAT JOB IN THAT DATE RANGE
-        Dim sql4ScheduleNos = "SELECT DISTINCT ScheduleNo, CuttingSheet.CutSheetNo" & _
+        Dim sql4ScheduleNos As String = "SELECT DISTINCT ScheduleNo, CuttingSheet.CutSheetNo" & _
         " FROM CuttingSheet INNER JOIN SchedItem ON CuttingSheet.CutSheetNo = SchedItem.CutSheetNo " & _
         "WHERE CutDate <= #" & aDate.ToShortDateString & "# AND InvoiceNo <> 0 AND [Job No] = '" & jobNo & "'" & _
         "ORDER BY ScheduleNo"
 
-        Dim DS4SchNo = New Data.DataSet
-        Dim adapter = New OleDb.OleDbDataAdapter(sql4ScheduleNos, DBConnection)
+        Dim DS4SchNo As Data.DataSet = New Data.DataSet
+        Dim adapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql4ScheduleNos, DBConnection)
         adapter.Fill(DS4SchNo)
 
         rowCnt = DS4SchNo.tables(0).rows.count
@@ -351,7 +351,7 @@ Public Class frm_printSummaryOfBendingSchedule
             End If  ' end of schedule change
 
             '/*  GET ALL THE CUTTING SHEETS AND ITEMS FOR THE SCHEDULE */
-            Dim sqlPerSchR = "SELECT CutItem.ScheduleNo, ProductType.TypeCode, CutItem.TypeCode, CutItem.Length, CutItem.Qty, ProductType.Weight " & _
+            Dim sqlPerSchR As String = "SELECT CutItem.ScheduleNo, ProductType.TypeCode, CutItem.TypeCode, CutItem.Length, CutItem.Qty, ProductType.Weight " & _
                         "FROM CutItem, ProductType " & _
                        "WHERE CutItem.ScheduleNo = '" & schedNo & "'" & _
                        "AND CutItem.CutSheetNo = " & cutNo & _
@@ -466,7 +466,7 @@ Public Class frm_printSummaryOfBendingSchedule
         PrintLine()
         PrintRHead()
 
-        Dim ci
+        Dim ci As Integer
         For ci = 0 To 8
             PrintVal(RTotals(ci), ci, TKg)
             TR += RTotals(ci)
@@ -557,8 +557,8 @@ Public Class frm_printSummaryOfBendingSchedule
     Private Sub PrintPage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles DocumentToPrint.PrintPage
 
         Me.Cursor = Windows.Forms.Cursors.Arrow
-        Dim curY = TopMargin
-        Dim MaxY = e.PageSettings.Bounds.Height - BottomMargin
+        Dim curY As Integer = TopMargin
+        Dim MaxY As Integer = e.PageSettings.Bounds.Height - BottomMargin
 
         If ReportType = "Reinforcing Summary" Then
             e.Graphics.DrawString("Date Generated : " & Today().ToShortDateString, New Font("Arial", 8, FontStyle.Italic), Brushes.DimGray, LeftMargin, 1065)
@@ -567,7 +567,7 @@ Public Class frm_printSummaryOfBendingSchedule
 
         While (curY < MaxY) And (curArrayPos < PrintArray.Count)
 
-            Select Case PrintArray(curArrayPos).Text
+            Select Case PrintArray(curArrayPos).Text.ToString()
                 Case "<SPACE>"
                     'e.Graphics.DrawLine(Pens.LightGray, LeftMargin, curY, 800, curY)
                     If PrintArray(curArrayPos).includeEol Then
@@ -637,7 +637,7 @@ Public Class frm_printSummaryOfBendingSchedule
         End If
     End Sub
 
-    Private Sub FormClosing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Shadows Sub FormClosing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         If Not IsNothing(CallingForm) Then
             CallingForm.Show()
         End If

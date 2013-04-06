@@ -12,20 +12,20 @@ Public Class frmJobSummaryReport
     Dim DetailFont As New Font("Courier", 13)
     Dim TimeCardColFont As New Font("Courier", 10, FontStyle.Italic Or FontStyle.Bold)
     Dim ColFont As New Font("Courier", 12, FontStyle.Italic)
-    Dim curArrayPos = 0
-    Dim curpagenum = 1
-    Dim TopMargin = 90
-    Dim LeftMargin = 10
-    Dim RightMargin = 60
-    Dim BottomMargin = 60
-    Dim PageWidth = 873
-    Dim ReportType
-    Dim mes
+    Dim curArrayPos As Integer = 0
+    Dim curpagenum As Integer = 1
+    Dim TopMargin As Integer = 90
+    Dim LeftMargin As Integer = 10
+    Dim RightMargin As Integer = 60
+    Dim BottomMargin As Integer = 60
+    Dim PageWidth As Integer = 873
+    Dim ReportType As String
+    'Dim mes
     Dim vatperc As String
     Dim All_Is_OK As Boolean = True
     Dim sql As String
 
-    Const d2 = 75
+    Const d2 As Integer = 75
 #End Region
 #Region " Windows Form Designer generated code "
 
@@ -286,12 +286,12 @@ Public Class frmJobSummaryReport
 
     Private Sub populate_cmb_jobs()
         cmbJobs.Items.Clear()
-        Dim sql = "SELECT JobNo FROM Job ORDER BY JobNo"
+        Dim sql As String = "SELECT JobNo FROM Job ORDER BY JobNo"
         Dim dataset As New Data.DataSet
         Dim adapter As New OleDb.OleDbDataAdapter(sql, DBConnection)
         adapter.Fill(dataset)
 
-        Dim aunty
+        Dim aunty As Integer
         For aunty = 0 To dataset.Tables(0).Rows.Count - 1
             cmbJobs.Items.Add(dataset.Tables(0).Rows(aunty).Item("JobNo").ToString())
         Next aunty
@@ -299,7 +299,7 @@ Public Class frmJobSummaryReport
 
     End Sub
 
-    Private Sub FormClosing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Shadows Sub FormClosing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         If Not IsNothing(caller) Then
             caller.Show()
         End If
@@ -315,8 +315,8 @@ Public Class frmJobSummaryReport
 
         PrintArray = New ArrayList
         Dim p As PageElement
-        Dim TKg As String
-        Dim sql4compName = "SELECT ContractorName,OrderNo,JobName,CompanyName,[Tons or Kilograms] " & _
+        Dim TKg As String = String.Empty
+        Dim sql4compName As String = "SELECT ContractorName,OrderNo,JobName,CompanyName,[Tons or Kilograms] " & _
                     "FROM Job, Contractor,Company " & _
                     "WHERE Job.ContractorNo = Contractor.ContractorNo " & _
                     "AND Company.CompanyNo = Job.CompanyNo " & _
@@ -327,22 +327,19 @@ Public Class frmJobSummaryReport
         Dim currJobName As String
         Dim currType, nextY, nextR As String
         Dim currInv As String
-        Dim currCut As Integer
         Dim currDate As Date
-        Dim currQty As Double
         Dim currSteel As Double
         ad.Fill(ds)
 
         If chkFaxHeader.Checked Then
             addFaxHeader(ds.Tables(0).Rows(0).Item("ContractorName").ToString(), ds.Tables(0).Rows(0).Item("CompanyName").ToString())
         End If
-        Dim weightHead As String
-
+        Dim weightHead As String = String.Empty
 
         p = New PageElement(ds.Tables(0).Rows(0).Item("CompanyName").ToString(), EntryFont, 0, True, True, False)
         PrintArray.Add(p)
         If ds.Tables(0).Rows.Count = 1 Then
-            Const d1 = 110
+            Const d1 As Integer = 110
             TKg = ds.Tables(0).Rows(0).Item("Tons or Kilograms").ToString()
 
             PrintArray.Add(New PageElement("Job Number:", EntryFont, LeftMargin, False, False, False))
@@ -402,14 +399,14 @@ Public Class frmJobSummaryReport
         Dim gTot As Double = 0
 
         'Initialise Totals
-        Dim i
+        Dim i As Integer
         For i = 0 To 8
             RTotals(i) = 0
             YTotals(i) = 0
         Next i
 
         ' GET ALL THE INVOICES FOR THE SELECTED JOB
-        Dim sqlInvoice = "SELECT DISTINCT InvoiceNo, invDate " & _
+        Dim sqlInvoice As Integer = "SELECT DISTINCT InvoiceNo, invDate " & _
                             "FROM Invoice " & _
                             "WHERE InvJobNo = '" & jobNo & "'" & _
                             "AND InvoiceType = 'Cutting Sheet'" & _
@@ -417,8 +414,8 @@ Public Class frmJobSummaryReport
                             " AND invDate <= #" + endDate.ToLongDateString + "# "
 
 
-        Dim DS4Inv = New Data.DataSet
-        Dim adapter = New OleDb.OleDbDataAdapter(sqlInvoice, DBConnection)
+        Dim DS4Inv As Data.DataSet = New Data.DataSet
+        Dim adapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sqlInvoice, DBConnection)
         adapter.Fill(DS4Inv)
 
         Dim r, j As Integer
@@ -434,7 +431,7 @@ Public Class frmJobSummaryReport
             currInv = DS4Inv.tables(0).rows(i).item("InvoiceNo").ToString()
 
             ' GET ALL INVOICE LINES
-            Dim sqlInvLine = "Select * from InvoiceLine " & _
+            Dim sqlInvLine As String = "Select * from InvoiceLine " & _
                 "WHERE InvNo = " + currInv + " order by typeCode"
 
             Dim ds4r As New Data.DataSet
@@ -492,7 +489,7 @@ Public Class frmJobSummaryReport
             End If   ' end of if num inv lines > 0
         Next i   'next Invoice
 
-        Dim ci
+        Dim ci As Integer
         For ci = 0 To 8
 
             If RTotals(ci) <> 0 Then
@@ -588,7 +585,7 @@ Public Class frmJobSummaryReport
         ' GET ALL MESH INVOICES AND PRINT AT THE BOTTOM OF REPORT
         'sql = "SELECT * FROM Invoice INNER JOIN InvoiceLine ON Invoice.InvoiceNo = InvoiceLine.InvNo WHERE invoiceType = 'Mesh' And InvJobNo = '" & cmbJobs.Text & "' AND InvDate <= #" & dtpReportDate.Value & "#"
 
-        Dim sql = "SELECT * " & _
+        Dim sql As String = "SELECT * " & _
                             "FROM Invoice " & _
                             "INNER JOIN InvoiceLine ON Invoice.InvoiceNo = InvoiceLine.InvNo " & _
                             "WHERE InvJobNo = '" & jobNo & "'" & _
@@ -601,10 +598,10 @@ Public Class frmJobSummaryReport
         ad.Fill(ds)
         Dim numMesh As Integer
         Dim invDate As Date
-        Const A = 100
-        Const B = 200
-        Const C = 250
-        Const D = 325
+        Const A As Integer = 100
+        Const B As Integer = 200
+        Const C As Integer = 250
+        Const D As Integer = 325
 
         numMesh = ds.Tables(0).Rows.Count
 
@@ -702,8 +699,8 @@ Public Class frmJobSummaryReport
     Private Sub PrintPage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles DocumentToPrint.PrintPage
 
         Me.Cursor = Windows.Forms.Cursors.Arrow
-        Dim curY = TopMargin
-        Dim MaxY = e.PageSettings.Bounds.Height - BottomMargin
+        Dim curY As Integer = TopMargin
+        Dim MaxY As Integer = e.PageSettings.Bounds.Height - BottomMargin
 
         If ReportType = "Reinforcing Summary" Then
             e.Graphics.DrawString("Date Generated : " & Today().ToShortDateString, New Font("Arial", 8, FontStyle.Italic), Brushes.DimGray, LeftMargin, 1065)
@@ -712,7 +709,7 @@ Public Class frmJobSummaryReport
 
         While (curY < MaxY) And (curArrayPos < PrintArray.Count)
 
-            Select Case PrintArray(curArrayPos).Text
+            Select Case PrintArray(curArrayPos).Text.ToString()
                 Case "<SPACE>"
                     'e.Graphics.DrawLine(Pens.LightGray, LeftMargin, curY, 800, curY)
                     If PrintArray(curArrayPos).includeEol Then

@@ -210,17 +210,17 @@ Public Class PrintCutInv
     Dim DetailFont As New Font("Courier", 14)
     Dim TimeCardColFont As New Font("Courier", 10, FontStyle.Italic Or FontStyle.Bold)
     Dim ColFont As New Font("Courier", 12, FontStyle.Italic)
-    Dim curArrayPos = 0
-    Dim curpagenum = 1
+    Dim curArrayPos As Integer = 0
+    Dim curpagenum As Integer = 1
     'Dim TopMargin = 90
-    Dim TopMargin = 50
-    Dim LeftMargin = 100
-    Dim RightMargin = 40
-    Dim BottomMargin = 60
+    Dim TopMargin As Integer = 50
+    Dim LeftMargin As Integer = 100
+    Dim RightMargin As Integer = 40
+    Dim BottomMargin As Integer = 60
     ' Dim PageWidth = 893
-    Dim PageWidth = 873
-    Dim ReportType
-    Dim mes
+    Dim PageWidth As Integer = 873
+    Dim ReportType As String
+    Dim mes As PageElement
     Dim vatperc As String
     Dim All_Is_OK As Boolean = True
 #End Region
@@ -300,6 +300,7 @@ Public Class PrintCutInv
             End If
 
         Catch ex As Exception
+            Return String.Empty
             MessageBox.Show("Error with input string.", "Cannot convert to Rand format.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1)
         End Try
 
@@ -308,7 +309,7 @@ Public Class PrintCutInv
     Private Sub AddCompNameRegNoVatNo(ByVal compNum As String, ByVal includeTelAndAddress As Boolean)
         'Get Company Details
 
-        Dim sql = "SELECT * FROM Company WHERE CompanyNo = '" + compNum + "'"
+        Dim sql As String = "SELECT * FROM Company WHERE CompanyNo = '" + compNum + "'"
         Dim dataset As New Data.DataSet
         Dim adapter As New OleDb.OleDbDataAdapter(sql, DBConnection)
         adapter.Fill(dataset)
@@ -358,17 +359,17 @@ Public Class PrintCutInv
     End Sub
 
     Private Sub InvoicePrint(ByVal invNum As String, ByVal InvType As String, ByVal InvoiceHeading As String, ByVal InvDate As Date)
-        Const con1 = 520
+        Const con1 As Integer = 520
         'Const con1 = 485
-        Dim sql
+        Dim sql As String = String.Empty
         If InvType = "Cutting Sheet" Then
             sql = "Select * from ((((invoice inner join job on Job.JobNo = Invoice.InvJobNo) inner join Contractor on Contractor.ContractorNo = job.ContractorNo) inner join CuttingSheet on cuttingSheet.invoiceNo = invoice.invoiceNo) inner join company on job.companyNo = Company.companyNo) where Invoice.InvoiceNo = " + invNum
         ElseIf InvType = "Mesh" Or InvType = "Sundry" Or InvType = "Escalation" Then
             sql = "Select * from (((invoice inner join job on Job.JobNo = Invoice.InvJobNo) inner join Contractor on Contractor.ContractorNo = job.ContractorNo)inner join company on job.companyNo = Company.companyNo) where Invoice.InvoiceNo = " + invNum
         End If
 
-        Dim DataSet = New Data.DataSet
-        Dim adapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
+        Dim DataSet As DataSet = New Data.DataSet
+        Dim adapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
         adapter.Fill(DataSet)
 
         If DataSet.tables(0).rows.count.ToString = "0" Then
@@ -422,9 +423,9 @@ Public Class PrintCutInv
             'field = New PageElement(DataSet.Tables(0).Rows(0).Item("InvDate").ToShortDateString(), EntryFont, 630, True, False)
             field = New PageElement(InvDate.ToShortDateString, EntryFont, 640, True, False)
             PrintArray.Add(field)
-            Dim tot = New PageElement(toRand(DataSet.Tables(0).Rows(0).Item("InvTotal").ToString(), True), EntryFont, PageWidth - RightMargin - 90, True, False, True)
-            Dim vat = New PageElement(toRand(DataSet.Tables(0).Rows(0).Item("InvVatAmt").ToString(), True), EntryFont, PageWidth - RightMargin - 90, True, False, True)
-            Dim net = New PageElement(toRand(DataSet.Tables(0).Rows(0).Item("InvNett").ToString(), True), EntryFont, PageWidth - RightMargin - 90, True, False, True)
+            Dim tot As PageElement = New PageElement(toRand(DataSet.Tables(0).Rows(0).Item("InvTotal").ToString(), True), EntryFont, PageWidth - RightMargin - 90, True, False, True)
+            Dim vat As PageElement = New PageElement(toRand(DataSet.Tables(0).Rows(0).Item("InvVatAmt").ToString(), True), EntryFont, PageWidth - RightMargin - 90, True, False, True)
+            Dim net As PageElement = New PageElement(toRand(DataSet.Tables(0).Rows(0).Item("InvNett").ToString(), True), EntryFont, PageWidth - RightMargin - 90, True, False, True)
 
             If InvType <> "Escalation" Then
                 field = New PageElement("DELIVERY NOTE NO:", EntryFont, LeftMargin, False, False)
@@ -462,8 +463,8 @@ Public Class PrintCutInv
                 Dim ds4sched As New Data.DataSet
                 Dim ad4sched As New OleDb.OleDbDataAdapter(sql4sched, DBConnection)
                 ad4sched.Fill(ds4sched)
-                Dim firstSched As String
-                Dim lastSched As String
+                Dim firstSched As String = String.Empty
+                Dim lastSched As String = String.Empty
                 If ds4sched.Tables(0).Rows.Count <> 0 Then
                     firstSched = ds4sched.Tables(0).Rows(0).Item("ScheduleNo").ToString
                     lastSched = ds4sched.Tables(0).Rows(ds4sched.Tables(0).Rows.Count - 1).Item("ScheduleNo").ToString
@@ -486,24 +487,24 @@ Public Class PrintCutInv
                 'Get Invoice Line Details
                 Dim sqlMild, sqlHigh As String
                 sqlMild = "Select * from (InvoiceLine INNER JOIN ProductType ON InvoiceLine.TypeCode = ProductType.TypeCode) INNER JOIN ProdCat ON Prodcat.CatCode = ProductType.CatCode where prodCat.CatCode = 'R' and InvNo = " + invNum + " order by [Line#]"
-                Dim DSM = New Data.DataSet
-                Dim adM = New OleDb.OleDbDataAdapter(sqlMild, DBConnection)
+                Dim DSM As Data.DataSet = New Data.DataSet
+                Dim adM As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sqlMild, DBConnection)
                 adM.Fill(DSM)
                 sqlHigh = "Select * from (InvoiceLine INNER JOIN ProductType ON InvoiceLine.TypeCode = ProductType.TypeCode) INNER JOIN ProdCat ON Prodcat.CatCode = ProductType.CatCode where prodCat.CatCode = 'Y' and InvNo = " + invNum + " order by [Line#]"
-                Dim DSH = New Data.DataSet
-                Dim adH = New OleDb.OleDbDataAdapter(sqlHigh, DBConnection)
+                Dim DSH As Data.DataSet = New Data.DataSet
+                Dim adH As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sqlHigh, DBConnection)
                 adH.Fill(DSH)
 
 
                 Dim TKg As String = ""
-                Const ra = 200
-                Dim recordCountMild = DSM.Tables(0).Rows.Count
-                Dim recordCountHigh = DSH.tables(0).rows.count
+                Const ra As Integer = 200
+                Dim recordCountMild As Integer = DSM.Tables(0).Rows.Count
+                Dim recordCountHigh As Integer = DSH.Tables(0).Rows.Count
                 If recordCountMild <> 0 Then
                     field = New PageElement(DSM.tables(0).rows(0).item("CatDesc"), EntryFontUnderline, LeftMargin, True, False)
                     PrintArray.Add(field)
                 End If
-                Dim x
+                Dim x As Integer
                 Dim WeightTotal As Double = 0
                 For x = 0 To recordCountMild - 1
 
@@ -618,7 +619,7 @@ Public Class PrintCutInv
                 Dim a1 As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
                 a1.Fill(d1)
 
-                Dim fd
+                Dim fd As Integer
                 For fd = 0 To d1.Tables(0).Rows.Count - 1
                     PrintArray.Add(New PageElement(d1.Tables(0).Rows(fd).Item("Description").ToString() & toRand(d1.Tables(0).Rows(fd).Item("CostPerUnit").ToString(), True), EntryFont, LeftMargin, False, False, False))
                     field = New PageElement(toRand(d1.Tables(0).Rows(fd).Item("Total"), True), EntryFont, PageWidth - RightMargin - 90, True, False, True)
@@ -653,7 +654,7 @@ Public Class PrintCutInv
                 Dim a1 As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DBConnection)
                 a1.Fill(d1)
 
-                Dim fd
+                Dim fd As Integer
                 For fd = 0 To d1.Tables(0).Rows.Count - 1
                     PrintArray.Add(New PageElement(d1.Tables(0).Rows(fd).Item("Description").ToString(), EntryFont, LeftMargin, False, False, False))
                     If Not (d1.Tables(0).Rows(fd).Item("Qty").ToString() = "0") Then
@@ -697,7 +698,7 @@ Public Class PrintCutInv
                 PrintArray.Add(New PageElement("DETAILS :", EntryFont, LeftMargin, False, False, False))
 
 
-                Const c = 70, c1 = 170
+                Const c As Integer = 70, c1 As Integer = 170
 
                 PrintArray.Add(New PageElement(d1.Tables(0).Rows(0).Item("Description").ToString(), EntryFont, LeftMargin + c, True, False, False))
                 PrintArray.Add(New PageElement(d1.Tables(0).Rows(1).Item("Description").ToString(), EntryFont, LeftMargin + c, True, False, False))
@@ -731,7 +732,7 @@ Public Class PrintCutInv
 
             End If
             '========================================================================================
-            Dim cols = 40
+            Dim cols As Integer = 40
 
             While mes.Text <> ""
                 If mes.Text.Length >= cols Then
@@ -758,8 +759,8 @@ Public Class PrintCutInv
     Private Sub PrintPage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles DocumentToPrint.PrintPage
 
         Me.Cursor = Windows.Forms.Cursors.Arrow
-        Dim curY = TopMargin
-        Dim MaxY = e.PageSettings.Bounds.Height - BottomMargin
+        Dim curY As Integer = TopMargin
+        Dim MaxY As Integer = e.PageSettings.Bounds.Height - BottomMargin
 
         If ReportType = "Reinforcing Summary" Then
             e.Graphics.DrawString("Date Generated : " & Today().ToShortDateString, New Font("Arial", 8, FontStyle.Italic), Brushes.DimGray, LeftMargin, 1065)
@@ -768,7 +769,7 @@ Public Class PrintCutInv
 
         While (curY < MaxY) And (curArrayPos < PrintArray.Count)
 
-            Select Case PrintArray(curArrayPos).Text
+            Select Case PrintArray(curArrayPos).Text.ToString()
                 Case "<SPACE>"
                     'e.Graphics.DrawLine(Pens.LightGray, LeftMargin, curY, 800, curY)
                     If PrintArray(curArrayPos).includeEol Then
@@ -846,7 +847,7 @@ Public Class PrintCutInv
 
     Public Sub populate_invoiceNumbers()
         txt_InvNumToPrint.Items.Clear()
-        Dim sql = "SELECT InvoiceNo,InvoiceType,InvDate,InvoiceHeading FROM Invoice ORDER BY InvoiceNo"
+        Dim sql As String = "SELECT InvoiceNo,InvoiceType,InvDate,InvoiceHeading FROM Invoice ORDER BY InvoiceNo"
         Dim ds As New Data.DataSet
         Dim ad As New OleDb.OleDbDataAdapter(sql, DBConnection)
         ad.Fill(ds)
@@ -855,7 +856,7 @@ Public Class PrintCutInv
         dt = New ArrayList
         hd = New ArrayList
 
-        Dim f
+        Dim f As Integer
         For f = 0 To ds.Tables(0).Rows.Count - 1
             txt_InvNumToPrint.Items.Add(ds.Tables(0).Rows(f).Item("InvoiceNo").ToString())
             ty.Add(ds.Tables(0).Rows(f).Item("InvoiceType").ToString())

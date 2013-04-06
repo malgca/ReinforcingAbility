@@ -416,12 +416,12 @@ Public Class frmMeshInvoice
     Private Sub populateCmbJobs()
         cmbJobName.Items.Clear()
         cmbJobNum.Items.Clear()
-        Dim sql = "SELECT jobno,jobname FROM job ORDER BY jobno"
+        Dim sql As String = "SELECT jobno,jobname FROM job ORDER BY jobno"
         Dim ds As Data.DataSet = New Data.DataSet
         Dim da As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DbConnection)
         da.Fill(ds)
 
-        Dim i
+        Dim i As Integer
         For i = 0 To ds.Tables(0).Rows.Count - 1
             cmbJobNum.Items.Add(ds.Tables(0).Rows(i).Item("JobNo").ToString())
             cmbJobName.Items.Add(ds.Tables(0).Rows(i).Item("JobName").ToString())
@@ -445,7 +445,7 @@ Public Class frmMeshInvoice
 
 
     Private Sub getJobOrderNum()
-        Dim sql = "SELECT jobName, orderNo FROM job WHERE jobno = '" & cmbJobNum.Text & "'"
+        Dim sql As String = "SELECT jobName, orderNo FROM job WHERE jobno = '" & cmbJobNum.Text & "'"
         Dim ds As Data.DataSet = New Data.DataSet
         Dim da As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DbConnection)
         da.Fill(ds)
@@ -493,7 +493,7 @@ Public Class frmMeshInvoice
             Exit Sub
         End If
 
-        Dim sql = "SELECT * FROM (Job INNER JOIN Company ON Job.companyNo = Company.CompanyNo) INNER JOIN Contractor ON Job.ContractorNo = Contractor.ContractorNo WHERE Job.JobNo = '" & cmbJobNum.Text & "'"
+        Dim sql As String = "SELECT * FROM (Job INNER JOIN Company ON Job.companyNo = Company.CompanyNo) INNER JOIN Contractor ON Job.ContractorNo = Contractor.ContractorNo WHERE Job.JobNo = '" & cmbJobNum.Text & "'"
         Dim ds As Data.DataSet = New Data.DataSet
         Dim da As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql, DbConnection)
         da.Fill(ds)
@@ -517,15 +517,15 @@ Public Class frmMeshInvoice
         Dim RefNo As String = txtRefNo.Text
         Dim JobNo As String = ds.Tables(0).Rows(0).Item("JobNo").ToString()
         Dim VAT As String = ds.Tables(0).Rows(0).Item("VatPerc").ToString()
-        Dim Active = "Yes"
-        Dim Escalated = "No"
-        Dim OnSummary = "Yes"
+        Dim Active As String = "Yes"
+        Dim Escalated As String = "No"
+        Dim OnSummary As String = "Yes"
         Dim Comments As String = txtAdditional.Text
         Dim heading As String = "TO SUPPLY MESH REF " & txtRefNo.Text & " " & txtAddDetails.Text
         Dim invDate As Date
 
         invDate = dtpInvDate.Value.Date
-        Dim sql4NewInvoice = "INSERT INTO Invoice(InvoiceNo,InvoiceType,InvDate,InvDeliveryNoteNo,InvFactor,Invmonthandyear,InvWork,InvOrdNum,InvRefNum,InvoiceHeading,InvTotal,InvVatAmt,InvDesign,InvNett,InvJobNo,InvActive,InvEscalated,InvOnSummary,InvComments) VALUES " & _
+        Dim sql4NewInvoice As String = "INSERT INTO Invoice(InvoiceNo,InvoiceType,InvDate,InvDeliveryNoteNo,InvFactor,Invmonthandyear,InvWork,InvOrdNum,InvRefNum,InvoiceHeading,InvTotal,InvVatAmt,InvDesign,InvNett,InvJobNo,InvActive,InvEscalated,InvOnSummary,InvComments) VALUES " & _
                 "(  " & _
                     InvoiceNumber.ToString & _
                     ",'" & InvoiceType & _
@@ -548,7 +548,9 @@ Public Class frmMeshInvoice
                     ",'" & Comments & _
                     "')"
 
-        Dim CalcTotal = 0, CalcVat = 0, CalcNett = 0
+        Dim CalcTotal As Integer = 0
+        Dim CalcVat As Integer = 0
+        Dim CalcNett As Integer = 0
 
         Dim command As New OleDb.OleDbCommand(sql4NewInvoice, DbConnection)
         Try
@@ -557,12 +559,13 @@ Public Class frmMeshInvoice
 
             'Create Invoice Lines
 
-            Dim lcv
-            Dim CurTypeCode = "N/A"
-            Dim TotalLengthForType = 0, TypeMass = 0
-            Dim qty = txtQty.Text
-            Dim Total = Double.Parse(txtQty.Text) * Double.Parse(txtLength.Text) * Double.Parse(txtWidth.Text) * Double.Parse(txtRate.Text)
-            Dim LineNumberCounter As Int16 = 1
+            'Dim lcv
+            Dim CurTypeCode As String = "N/A"
+            Dim TotalLengthForType As Integer = 0
+            Dim TypeMass As Integer = 0
+            Dim qty As String = txtQty.Text
+            Dim Total As Double = Double.Parse(txtQty.Text) * Double.Parse(txtLength.Text) * Double.Parse(txtWidth.Text) * Double.Parse(txtRate.Text)
+            Dim LineNumberCounter As Integer = 1
             Dim DESCRIPTION As String = txtQty.Text & " Sheets x " & txtLength.Text & "m x " & txtWidth.Text & "m = " & Math.Round(Double.Parse(txtQty.Text) * Double.Parse(txtLength.Text) * Double.Parse(txtWidth.Text), 2) & "m²  @  "
 
             Dim SQL4NewInvoiceLine As String = "INSERT INTO InvoiceLine(InvNo,[Line#],TypeCode,Description,Qty,TonsorKg,CostPerUnit,Total) VALUES " & _
