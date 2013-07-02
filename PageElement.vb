@@ -11,8 +11,7 @@ Public Class PageElement
     Public center As Boolean
     Public rAlign As Boolean
 
-
-    Sub New(ByVal txt As String, ByVal Fnt As Font, ByVal xc As Integer, ByVal EOL As Boolean, ByVal cntr As Boolean, ByVal RightAlign As Boolean)
+    Sub New(ByVal txt As String, ByRef Fnt As Font, ByVal xc As Integer, ByVal EOL As Boolean, ByVal cntr As Boolean, ByVal RightAlign As Boolean)
         Text = txt
         Font = Fnt
         x = xc
@@ -21,7 +20,7 @@ Public Class PageElement
         center = cntr
         rAlign = RightAlign
     End Sub
-    Sub New(ByVal txt As String, ByVal Fnt As Font, ByVal xc As Integer, ByVal EOL As Boolean, ByVal cntr As Boolean)
+    Sub New(ByVal txt As String, ByRef Fnt As Font, ByVal xc As Integer, ByVal EOL As Boolean, ByVal cntr As Boolean)
         Text = txt
         Font = Fnt
         x = xc
@@ -50,7 +49,7 @@ Public Class PageElement
         center = False
         rAlign = False
     End Sub
-    Sub New(ByVal txt As String, ByVal Fnt As Font, ByVal xc As Integer, ByVal cntr As Boolean)
+    Sub New(ByVal txt As String, ByRef Fnt As Font, ByVal xc As Integer, ByVal cntr As Boolean)
         Text = txt
         Font = Fnt
         x = xc
@@ -59,7 +58,7 @@ Public Class PageElement
         center = cntr
         rAlign = False
     End Sub
-    Sub New(ByVal txt As String, ByVal Fnt As Font, ByVal xc As Integer, ByVal yGap As Integer, ByVal cntr As Boolean)
+    Sub New(ByVal txt As String, ByRef Fnt As Font, ByVal xc As Integer, ByVal yGap As Integer, ByVal cntr As Boolean)
         Text = txt
         Font = Fnt
         x = xc

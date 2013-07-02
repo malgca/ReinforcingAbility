@@ -16,5 +16,7 @@ Namespace DataTier
                 Return Instance
             End Get
         End Property
+
+        Public Function ExecuteQuery()
     End Class
 End Namespace
