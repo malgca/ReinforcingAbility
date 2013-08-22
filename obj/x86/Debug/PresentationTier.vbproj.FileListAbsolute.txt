@@ -31,3 +31,4 @@ C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.vb
 C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.exe
 C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.xml
 C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.pdb
+C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.Resources.resources

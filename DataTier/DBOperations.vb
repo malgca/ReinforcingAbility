@@ -17,6 +17,14 @@ Namespace DataTier
             End Get
         End Property
 
-        Public Function ExecuteQuery()
+        ''' <summary>
+        ''' Execute a given query against the database.
+        ''' </summary>
+        ''' <param name="query">The query to be executed.</param>
+        ''' <returns>Results of executed query.</returns>
+        Public Function ExecuteQuery(query)
+            '' execute given query
+            Return vbNull
+        End Function
     End Class
 End Namespace

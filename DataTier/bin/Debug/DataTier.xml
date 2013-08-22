@@ -1,0 +1,44 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+DataTier
+</name>
+</assembly>
+<members>
+<member name="P:DataTier.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:DataTier.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:DataTier.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="P:DataTier.DataTier.DBOperations.GetInstance">
+	<summary>
+ Get the running instance of the DBOperations class
+ </summary>
+	<returns>Singleton instance of DBOperations class</returns>
+</member><member name="M:DataTier.DataTier.DBOperations.ExecuteQuery(System.Object)">
+	<summary>
+ Execute a given query against the database
+ </summary>
+	<param name="query"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:DataTier.DataTier.Queries.SQLSelectQuery(System.Object@,System.Object@,System.Object@)">
+	<summary>
+ Basic SQL Select statement.
+ </summary>
+	<param name="queryCriteria">Parameter on which to query the database.</param>
+	<param name="table">Table to be queried</param>
+	<param name="order">Parameter on which to order the table.</param>
+	<remarks></remarks>
+</member>
+</members>
+</doc>

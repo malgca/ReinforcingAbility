@@ -1,0 +1,9 @@
+C:\Users\malgca\Development\ReinforcingAbility\DataTier\obj\Debug\DataTier.vbprojResolveAssemblyReference.cache
+C:\Users\malgca\Development\ReinforcingAbility\DataTier\obj\Debug\DataTier.vbproj.GenerateResource.Cache
+C:\Users\malgca\Development\ReinforcingAbility\DataTier\obj\Debug\DataTier.Resources.resources
+C:\Users\malgca\Development\ReinforcingAbility\DataTier\bin\Debug\DataTier.dll
+C:\Users\malgca\Development\ReinforcingAbility\DataTier\bin\Debug\DataTier.pdb
+C:\Users\malgca\Development\ReinforcingAbility\DataTier\bin\Debug\DataTier.xml
+C:\Users\malgca\Development\ReinforcingAbility\DataTier\obj\Debug\DataTier.dll
+C:\Users\malgca\Development\ReinforcingAbility\DataTier\obj\Debug\DataTier.xml
+C:\Users\malgca\Development\ReinforcingAbility\DataTier\obj\Debug\DataTier.pdb

@@ -1,0 +1,8 @@
+C:\Users\malgca\Development\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.vbproj.GenerateResource.Cache
+C:\Users\malgca\Development\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.Resources.resources
+C:\Users\malgca\Development\ReinforcingAbility\LogicTier\bin\Debug\LogicTier.dll
+C:\Users\malgca\Development\ReinforcingAbility\LogicTier\bin\Debug\LogicTier.pdb
+C:\Users\malgca\Development\ReinforcingAbility\LogicTier\bin\Debug\LogicTier.xml
+C:\Users\malgca\Development\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.dll
+C:\Users\malgca\Development\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.xml
+C:\Users\malgca\Development\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.pdb

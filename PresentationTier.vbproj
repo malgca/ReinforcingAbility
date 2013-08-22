@@ -232,6 +232,15 @@
     <Compile Include="Monthly_Invoice_Summary.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="PageElement.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -251,6 +260,10 @@
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsReinforcingAbility.Designer.vb</LastGenOutput>
     </Content>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
     <EmbeddedResource Include="frmCompany.resx">
       <DependentUpon>frmCompany.vb</DependentUpon>
     </EmbeddedResource>
@@ -314,6 +327,11 @@
     <EmbeddedResource Include="Monthly_Invoice_Summary.resx">
       <DependentUpon>Monthly_Invoice_Summary.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="PrintCutSheet.resx">
       <DependentUpon>PrintCutSheet.vb</DependentUpon>
     </EmbeddedResource>
@@ -336,9 +354,7 @@
   <ItemGroup>
     <Service Include="{CF845C55-C321-4742-B673-E6212D061ED9}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="My Project\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
