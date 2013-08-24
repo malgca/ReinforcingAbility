@@ -59,10 +59,11 @@
     <Import Include="System.Diagnostics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Company.vb" />
     <Compile Include="Contractor.vb" />
     <Compile Include="CuttingSheet.vb" />
     <Compile Include="Enumerations.vb" />
-    <Compile Include="IInvoice.vb" />
+    <Compile Include="Invoice.vb" />
     <Compile Include="Job.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -98,6 +99,12 @@
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataTier\DataTier.vbproj">
+      <Project>{fa19de47-f4cf-4a85-87a4-8602da8e7e5b}</Project>
+      <Name>DataTier</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -32,3 +32,6 @@ C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.ex
 C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.xml
 C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.pdb
 C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.Resources.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.exe
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.xml
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.pdb

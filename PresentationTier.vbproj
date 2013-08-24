@@ -354,7 +354,12 @@
   <ItemGroup>
     <Service Include="{CF845C55-C321-4742-B673-E6212D061ED9}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="LogicTier\LogicTier.vbproj">
+      <Project>{d130b8df-dd41-4067-8424-09ac1a7fa396}</Project>
+      <Name>LogicTier</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
