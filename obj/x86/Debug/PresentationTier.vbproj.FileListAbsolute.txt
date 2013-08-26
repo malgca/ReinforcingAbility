@@ -32,3 +32,43 @@ C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.ex
 C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.xml
 C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.pdb
 C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.Resources.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.exe
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.xml
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.pdb
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\bin\Debug\PresentationTier.exe
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\bin\Debug\PresentationTier.pdb
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\bin\Debug\PresentationTier.xml
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\bin\Debug\LogicTier.dll
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\bin\Debug\DataTier.dll
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\bin\Debug\LogicTier.pdb
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\bin\Debug\LogicTier.xml
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\bin\Debug\DataTier.pdb
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\bin\Debug\DataTier.xml
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.vbprojResolveAssemblyReference.cache
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmCompany.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmContractor.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.GenCutSheetInvoice.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmEscalation.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmInvoiceCutSheet.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmInvoicing.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmJob.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmJobArchive.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmJobRate.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmJobSummaryReport.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmMain.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmMeshInvoice.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmNewCutSheet.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmNotInvoiced.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmReports.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmSundryInv.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmWeight.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frm_printSummaryOfBendingSchedule.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.InvoiceCancel.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmPrintReinforcingSummary.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.frmInvSummary.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.Resources.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.PrintCutSheet.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.PrintCutInv.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.PrintJobRates.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.PrintJobs.resources
+C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.vbproj.GenerateResource.Cache

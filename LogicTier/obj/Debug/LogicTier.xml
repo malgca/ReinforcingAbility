@@ -6,7 +6,30 @@ LogicTier
 </name>
 </assembly>
 <members>
-<member name="P:LogicTier.My.Resources.Resources.ResourceManager">
+<member name="M:LogicTier.LogicTier.Company.NewCompany(System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Int32@,System.Int32@,System.String@,System.String@,System.String@,System.String@,System.Decimal@,System.String@,System.String@)">
+	<summary>
+	</summary>
+	<param name="CompanyNo">Number assinged to this company</param>
+	<param name="CompanyName">Name of this company</param>
+	<param name="Address">Physical Address (Line 1) of company</param>
+	<param name="AddressLine2">Physical Address (Line 2) of company</param>
+	<param name="AddressLine3">Physical Address (Line 3) of company</param>
+	<param name="AddressLine4">Physical Address (Line 4) of company</param>
+	<param name="Email">Email Address of the company</param>
+	<param name="Fax">Fax Number of the Company -- Is this still relevant today?</param>
+	<param name="Message">Other uncalssafied information about the company</param>
+	<param name="PostalCode">Postal code for city/suburb of company</param>
+	<param name="LastCutNum">Number assigned to the last cutting sheet for this company</param>
+	<param name="LastInvNum">Number assinged to the last invoice for this company</param>
+	<param name="RegNo">Registration Number of this company</param>
+	<param name="TelNo">Telephone Number for this company</param>
+	<param name="UnitofMeas">The unit of measurement this company uses</param>
+	<param name="VatNo">Value-Added Tax Number assigend to this company by SARS</param>
+	<param name="VatPerc">Value-Added Tax Percentage used by this company</param>
+	<param name="Website">Website Address for this company</param>
+	<param name="NoAndName"></param>
+	<remarks></remarks>
+</member><member name="P:LogicTier.My.Resources.Resources.ResourceManager">
 	<summary>
   Returns the cached ResourceManager instance used by this class.
 </summary>
@@ -19,6 +42,17 @@ LogicTier
 	<summary>
   A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
+</member><member name="M:LogicTier.LogicTier.Job.#ctor(System.String@,System.String@,System.Double,System.Double,System.String@,System.String@,LogicTier.LogicTier.MeasurementUnit)">
+	<summary>
+ Full Job constructor.
+ </summary>
+	<param name="JobNumber">Number code for this job.</param>
+	<param name="JobName">Name of a particular job.</param>
+	<param name="Discount">Discount given to Reinforcing Ability clients.</param>
+	<param name="AddedDiscount">Added Discount given to Reinforcing Ability clients.</param>
+	<param name="ContractorNumber">Number code assigned to client.</param>
+	<param name="OrderNumber">Number code assigned to Job orderr.</param>
+	<param name="MeasurementUnit">Unit of measurement to be used for a specific job.</param>
 </member><member name="T:LogicTier.LogicTier.BeamTypes">
 	<summary>
  Types of Beams used in the Reinforcing Ability system.
@@ -42,17 +76,6 @@ LogicTier
  Units of measurement used by the Reinforcing Ability system.
  </summary>
 	<remarks></remarks>
-</member><member name="M:LogicTier.LogicTier.Job.#ctor(System.String@,System.String@,System.Double,System.Double,System.String@,System.String@,LogicTier.LogicTier.MeasurementUnit)">
-	<summary>
- Full Job constructor.
- </summary>
-	<param name="JobNumber">Number code for this job.</param>
-	<param name="JobName">Name of a particular job.</param>
-	<param name="Discount">Discount given to Reinforcing Ability clients.</param>
-	<param name="AddedDiscount">Added Discount given to Reinforcing Ability clients.</param>
-	<param name="ContractorNumber">Number code assigned to client.</param>
-	<param name="OrderNumber">Number code assigned to Job orderr.</param>
-	<param name="MeasurementUnit">Unit of measurement to be used for a specific job.</param>
 </member>
 </members>
 </doc>
