@@ -1,9 +1,16 @@
-﻿Imports System.Data.OleDb
+﻿Imports System
+Imports System.Data
+Imports System.Data.SqlClient
+
 Namespace DataTier
     Public Class DBOperations
         Dim connection As OleDbConnection
+        Dim objConnection As SqlConnection
+        Dim connectionString As String
         Private Sub New()
             Me.connection = New OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source = winsteelVers5.mdb")
+            connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source = winsteelVers5.mdb"
+
             ' Make sure only a single instance of this class may exist
         End Sub
         ''' <summary>
@@ -25,6 +32,24 @@ Namespace DataTier
         Public Function ExecuteQuery(query)
             '' execute given query
             Return vbNull
+        End Function
+
+        Public Function getCompanyDataSet()
+
+            objConnection = New SqlConnection(connectionString)
+            objConnection.Open()
+
+            Dim daCompany As New SqlDataAdapter("Select * From Company", objConnection)
+
+            Dim dsCompany As New DataSet("Companys")
+
+            daCompany.FillSchema(dsCompany, SchemaType.Source, "Company")
+            daCompany.Fill(dsCompany, "Company")
+
+            'Dim tblCompany As DataTable
+            'tblCompany = dsCompany.Tables("Authors")
+
+            Return dsCompany
         End Function
     End Class
 End Namespace

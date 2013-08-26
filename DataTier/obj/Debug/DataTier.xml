@@ -6,7 +6,18 @@ DataTier
 </name>
 </assembly>
 <members>
-<member name="P:DataTier.My.Resources.Resources.ResourceManager">
+<member name="P:DataTier.DataTier.DBOperations.GetInstance">
+	<summary>
+ Get the running instance of the DBOperations class
+ </summary>
+	<returns>Singleton instance of DBOperations class</returns>
+</member><member name="M:DataTier.DataTier.DBOperations.ExecuteQuery(System.Object)">
+	<summary>
+ Execute a given query against the database.
+ </summary>
+	<param name="query">The query to be executed.</param>
+	<returns>Results of executed query.</returns>
+</member><member name="P:DataTier.My.Resources.Resources.ResourceManager">
 	<summary>
   Returns the cached ResourceManager instance used by this class.
 </summary>
@@ -19,18 +30,6 @@ DataTier
 	<summary>
   A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
-</member><member name="P:DataTier.DataTier.DBOperations.GetInstance">
-	<summary>
- Get the running instance of the DBOperations class
- </summary>
-	<returns>Singleton instance of DBOperations class</returns>
-</member><member name="M:DataTier.DataTier.DBOperations.ExecuteQuery(System.Object)">
-	<summary>
- Execute a given query against the database
- </summary>
-	<param name="query"></param>
-	<returns></returns>
-	<remarks></remarks>
 </member><member name="M:DataTier.DataTier.Queries.SQLSelectQuery(System.Object@,System.Object@,System.Object@)">
 	<summary>
  Basic SQL Select statement.
