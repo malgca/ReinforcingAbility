@@ -6,7 +6,20 @@ LogicTier
 </name>
 </assembly>
 <members>
-<member name="M:LogicTier.LogicTier.Company.NewCompany(System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Int32@,System.Int32@,System.String@,System.String@,System.String@,System.String@,System.Decimal@,System.String@,System.String@)">
+<member name="P:LogicTier.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:LogicTier.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:LogicTier.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="M:LogicTier.LogicTier.Company.NewCompany(System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Int32@,System.Int32@,System.String@,System.String@,System.String@,System.String@,System.Decimal@,System.String@,System.String@)">
 	<summary>
 	</summary>
 	<param name="CompanyNo">Number assinged to this company</param>
@@ -29,30 +42,6 @@ LogicTier
 	<param name="Website">Website Address for this company</param>
 	<param name="NoAndName"></param>
 	<remarks></remarks>
-</member><member name="P:LogicTier.My.Resources.Resources.ResourceManager">
-	<summary>
-  Returns the cached ResourceManager instance used by this class.
-</summary>
-</member><member name="P:LogicTier.My.Resources.Resources.Culture">
-	<summary>
-  Overrides the current thread's CurrentUICulture property for all
-  resource lookups using this strongly typed resource class.
-</summary>
-</member><member name="T:LogicTier.My.Resources.Resources">
-	<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
-</summary>
-</member><member name="M:LogicTier.LogicTier.Job.#ctor(System.String@,System.String@,System.Double,System.Double,System.String@,System.String@,LogicTier.LogicTier.MeasurementUnit)">
-	<summary>
- Full Job constructor.
- </summary>
-	<param name="JobNumber">Number code for this job.</param>
-	<param name="JobName">Name of a particular job.</param>
-	<param name="Discount">Discount given to Reinforcing Ability clients.</param>
-	<param name="AddedDiscount">Added Discount given to Reinforcing Ability clients.</param>
-	<param name="ContractorNumber">Number code assigned to client.</param>
-	<param name="OrderNumber">Number code assigned to Job orderr.</param>
-	<param name="MeasurementUnit">Unit of measurement to be used for a specific job.</param>
 </member><member name="T:LogicTier.LogicTier.BeamTypes">
 	<summary>
  Types of Beams used in the Reinforcing Ability system.
@@ -76,6 +65,17 @@ LogicTier
  Units of measurement used by the Reinforcing Ability system.
  </summary>
 	<remarks></remarks>
+</member><member name="M:LogicTier.LogicTier.Job.#ctor(System.String@,System.String@,System.Double,System.Double,System.String@,System.String@,LogicTier.LogicTier.MeasurementUnit)">
+	<summary>
+ Full Job constructor.
+ </summary>
+	<param name="JobNumber">Number code for this job.</param>
+	<param name="JobName">Name of a particular job.</param>
+	<param name="Discount">Discount given to Reinforcing Ability clients.</param>
+	<param name="AddedDiscount">Added Discount given to Reinforcing Ability clients.</param>
+	<param name="ContractorNumber">Number code assigned to client.</param>
+	<param name="OrderNumber">Number code assigned to Job orderr.</param>
+	<param name="MeasurementUnit">Unit of measurement to be used for a specific job.</param>
 </member>
 </members>
 </doc>

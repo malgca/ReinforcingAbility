@@ -6,12 +6,12 @@ DataTier
 </name>
 </assembly>
 <members>
-<member name="P:DataTier.DataTier.DBOperations.GetInstance">
+<member name="P:DataTier.DBOperations.GetInstance">
 	<summary>
  Get the running instance of the DBOperations class
  </summary>
 	<returns>Singleton instance of DBOperations class</returns>
-</member><member name="M:DataTier.DataTier.DBOperations.ExecuteQuery(System.Object)">
+</member><member name="M:DataTier.DBOperations.ExecuteQuery(System.Object)">
 	<summary>
  Execute a given query against the database.
  </summary>

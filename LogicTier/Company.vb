@@ -1,8 +1,6 @@
-﻿
-
-Imports System
+﻿Imports System
 Imports System.Data
-
+Imports DataTier
 
 Namespace LogicTier
     Public Class Company
@@ -25,7 +23,6 @@ Namespace LogicTier
         Public Property VatPerc As Decimal
         Public Property Website As String
         Public Property NoAndName As String
-        Dim dtInstance = DataTier.DataTier.DBOperations.GetInstance
 
 
         ''' <summary>
@@ -77,7 +74,8 @@ Namespace LogicTier
         End Sub
 
         Public Function loadCompanies()
-            Dim dsCompany As DataSet = dtInstance.DBOperations.GetInstance.getCompanyDataSet()
+            Dim dtInstance = DBOperations.GetInstance
+            Dim dsCompany As DataSet = dtInstance.getCompanyDataSet()
             Return dsCompany
         End Function
     End Class

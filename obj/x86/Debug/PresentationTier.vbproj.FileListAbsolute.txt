@@ -72,3 +72,9 @@ C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\Presen
 C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.PrintJobRates.resources
 C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.PrintJobs.resources
 C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\obj\x86\Debug\PresentationTier.vbproj.GenerateResource.Cache
+C:\Users\malgca\Development\ReinforcingAbility\bin\Debug\LogicTier.dll
+C:\Users\malgca\Development\ReinforcingAbility\bin\Debug\DataTier.dll
+C:\Users\malgca\Development\ReinforcingAbility\bin\Debug\LogicTier.pdb
+C:\Users\malgca\Development\ReinforcingAbility\bin\Debug\LogicTier.xml
+C:\Users\malgca\Development\ReinforcingAbility\bin\Debug\DataTier.pdb
+C:\Users\malgca\Development\ReinforcingAbility\bin\Debug\DataTier.xml
