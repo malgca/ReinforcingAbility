@@ -3,9 +3,22 @@ Imports System.Data
 Imports System.Data.SqlClient
 
 Public Class DBOperations
-    Dim connection As OleDbConnection ' Database connection
+    ' Private connection variable
+    Private _connection As OleDbConnection
+
+    Public Property Connection As OleDbConnection
+        Get
+            Return _connection
+        End Get
+        Private Set(value As OleDbConnection)
+            If (Not (value.Equals(_connection))) Then
+                _connection = value
+            End If
+        End Set
+    End Property
+
     Private Sub New()
-        Me.connection = New OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source = winsteelVers5.mdb")
+        Me._connection = New OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source = winsteelVers5.mdb")
 
         ' Make sure only a single instance of this class may exist
     End Sub
@@ -28,22 +41,5 @@ Public Class DBOperations
     Public Function ExecuteQuery(query)
         '' execute given query
         Return vbNull
-    End Function
-
-    Public Function getCompanyDataSet()
-        ' Open the Ms Access connection.
-        Me.connection.Open()
-
-        Dim daCompany As New OleDbDataAdapter("Select * From Company", Me.connection.ConnectionString)
-
-        Dim dsCompany As New DataSet("Companys")
-
-        daCompany.FillSchema(dsCompany, SchemaType.Source, "Company")
-        daCompany.Fill(dsCompany, "Company")
-
-        'Dim tblCompany As DataTable
-        'tblCompany = dsCompany.Tables("Authors")
-
-        Return dsCompany
     End Function
 End Class

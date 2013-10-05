@@ -1,4 +1,4 @@
-
+Imports System.Data.OleDb
 
 Public Class frmCompany
     Inherits System.Windows.Forms.Form
@@ -699,14 +699,13 @@ Public Class frmCompany
     End Sub
 
     Private Sub frmCompany_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        'dsCompany.Clear()
-        'adpCompany.Fill(dsCompany.Company)
+        dsCompany.Clear()
+        adpCompany.Fill(dsCompany.Company)
 
-        'enablebinding()
-        'disablefields()
-        Dim comCon As New LogicTier.LogicTier.Company
-        DataSetCompany = comCon.loadCompanies
-        adpCompany.Fill(DataSetCompany)
+        enablebinding()
+        disablefields()
+        'Dim comCon As New LogicTier.LogicTier.Company
+        'comCon.getCompanyDataSet(adpCompany, DataSetCompany)
         enablebinding()
         disablefields()
     End Sub
@@ -771,6 +770,7 @@ Public Class frmCompany
     End Sub
 
     Private Sub enablebinding()
+        Console.WriteLine(DataSetCompany.Columns.Count)
         txtCompNo.DataBindings.Add("Text", DataSetCompany, "Company.CompanyNo")
         txtCompName.DataBindings.Add("Text", DataSetCompany, "Company.CompanyName")
         txtRegNo.DataBindings.Add("Text", DataSetCompany, "Company.RegNo")
