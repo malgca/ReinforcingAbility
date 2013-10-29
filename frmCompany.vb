@@ -700,29 +700,30 @@ Public Class frmCompany
 
     Private Sub frmCompany_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         dsCompany.Clear()
+        adpCompany.SelectCommand = New OleDbCommand("Select * From Company", conCompany)
         adpCompany.Fill(dsCompany.Company)
 
-        enablebinding()
-        disablefields()
+        DataBindTextFields()
+        DisableGroupFields()
         'Dim comCon As New LogicTier.LogicTier.Company
         'comCon.getCompanyDataSet(adpCompany, DataSetCompany)
-        enablebinding()
-        disablefields()
+        DataBindTextFields()
+        DisableGroupFields()
     End Sub
 
-    Private Sub disablefields()
+    Private Sub DisableGroupFields()
         grpCompDetails.Enabled = False
         grpContactDetails.Enabled = False
         grpMiscDetails.Enabled = False
     End Sub
 
-    Private Sub enablefields()
+    Private Sub EnableGroupFields()
         grpCompDetails.Enabled = True
         grpContactDetails.Enabled = True
         grpMiscDetails.Enabled = True
     End Sub
-
-    Private Sub disablebinding()
+    ' Clears DataBindings on all text fields
+    Private Sub ClearDataBinding()
         txtCompNo.DataBindings.Clear()
         txtCompNo.Clear()
 
@@ -768,9 +769,8 @@ Public Class frmCompany
         txtLastInvNo.DataBindings.Clear()
         txtLastInvNo.Clear()
     End Sub
-
-    Private Sub enablebinding()
-        Console.WriteLine(DataSetCompany.Columns.Count)
+    ' Binds database data to text fields
+    Private Sub DataBindTextFields()
         txtCompNo.DataBindings.Add("Text", DataSetCompany, "Company.CompanyNo")
         txtCompName.DataBindings.Add("Text", DataSetCompany, "Company.CompanyName")
         txtRegNo.DataBindings.Add("Text", DataSetCompany, "Company.RegNo")
@@ -793,8 +793,8 @@ Public Class frmCompany
             cbxCompNo.SendToBack()
             cbxCompNo.Enabled = False
 
-            enablefields()
-            disablebinding()
+            EnableGroupFields()
+            ClearDataBinding()
 
             txtVAT.Text = 0.14
             state = "add"
@@ -875,9 +875,9 @@ Public Class frmCompany
                     adpCompany.Update(dsCompany.Company)
                     MsgBox("Record was successfully saved", MsgBoxStyle.Information, "Information")
 
-                    enablebinding()
+                    DataBindTextFields()
                     cbxCompNo.BringToFront()
-                    disablefields()
+                    DisableGroupFields()
                     state = ""
                 End If
             End If
@@ -892,7 +892,7 @@ Public Class frmCompany
             cbxCompNo.BringToFront()
             cbxCompNo.Enabled = True
 
-            disablefields()
+            DisableGroupFields()
             txtCompNo.Enabled = True
 
             state = ""
@@ -919,7 +919,7 @@ Public Class frmCompany
             cbxCompNo.SendToBack()
             txtCompNo.Enabled = False
 
-            enablefields()
+            EnableGroupFields()
 
             state = "edit"
             txtCompName.Focus()
