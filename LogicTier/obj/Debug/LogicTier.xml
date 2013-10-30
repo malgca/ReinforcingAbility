@@ -19,30 +19,27 @@ LogicTier
 	<summary>
   A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
-</member><member name="T:LogicTier.LogicTier.BeamTypes">
+</member><member name="T:LogicTier.BeamTypes">
 	<summary>
  Types of Beams used in the Reinforcing Ability system.
  </summary>
-</member><member name="T:LogicTier.LogicTier.YBeams">
+</member><member name="T:LogicTier.YBeams">
 	<summary>
  Codes for YBeams used in the Reinforcing Ability system.
  </summary>
-</member><member name="T:LogicTier.LogicTier.RBeams">
+</member><member name="T:LogicTier.RBeams">
 	<summary>
  Codes for RBeams used in the Reinforcing Ability system.
  </summary>
-	<remarks></remarks>
-</member><member name="T:LogicTier.LogicTier.ColumnType">
+</member><member name="T:LogicTier.ColumnType">
 	<summary>
  Codes for Different types of columns in the Reinforcing Ability System.
  </summary>
-	<remarks></remarks>
-</member><member name="T:LogicTier.LogicTier.MeasurementUnit">
+</member><member name="T:LogicTier.MeasurementUnit">
 	<summary>
  Units of measurement used by the Reinforcing Ability system.
  </summary>
-	<remarks></remarks>
-</member><member name="M:LogicTier.LogicTier.Job.#ctor(System.String@,System.String@,System.Double,System.Double,System.String@,System.String@,LogicTier.LogicTier.MeasurementUnit)">
+</member><member name="M:LogicTier.Job.#ctor(System.String@,System.String@,System.Double,System.Double,System.String@,System.String@,LogicTier.MeasurementUnit)">
 	<summary>
  Full Job constructor.
  </summary>

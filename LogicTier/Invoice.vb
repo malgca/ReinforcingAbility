@@ -1,5 +1,3 @@
-﻿Namespace LogicTier
-    Public Interface Invoice
+﻿Public Interface Invoice
 
-    End Interface
-End Namespace
+End Interface

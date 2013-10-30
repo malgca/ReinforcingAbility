@@ -63,7 +63,7 @@
     <Compile Include="Company.vb" />
     <Compile Include="Contractor.vb" />
     <Compile Include="CuttingSheet.vb" />
-    <Compile Include="Enumerations.vb" />
+    <Compile Include="BeamsMeasures.vb" />
     <Compile Include="Invoice.vb" />
     <Compile Include="Job.vb" />
     <Compile Include="My Project\Application.Designer.vb">

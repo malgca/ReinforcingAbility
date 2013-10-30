@@ -1,4 +1,5 @@
 Imports System.Data.OleDb
+Imports LogicTier
 
 Public Class frmCompany
     Inherits System.Windows.Forms.Form
@@ -681,10 +682,27 @@ Public Class frmCompany
 
 #End Region
 
-    Private state As String
-    Private DataSetCompany As DataTable
-    Private CallingForm As Object
+    ' company form states
+    Private Enum FormStates
+        Empty = 0
+        Add = 2
+        Edit = 4
+    End Enum
 
+    Private formState As FormStates
+
+    Private callingForm As Object
+
+    Public Sub New(ByVal caller As Object)
+        MyBase.New()
+        InitializeComponent()
+
+        callingForm = caller
+    End Sub
+
+    ''' <summary>
+    ''' Converts Enter key to Tab key when pressed.
+    ''' </summary>
     Protected Overrides Function ProcessCmdKey(ByRef msg As Message, ByVal keyData As Keys) As Boolean
         If keyData = Keys.Enter Then
             SendKeys.Send("{Tab}")
@@ -694,34 +712,32 @@ Public Class frmCompany
         Return MyBase.ProcessCmdKey(msg, keyData)
     End Function
 
-    Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
-        Close()
-    End Sub
-
     Private Sub frmCompany_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         dsCompany.Clear()
         adpCompany.SelectCommand = New OleDbCommand("Select * From Company", conCompany)
         adpCompany.Fill(dsCompany.Company)
 
         DataBindTextFields()
-        DisableGroupFields()
+        DisableForm()
         'Dim comCon As New LogicTier.LogicTier.Company
         'comCon.getCompanyDataSet(adpCompany, DataSetCompany)
         DataBindTextFields()
-        DisableGroupFields()
+        DisableForm()
     End Sub
-
-    Private Sub DisableGroupFields()
+    ' disables all elements on the company form
+    Private Sub DisableForm()
         grpCompDetails.Enabled = False
         grpContactDetails.Enabled = False
         grpMiscDetails.Enabled = False
     End Sub
 
-    Private Sub EnableGroupFields()
+    ' enable all elements on the company form
+    Private Sub EnableForm()
         grpCompDetails.Enabled = True
         grpContactDetails.Enabled = True
         grpMiscDetails.Enabled = True
     End Sub
+
     ' Clears DataBindings on all text fields
     Private Sub ClearDataBinding()
         txtCompNo.DataBindings.Clear()
@@ -789,21 +805,21 @@ Public Class frmCompany
     End Sub
 
     Private Sub btnAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdd.Click
-        If state = "" Then
+        If formState = FormStates.Empty Then
             cbxCompNo.SendToBack()
             cbxCompNo.Enabled = False
 
-            EnableGroupFields()
+            EnableForm()
             ClearDataBinding()
 
             txtVAT.Text = 0.14
-            state = "add"
+            formState = FormStates.Add
             txtCompNo.Focus()
         End If
     End Sub
 
     Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
-        If state = "add" Then
+        If formState = FormStates.Add Then
             If txtCompNo.Text = "" Then
                 MsgBox("A Company Number is required", MsgBoxStyle.Critical, "Error")
                 txtCompNo.Focus()
@@ -877,52 +893,45 @@ Public Class frmCompany
 
                     DataBindTextFields()
                     cbxCompNo.BringToFront()
-                    DisableGroupFields()
-                    state = ""
+                    DisableForm()
+                    formState = FormStates.Empty
                 End If
             End If
         End If
 
-        If state = "edit" Then
+        If formState = FormStates.Edit Then
             dsCompany.Company.FindByCompanyNo(txtCompNo.Text).EndEdit()
 
             adpCompany.Update(dsCompany.Company)
             MsgBox("Record was successfully saved", MsgBoxStyle.Information, "Information")
 
+            DisableForm()
+            ' enable required fields
             cbxCompNo.BringToFront()
             cbxCompNo.Enabled = True
-
-            DisableGroupFields()
             txtCompNo.Enabled = True
 
-            state = ""
+            formState = FormStates.Empty
+        End If
+    End Sub
+
+    Private Sub btnEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEdit.Click
+        If formState = FormStates.Empty Then
+            cbxCompNo.SendToBack()
+            txtCompNo.Enabled = False
+
+            EnableForm()
+
+            formState = FormStates.Empty
+            txtCompName.Focus()
         End If
     End Sub
 
     Private Sub frmCompany_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        If Not IsNothing(CallingForm) Then
-            CallingForm.Show()
+        If Not IsNothing(callingForm) Then
+            callingForm.Show()
         End If
 
-        CallingForm = Nothing
-    End Sub
-
-    Public Sub New(ByVal caller As Object)
-        MyBase.New()
-        InitializeComponent()
-
-        CallingForm = caller
-    End Sub
-
-    Private Sub btnEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEdit.Click
-        If state = "" Then
-            cbxCompNo.SendToBack()
-            txtCompNo.Enabled = False
-
-            EnableGroupFields()
-
-            state = "edit"
-            txtCompName.Focus()
-        End If
+        callingForm = Nothing
     End Sub
 End Class
