@@ -4,7 +4,20 @@ Imports DataTier
 Imports System.Data.OleDb
 
 Public Class Company
+    ''' <summary>
+    ''' Company DataSet. Used for Databindings
+    ''' </summary>
     Public Property DataSetCompany As DataTable
+
+    ''' <summary>
+    ''' Value Added Tax
+    ''' </summary>
+    Public ReadOnly Property VAT As Double
+        Get
+            Return 0.14
+        End Get
+    End Property
+
     Public Sub getCompanyDataSet(ByRef daCompany As OleDbDataAdapter, ByRef dsCompany As DataTable)
         ' Open the Ms Access connection.
         Dim dbConnection As OleDbConnection = DBOperations.GetInstance().Connection

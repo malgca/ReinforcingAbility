@@ -444,185 +444,7 @@ Public Class frmCompany
         Me.btnClose.Name = "btnClose"
         Me.btnClose.TabIndex = 6
         Me.btnClose.Text = "Close"
-        '
-        ''conCompany
-        ''
-        'Me.conCompany.ConnectionString = "Jet OLEDB:Global Partial Bulk Ops=2;Jet OLEDB:Registry Path=;Jet OLEDB:Database L" & _
-        '"ocking Mode=1;Data Source=""winsteelVers5.mdb"";Mode=Share Deny None;Jet OLEDB:Eng" & _
-        '"ine Type=5;Provider=""Microsoft.Jet.OLEDB.4.0"";Jet OLEDB:System database=;Jet OLE" & _
-        '"DB:SFP=False;persist security info=False;Extended Properties=;Jet OLEDB:Compact " & _
-        '"Without Replica Repair=False;Jet OLEDB:Encrypt Database=False;Jet OLEDB:Create S" & _
-        '"ystem Database=False;Jet OLEDB:Don't Copy Locale on Compact=False;User ID=Admin;" & _
-        '"Jet OLEDB:Global Bulk Transactions=1"
-        ''
-        ''adpCompany
-        ''
-        'Me.adpCompany.DeleteCommand = Me.OleDbDeleteCommand1
-        'Me.adpCompany.InsertCommand = Me.OleDbInsertCommand1
-        'Me.adpCompany.SelectCommand = Me.OleDbSelectCommand1
-        'Me.adpCompany.TableMappings.AddRange(New System.Data.Common.DataTableMapping() {New System.Data.Common.DataTableMapping("Table", "Company", New System.Data.Common.DataColumnMapping() {New System.Data.Common.DataColumnMapping("Address", "Address"), New System.Data.Common.DataColumnMapping("AddressLine2", "AddressLine2"), New System.Data.Common.DataColumnMapping("AddressLine3", "AddressLine3"), New System.Data.Common.DataColumnMapping("AddressLine4", "AddressLine4"), New System.Data.Common.DataColumnMapping("CompanyName", "CompanyName"), New System.Data.Common.DataColumnMapping("CompanyNo", "CompanyNo"), New System.Data.Common.DataColumnMapping("Email", "Email"), New System.Data.Common.DataColumnMapping("Fax", "Fax"), New System.Data.Common.DataColumnMapping("LastCutNum", "LastCutNum"), New System.Data.Common.DataColumnMapping("LastInvNum", "LastInvNum"), New System.Data.Common.DataColumnMapping("Message", "Message"), New System.Data.Common.DataColumnMapping("PostalCode", "PostalCode"), New System.Data.Common.DataColumnMapping("RegNo", "RegNo"), New System.Data.Common.DataColumnMapping("Telephone", "Telephone"), New System.Data.Common.DataColumnMapping("UnitOfMeas", "UnitOfMeas"), New System.Data.Common.DataColumnMapping("VatNo", "VatNo"), New System.Data.Common.DataColumnMapping("VatPerc", "VatPerc"), New System.Data.Common.DataColumnMapping("Website", "Website")})})
-        'Me.adpCompany.UpdateCommand = Me.OleDbUpdateCommand1
-        ''
-        ''OleDbDeleteCommand1
-        ''
-        'Me.OleDbDeleteCommand1.CommandText = "DELETE FROM Company WHERE (CompanyNo = ?) AND (AddressLine2 = ? OR ? IS NULL AND " & _
-        '"AddressLine2 IS NULL) AND (AddressLine3 = ? OR ? IS NULL AND AddressLine3 IS NUL" & _
-        '"L) AND (AddressLine4 = ? OR ? IS NULL AND AddressLine4 IS NULL) AND (CompanyName" & _
-        '" = ? OR ? IS NULL AND CompanyName IS NULL) AND (Email = ? OR ? IS NULL AND Email" & _
-        '" IS NULL) AND (Fax = ? OR ? IS NULL AND Fax IS NULL) AND (LastCutNum = ? OR ? IS" & _
-        '" NULL AND LastCutNum IS NULL) AND (LastInvNum = ? OR ? IS NULL AND LastInvNum IS" & _
-        '" NULL) AND (Message = ? OR ? IS NULL AND Message IS NULL) AND (PostalCode = ? OR" & _
-        '" ? IS NULL AND PostalCode IS NULL) AND (RegNo = ? OR ? IS NULL AND RegNo IS NULL" & _
-        '") AND (Telephone = ? OR ? IS NULL AND Telephone IS NULL) AND (UnitOfMeas = ? OR " & _
-        '"? IS NULL AND UnitOfMeas IS NULL) AND (VatNo = ? OR ? IS NULL AND VatNo IS NULL)" & _
-        '" AND (VatPerc = ? OR ? IS NULL AND VatPerc IS NULL) AND (Website = ? OR ? IS NUL" & _
-        '"L AND Website IS NULL)"
-        'Me.OleDbDeleteCommand1.Connection = Me.conCompany
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CompanyNo", System.Data.OleDb.OleDbType.VarWChar, 10, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CompanyNo", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_AddressLine2", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine2", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_AddressLine21", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine2", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_AddressLine3", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine3", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_AddressLine31", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine3", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_AddressLine4", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine4", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_AddressLine41", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine4", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CompanyName", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CompanyName", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CompanyName1", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CompanyName", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Email", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Email", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Email1", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Email", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Fax", System.Data.OleDb.OleDbType.VarWChar, 15, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Fax", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Fax1", System.Data.OleDb.OleDbType.VarWChar, 15, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Fax", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_LastCutNum", System.Data.OleDb.OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "LastCutNum", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_LastCutNum1", System.Data.OleDb.OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "LastCutNum", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_LastInvNum", System.Data.OleDb.OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "LastInvNum", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_LastInvNum1", System.Data.OleDb.OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "LastInvNum", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Message", System.Data.OleDb.OleDbType.VarWChar, 200, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Message", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Message1", System.Data.OleDb.OleDbType.VarWChar, 200, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Message", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_PostalCode", System.Data.OleDb.OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "PostalCode", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_PostalCode1", System.Data.OleDb.OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "PostalCode", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_RegNo", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "RegNo", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_RegNo1", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "RegNo", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Telephone", System.Data.OleDb.OleDbType.VarWChar, 15, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Telephone", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Telephone1", System.Data.OleDb.OleDbType.VarWChar, 15, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Telephone", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_UnitOfMeas", System.Data.OleDb.OleDbType.VarWChar, 50, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "UnitOfMeas", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_UnitOfMeas1", System.Data.OleDb.OleDbType.VarWChar, 50, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "UnitOfMeas", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_VatNo", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "VatNo", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_VatNo1", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "VatNo", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_VatPerc", System.Data.OleDb.OleDbType.Decimal, 0, System.Data.ParameterDirection.Input, False, CType(2, Byte), CType(2, Byte), "VatPerc", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_VatPerc1", System.Data.OleDb.OleDbType.Decimal, 0, System.Data.ParameterDirection.Input, False, CType(2, Byte), CType(2, Byte), "VatPerc", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Website", System.Data.OleDb.OleDbType.VarWChar, 30, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Website", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Website1", System.Data.OleDb.OleDbType.VarWChar, 30, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Website", System.Data.DataRowVersion.Original, Nothing))
-        ''
-        ''OleDbInsertCommand1
-        ''
-        'Me.OleDbInsertCommand1.CommandText = "INSERT INTO Company(Address, AddressLine2, AddressLine3, AddressLine4, CompanyNam" & _
-        '"e, CompanyNo, Email, Fax, LastCutNum, LastInvNum, Message, PostalCode, RegNo, Te" & _
-        '"lephone, UnitOfMeas, VatNo, VatPerc, Website) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?," & _
-        '" ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-        'Me.OleDbInsertCommand1.Connection = Me.conCompany
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Address", System.Data.OleDb.OleDbType.VarWChar, 0, "Address"))
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("AddressLine2", System.Data.OleDb.OleDbType.VarWChar, 40, "AddressLine2"))
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("AddressLine3", System.Data.OleDb.OleDbType.VarWChar, 40, "AddressLine3"))
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("AddressLine4", System.Data.OleDb.OleDbType.VarWChar, 40, "AddressLine4"))
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("CompanyName", System.Data.OleDb.OleDbType.VarWChar, 40, "CompanyName"))
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("CompanyNo", System.Data.OleDb.OleDbType.VarWChar, 10, "CompanyNo"))
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Email", System.Data.OleDb.OleDbType.VarWChar, 40, "Email"))
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Fax", System.Data.OleDb.OleDbType.VarWChar, 15, "Fax"))
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("LastCutNum", System.Data.OleDb.OleDbType.Integer, 0, "LastCutNum"))
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("LastInvNum", System.Data.OleDb.OleDbType.Integer, 0, "LastInvNum"))
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Message", System.Data.OleDb.OleDbType.VarWChar, 200, "Message"))
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("PostalCode", System.Data.OleDb.OleDbType.Integer, 0, "PostalCode"))
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("RegNo", System.Data.OleDb.OleDbType.VarWChar, 20, "RegNo"))
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Telephone", System.Data.OleDb.OleDbType.VarWChar, 15, "Telephone"))
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("UnitOfMeas", System.Data.OleDb.OleDbType.VarWChar, 50, "UnitOfMeas"))
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("VatNo", System.Data.OleDb.OleDbType.VarWChar, 20, "VatNo"))
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("VatPerc", System.Data.OleDb.OleDbType.Decimal, 0, System.Data.ParameterDirection.Input, False, CType(2, Byte), CType(2, Byte), "VatPerc", System.Data.DataRowVersion.Current, Nothing))
-        'Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Website", System.Data.OleDb.OleDbType.VarWChar, 30, "Website"))
-        ''
-        ''OleDbSelectCommand1
-        ''
-        'Me.OleDbSelectCommand1.CommandText = "SELECT Address, AddressLine2, AddressLine3, AddressLine4, CompanyName, CompanyNo," & _
-        '" Email, Fax, LastCutNum, LastInvNum, Message, PostalCode, RegNo, Telephone, Unit" & _
-        '"OfMeas, VatNo, VatPerc, Website FROM Company"
-        'Me.OleDbSelectCommand1.Connection = Me.conCompany
-        ''
-        ''OleDbUpdateCommand1
-        ''
-        'Me.OleDbUpdateCommand1.CommandText = "UPDATE Company SET Address = ?, AddressLine2 = ?, AddressLine3 = ?, AddressLine4 " & _
-        '"= ?, CompanyName = ?, CompanyNo = ?, Email = ?, Fax = ?, LastCutNum = ?, LastInv" & _
-        '"Num = ?, Message = ?, PostalCode = ?, RegNo = ?, Telephone = ?, UnitOfMeas = ?, " & _
-        '"VatNo = ?, VatPerc = ?, Website = ? WHERE (CompanyNo = ?) AND (AddressLine2 = ? " & _
-        '"OR ? IS NULL AND AddressLine2 IS NULL) AND (AddressLine3 = ? OR ? IS NULL AND Ad" & _
-        '"dressLine3 IS NULL) AND (AddressLine4 = ? OR ? IS NULL AND AddressLine4 IS NULL)" & _
-        '" AND (CompanyName = ? OR ? IS NULL AND CompanyName IS NULL) AND (Email = ? OR ? " & _
-        '"IS NULL AND Email IS NULL) AND (Fax = ? OR ? IS NULL AND Fax IS NULL) AND (LastC" & _
-        '"utNum = ? OR ? IS NULL AND LastCutNum IS NULL) AND (LastInvNum = ? OR ? IS NULL " & _
-        '"AND LastInvNum IS NULL) AND (Message = ? OR ? IS NULL AND Message IS NULL) AND (" & _
-        '"PostalCode = ? OR ? IS NULL AND PostalCode IS NULL) AND (RegNo = ? OR ? IS NULL " & _
-        '"AND RegNo IS NULL) AND (Telephone = ? OR ? IS NULL AND Telephone IS NULL) AND (U" & _
-        '"nitOfMeas = ? OR ? IS NULL AND UnitOfMeas IS NULL) AND (VatNo = ? OR ? IS NULL A" & _
-        '"ND VatNo IS NULL) AND (VatPerc = ? OR ? IS NULL AND VatPerc IS NULL) AND (Websit" & _
-        '"e = ? OR ? IS NULL AND Website IS NULL)"
-        'Me.OleDbUpdateCommand1.Connection = Me.conCompany
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Address", System.Data.OleDb.OleDbType.VarWChar, 0, "Address"))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("AddressLine2", System.Data.OleDb.OleDbType.VarWChar, 40, "AddressLine2"))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("AddressLine3", System.Data.OleDb.OleDbType.VarWChar, 40, "AddressLine3"))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("AddressLine4", System.Data.OleDb.OleDbType.VarWChar, 40, "AddressLine4"))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("CompanyName", System.Data.OleDb.OleDbType.VarWChar, 40, "CompanyName"))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("CompanyNo", System.Data.OleDb.OleDbType.VarWChar, 10, "CompanyNo"))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Email", System.Data.OleDb.OleDbType.VarWChar, 40, "Email"))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Fax", System.Data.OleDb.OleDbType.VarWChar, 15, "Fax"))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("LastCutNum", System.Data.OleDb.OleDbType.Integer, 0, "LastCutNum"))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("LastInvNum", System.Data.OleDb.OleDbType.Integer, 0, "LastInvNum"))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Message", System.Data.OleDb.OleDbType.VarWChar, 200, "Message"))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("PostalCode", System.Data.OleDb.OleDbType.Integer, 0, "PostalCode"))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("RegNo", System.Data.OleDb.OleDbType.VarWChar, 20, "RegNo"))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Telephone", System.Data.OleDb.OleDbType.VarWChar, 15, "Telephone"))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("UnitOfMeas", System.Data.OleDb.OleDbType.VarWChar, 50, "UnitOfMeas"))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("VatNo", System.Data.OleDb.OleDbType.VarWChar, 20, "VatNo"))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("VatPerc", System.Data.OleDb.OleDbType.Decimal, 0, System.Data.ParameterDirection.Input, False, CType(2, Byte), CType(2, Byte), "VatPerc", System.Data.DataRowVersion.Current, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Website", System.Data.OleDb.OleDbType.VarWChar, 30, "Website"))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CompanyNo", System.Data.OleDb.OleDbType.VarWChar, 10, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CompanyNo", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_AddressLine2", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine2", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_AddressLine21", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine2", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_AddressLine3", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine3", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_AddressLine31", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine3", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_AddressLine4", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine4", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_AddressLine41", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine4", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CompanyName", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CompanyName", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CompanyName1", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CompanyName", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Email", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Email", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Email1", System.Data.OleDb.OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Email", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Fax", System.Data.OleDb.OleDbType.VarWChar, 15, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Fax", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Fax1", System.Data.OleDb.OleDbType.VarWChar, 15, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Fax", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_LastCutNum", System.Data.OleDb.OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "LastCutNum", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_LastCutNum1", System.Data.OleDb.OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "LastCutNum", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_LastInvNum", System.Data.OleDb.OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "LastInvNum", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_LastInvNum1", System.Data.OleDb.OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "LastInvNum", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Message", System.Data.OleDb.OleDbType.VarWChar, 200, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Message", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Message1", System.Data.OleDb.OleDbType.VarWChar, 200, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Message", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_PostalCode", System.Data.OleDb.OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "PostalCode", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_PostalCode1", System.Data.OleDb.OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "PostalCode", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_RegNo", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "RegNo", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_RegNo1", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "RegNo", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Telephone", System.Data.OleDb.OleDbType.VarWChar, 15, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Telephone", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Telephone1", System.Data.OleDb.OleDbType.VarWChar, 15, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Telephone", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_UnitOfMeas", System.Data.OleDb.OleDbType.VarWChar, 50, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "UnitOfMeas", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_UnitOfMeas1", System.Data.OleDb.OleDbType.VarWChar, 50, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "UnitOfMeas", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_VatNo", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "VatNo", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_VatNo1", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "VatNo", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_VatPerc", System.Data.OleDb.OleDbType.Decimal, 0, System.Data.ParameterDirection.Input, False, CType(2, Byte), CType(2, Byte), "VatPerc", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_VatPerc1", System.Data.OleDb.OleDbType.Decimal, 0, System.Data.ParameterDirection.Input, False, CType(2, Byte), CType(2, Byte), "VatPerc", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Website", System.Data.OleDb.OleDbType.VarWChar, 30, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Website", System.Data.DataRowVersion.Original, Nothing))
-        'Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Website1", System.Data.OleDb.OleDbType.VarWChar, 30, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Website", System.Data.DataRowVersion.Original, Nothing))
-        ''
-        ''cmdCountCompNo
-        ''
-        'Me.cmdCountCompNo.CommandText = "SELECT Company.* FROM Company WHERE (CompanyNo = ?)"
-        'Me.cmdCountCompNo.Connection = Me.conCompany
-        'Me.cmdCountCompNo.Parameters.Add(New System.Data.OleDb.OleDbParameter("CompanyNo", System.Data.OleDb.OleDbType.VarWChar, 10, "CompanyNo"))
-        ''
-        'cbxCompNo
-        '
+
         Me.cbxCompNo.DataSource = Me.dsCompany
         Me.cbxCompNo.DisplayMember = "Company.No&Name"
         Me.cbxCompNo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -690,26 +512,27 @@ Public Class frmCompany
     End Enum
 
     Private formState As FormStates
-
+    Private logic As Company
     Private callingForm As Object
 
     Public Sub New(ByVal caller As Object)
         MyBase.New()
         InitializeComponent()
 
+        ' save the calling form
         callingForm = caller
     End Sub
 
     ''' <summary>
     ''' Converts Enter key to Tab key when pressed.
     ''' </summary>
-    Protected Overrides Function ProcessCmdKey(ByRef msg As Message, ByVal keyData As Keys) As Boolean
-        If keyData = Keys.Enter Then
+    Protected Overrides Function ProcessCmdKey(ByRef msg As Message, ByVal key As Keys) As Boolean
+        If key = Keys.Enter Then
             SendKeys.Send("{Tab}")
             Return True
         End If
 
-        Return MyBase.ProcessCmdKey(msg, keyData)
+        Return MyBase.ProcessCmdKey(msg, key)
     End Function
 
     Private Sub frmCompany_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -738,70 +561,61 @@ Public Class frmCompany
         grpMiscDetails.Enabled = True
     End Sub
 
-    ' Clears DataBindings on all text fields
-    Private Sub ClearDataBinding()
+    ' clears databindings on all text fields
+    Private Sub ClearDataBindings()
         txtCompNo.DataBindings.Clear()
-        txtCompNo.Clear()
-
         txtCompName.DataBindings.Clear()
-        txtCompName.Clear()
-
         txtRegNo.DataBindings.Clear()
-        txtRegNo.Clear()
-
         txtVATNo.DataBindings.Clear()
-        txtVATNo.Clear()
-
         txtAddress.DataBindings.Clear()
-        txtAddress.Clear()
-
         txtAddress2.DataBindings.Clear()
-        txtAddress2.Clear()
-
         txtAddress3.DataBindings.Clear()
-        txtAddress3.Clear()
-
         txtPostalCode.DataBindings.Clear()
-        txtPostalCode.Clear()
-
         txtTelNo.DataBindings.Clear()
-        txtTelNo.Clear()
-
         txtEmail.DataBindings.Clear()
-        txtEmail.Clear()
-
         txtFaxNo.DataBindings.Clear()
-        txtFaxNo.Clear()
-
         txtWebsite.DataBindings.Clear()
-        txtWebsite.Clear()
-
         txtMessage.DataBindings.Clear()
-        txtMessage.Clear()
-
         txtVAT.DataBindings.Clear()
-        txtVAT.Clear()
-
         txtLastInvNo.DataBindings.Clear()
+    End Sub
+
+    ' clears text from all text fields
+    Private Sub ClearTextFields()
+        txtCompNo.Clear()
+        txtCompName.Clear()
+        txtRegNo.Clear()
+        txtVATNo.Clear()
+        txtAddress.Clear()
+        txtAddress2.Clear()
+        txtAddress3.Clear()
+        txtPostalCode.Clear()
+        txtTelNo.Clear()
+        txtEmail.Clear()
+        txtFaxNo.Clear()
+        txtWebsite.Clear()
+        txtMessage.Clear()
+        txtVAT.Clear()
         txtLastInvNo.Clear()
     End Sub
-    ' Binds database data to text fields
+
+    ' binds database data to text fields
     Private Sub DataBindTextFields()
-        txtCompNo.DataBindings.Add("Text", DataSetCompany, "Company.CompanyNo")
-        txtCompName.DataBindings.Add("Text", DataSetCompany, "Company.CompanyName")
-        txtRegNo.DataBindings.Add("Text", DataSetCompany, "Company.RegNo")
-        txtVATNo.DataBindings.Add("Text", DataSetCompany, "Company.VatNo")
-        txtAddress.DataBindings.Add("Text", DataSetCompany, "Company.Address")
-        txtAddress2.DataBindings.Add("Text", DataSetCompany, "Company.AddressLine2")
-        txtAddress3.DataBindings.Add("Text", DataSetCompany, "Company.AddressLine3")
-        txtPostalCode.DataBindings.Add("Text", DataSetCompany, "Company.PostalCode")
-        txtTelNo.DataBindings.Add("Text", DataSetCompany, "Company.Telephone")
-        txtEmail.DataBindings.Add("Text", DataSetCompany, "Company.Email")
-        txtFaxNo.DataBindings.Add("Text", DataSetCompany, "Company.Fax")
-        txtWebsite.DataBindings.Add("Text", DataSetCompany, "Company.Website")
-        txtMessage.DataBindings.Add("Text", DataSetCompany, "Company.Message")
-        txtVAT.DataBindings.Add("Text", DataSetCompany, "Company.VatPerc")
-        txtLastInvNo.DataBindings.Add("Text", DataSetCompany, "Company.LastInvNum")
+        txtCompNo.DataBindings.Add("Text", logic.DataSetCompany, "Company.CompanyNo")
+        txtCompName.DataBindings.Add("Text", logic.DataSetCompany, "Company.CompanyName")
+        txtRegNo.DataBindings.Add("Text", logic.DataSetCompany, "Company.RegNo")
+        txtVATNo.DataBindings.Add("Text", logic.DataSetCompany, "Company.VatNo")
+        txtAddress.DataBindings.Add("Text", logic.DataSetCompany, "Company.Address")
+        txtAddress2.DataBindings.Add("Text", logic.DataSetCompany, "Company.AddressLine2")
+        txtAddress3.DataBindings.Add("Text", logic.DataSetCompany, "Company.AddressLine3")
+        txtPostalCode.DataBindings.Add("Text", logic.DataSetCompany, "Company.PostalCode")
+        txtTelNo.DataBindings.Add("Text", logic.DataSetCompany, "Company.Telephone")
+        txtEmail.DataBindings.Add("Text", logic.DataSetCompany, "Company.Email")
+        txtFaxNo.DataBindings.Add("Text", logic.DataSetCompany, "Company.Fax")
+        txtWebsite.DataBindings.Add("Text", logic.DataSetCompany, "Company.Website")
+        txtMessage.DataBindings.Add("Text", logic.DataSetCompany, "Company.Message")
+        txtVAT.DataBindings.Add("Text", logic.DataSetCompany, "Company.VatPerc")
+        txtLastInvNo.DataBindings.Add("Text", logic.DataSetCompany, "Company.LastInvNum")
     End Sub
 
     Private Sub btnAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdd.Click
@@ -810,11 +624,12 @@ Public Class frmCompany
             cbxCompNo.Enabled = False
 
             EnableForm()
-            ClearDataBinding()
+            ClearDataBindings()
+            ClearTextFields()
 
-            txtVAT.Text = 0.14
-            formState = FormStates.Add
+            txtVAT.Text = logic.VAT
             txtCompNo.Focus()
+            formState = FormStates.Add
         End If
     End Sub
 
@@ -824,7 +639,7 @@ Public Class frmCompany
                 MsgBox("A Company Number is required", MsgBoxStyle.Critical, "Error")
                 txtCompNo.Focus()
             Else
-                Dim DataReader As System.Data.OleDb.OleDbDataReader
+                Dim DataReader As OleDbDataReader
                 Dim count As Integer
 
                 conCompany.Open()
@@ -906,6 +721,7 @@ Public Class frmCompany
             MsgBox("Record was successfully saved", MsgBoxStyle.Information, "Information")
 
             DisableForm()
+
             ' enable required fields
             cbxCompNo.BringToFront()
             cbxCompNo.Enabled = True
@@ -922,8 +738,8 @@ Public Class frmCompany
 
             EnableForm()
 
-            formState = FormStates.Empty
             txtCompName.Focus()
+            formState = FormStates.Empty
         End If
     End Sub
 
