@@ -1,6 +1,6 @@
 ﻿Imports System
 Imports System.Data
-Imports System.Data.SqlClient
+Imports System.Data.Common
 
 Public Class DBOperations
     ' Private connection variable
@@ -18,10 +18,12 @@ Public Class DBOperations
     End Property
 
     Private Sub New()
-        Me._connection = New OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source = winsteelVers5.mdb")
+        'initiate connectionstring
+        Me._connection = New OleDbConnection("Jet OLEDB:Global Partial Bulk Ops=2;Jet OLEDB:Registry Path=;Jet OLEDB:Database Locking Mode=1;Data Source=""winsteelVers5.mdb"";Mode=Share Deny None;Jet OLEDB:Engine Type=5;Provider=""Microsoft.Jet.OLEDB.4.0"";Jet OLEDB:System database=;Jet OLEDB:SFP=False;persist security info=False;Extended Properties=;Jet OLEDB:Compact Without Replica Repair=False;Jet OLEDB:Encrypt Database=False;Jet OLEDB:Create System Database=False;Jet OLEDB:Don't Copy Locale on Compact=False;User ID=Admin;Jet OLEDB:Global Bulk Transactions=1")
 
         ' Make sure only a single instance of this class may exist
     End Sub
+
     ''' <summary>
     ''' Get the running instance of the DBOperations class
     ''' </summary>
@@ -32,14 +34,4 @@ Public Class DBOperations
             Return Instance
         End Get
     End Property
-
-    ''' <summary>
-    ''' Execute a given query against the database.
-    ''' </summary>
-    ''' <param name="query">The query to be executed.</param>
-    ''' <returns>Results of executed query.</returns>
-    Public Function ExecuteQuery(query)
-        '' execute given query
-        Return vbNull
-    End Function
 End Class

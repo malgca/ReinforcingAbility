@@ -19,14 +19,29 @@ LogicTier
 	<summary>
   A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
-</member><member name="P:LogicTier.Company.DataSetCompany">
+</member><member name="T:LogicTier.FormStates">
 	<summary>
- Company DataSet. Used for Databindings
+ Company Form States
  </summary>
-</member><member name="P:LogicTier.Company.VAT">
+</member><member name="M:LogicTier.Company.NotifyPropertyChanged(System.String[])">
 	<summary>
- Value Added Tax
+ Notifies listener of a change in a property
  </summary>
+</member><member name="T:LogicTier.Company">
+	<summary>
+ Handles logical operations related to the company
+ </summary>
+</member><member name="M:LogicTier.Job.#ctor(System.String@,System.String@,System.Double,System.Double,System.String@,System.String@,LogicTier.MeasurementUnit)">
+	<summary>
+ Full Job constructor.
+ </summary>
+	<param name="JobNumber">Number code for this job.</param>
+	<param name="JobName">Name of a particular job.</param>
+	<param name="Discount">Discount given to Reinforcing Ability clients.</param>
+	<param name="AddedDiscount">Added Discount given to Reinforcing Ability clients.</param>
+	<param name="ContractorNumber">Number code assigned to client.</param>
+	<param name="OrderNumber">Number code assigned to Job orderr.</param>
+	<param name="MeasurementUnit">Unit of measurement to be used for a specific job.</param>
 </member><member name="T:LogicTier.BeamTypes">
 	<summary>
  Types of Beams used in the Reinforcing Ability system.
@@ -47,17 +62,6 @@ LogicTier
 	<summary>
  Units of measurement used by the Reinforcing Ability system.
  </summary>
-</member><member name="M:LogicTier.Job.#ctor(System.String@,System.String@,System.Double,System.Double,System.String@,System.String@,LogicTier.MeasurementUnit)">
-	<summary>
- Full Job constructor.
- </summary>
-	<param name="JobNumber">Number code for this job.</param>
-	<param name="JobName">Name of a particular job.</param>
-	<param name="Discount">Discount given to Reinforcing Ability clients.</param>
-	<param name="AddedDiscount">Added Discount given to Reinforcing Ability clients.</param>
-	<param name="ContractorNumber">Number code assigned to client.</param>
-	<param name="OrderNumber">Number code assigned to Job orderr.</param>
-	<param name="MeasurementUnit">Unit of measurement to be used for a specific job.</param>
 </member>
 </members>
 </doc>

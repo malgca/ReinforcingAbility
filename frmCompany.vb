@@ -55,10 +55,6 @@ Public Class frmCompany
     Friend WithEvents btnClose As System.Windows.Forms.Button
     Friend WithEvents conCompany As System.Data.OleDb.OleDbConnection
     Friend WithEvents adpCompany As System.Data.OleDb.OleDbDataAdapter
-    Friend WithEvents OleDbSelectCommand1 As System.Data.OleDb.OleDbCommand
-    Friend WithEvents OleDbInsertCommand1 As System.Data.OleDb.OleDbCommand
-    Friend WithEvents OleDbUpdateCommand1 As System.Data.OleDb.OleDbCommand
-    Friend WithEvents OleDbDeleteCommand1 As System.Data.OleDb.OleDbCommand
     Friend WithEvents dsCompany As PresentationTier.dsReinforcingAbility
     Friend WithEvents txtCompName As System.Windows.Forms.TextBox
     Friend WithEvents txtVATNo As System.Windows.Forms.TextBox
@@ -112,10 +108,6 @@ Public Class frmCompany
         Me.btnClose = New System.Windows.Forms.Button
         Me.conCompany = New System.Data.OleDb.OleDbConnection
         Me.adpCompany = New System.Data.OleDb.OleDbDataAdapter
-        Me.OleDbDeleteCommand1 = New System.Data.OleDb.OleDbCommand
-        Me.OleDbInsertCommand1 = New System.Data.OleDb.OleDbCommand
-        Me.OleDbSelectCommand1 = New System.Data.OleDb.OleDbCommand
-        Me.OleDbUpdateCommand1 = New System.Data.OleDb.OleDbCommand
         Me.cmdCountCompNo = New System.Data.OleDb.OleDbCommand
         Me.cbxCompNo = New System.Windows.Forms.ComboBox
         Me.btnEdit = New System.Windows.Forms.Button
@@ -505,7 +497,7 @@ Public Class frmCompany
 #End Region
 
     Private formState As FormStates
-    Private logic As Company
+    Private logic As New Company
     Private callingForm As Object
 
     Public Sub New(ByVal caller As Object)
@@ -530,10 +522,8 @@ Public Class frmCompany
 
     Private Sub frmCompany_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         dsCompany.Clear()
-
-        adpCompany.SelectCommand = New OleDbCommand("Select * From Company", conCompany)
-        adpCompany.Fill(dsCompany.Company)
-
+        logic.LinkAdapter(adpCompany)
+        adpCompany.Fill(dsCompany)
         DataBindTextFields()
         DisableForm()
     End Sub
@@ -591,21 +581,22 @@ Public Class frmCompany
 
     ' binds database data to text fields
     Private Sub DataBindTextFields()
-        txtCompNo.DataBindings.Add("Text", logic.DataSetCompany, "Company.CompanyNo")
-        txtCompName.DataBindings.Add("Text", logic.DataSetCompany, "Company.CompanyName")
-        txtRegNo.DataBindings.Add("Text", logic.DataSetCompany, "Company.RegNo")
-        txtVATNo.DataBindings.Add("Text", logic.DataSetCompany, "Company.VatNo")
-        txtAddress.DataBindings.Add("Text", logic.DataSetCompany, "Company.Address")
-        txtAddress2.DataBindings.Add("Text", logic.DataSetCompany, "Company.AddressLine2")
-        txtAddress3.DataBindings.Add("Text", logic.DataSetCompany, "Company.AddressLine3")
-        txtPostalCode.DataBindings.Add("Text", logic.DataSetCompany, "Company.PostalCode")
-        txtTelNo.DataBindings.Add("Text", logic.DataSetCompany, "Company.Telephone")
-        txtEmail.DataBindings.Add("Text", logic.DataSetCompany, "Company.Email")
-        txtFaxNo.DataBindings.Add("Text", logic.DataSetCompany, "Company.Fax")
-        txtWebsite.DataBindings.Add("Text", logic.DataSetCompany, "Company.Website")
-        txtMessage.DataBindings.Add("Text", logic.DataSetCompany, "Company.Message")
-        txtVAT.DataBindings.Add("Text", logic.DataSetCompany, "Company.VatPerc")
-        txtLastInvNo.DataBindings.Add("Text", logic.DataSetCompany, "Company.LastInvNum")
+        'txtCompNo.DataBindings.Add("Text", dsCompany, "Company.CompanyNo")
+        txtCompNo.DataBindings.Add("Text", logic, "CompanyNumber", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtCompName.DataBindings.Add("Text", dsCompany, "Company.CompanyName")
+        txtRegNo.DataBindings.Add("Text", dsCompany, "Company.RegNo")
+        txtVATNo.DataBindings.Add("Text", dsCompany, "Company.VatNo")
+        txtAddress.DataBindings.Add("Text", dsCompany, "Company.Address")
+        txtAddress2.DataBindings.Add("Text", dsCompany, "Company.AddressLine2")
+        txtAddress3.DataBindings.Add("Text", dsCompany, "Company.AddressLine3")
+        txtPostalCode.DataBindings.Add("Text", dsCompany, "Company.PostalCode")
+        txtTelNo.DataBindings.Add("Text", dsCompany, "Company.Telephone")
+        txtEmail.DataBindings.Add("Text", dsCompany, "Company.Email")
+        txtFaxNo.DataBindings.Add("Text", dsCompany, "Company.Fax")
+        txtWebsite.DataBindings.Add("Text", dsCompany, "Company.Website")
+        txtMessage.DataBindings.Add("Text", dsCompany, "Company.Message")
+        txtVAT.DataBindings.Add("Text", dsCompany, "Company.VatPerc")
+        txtLastInvNo.DataBindings.Add("Text", dsCompany, "Company.LastInvNum")
     End Sub
 
     Private Sub btnAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdd.Click
