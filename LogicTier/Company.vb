@@ -3,6 +3,13 @@ Imports System.Data
 Imports DataTier
 Imports System.Data.OleDb
 
+' company form states
+Public Enum FormStates
+    Empty = 0
+    Add = 2
+    Edit = 4
+End Enum
+
 Public Class Company
     ''' <summary>
     ''' Company DataSet. Used for Databindings

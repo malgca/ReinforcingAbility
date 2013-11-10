@@ -504,13 +504,6 @@ Public Class frmCompany
 
 #End Region
 
-    ' company form states
-    Private Enum FormStates
-        Empty = 0
-        Add = 2
-        Edit = 4
-    End Enum
-
     Private formState As FormStates
     Private logic As Company
     Private callingForm As Object
@@ -537,13 +530,10 @@ Public Class frmCompany
 
     Private Sub frmCompany_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         dsCompany.Clear()
+
         adpCompany.SelectCommand = New OleDbCommand("Select * From Company", conCompany)
         adpCompany.Fill(dsCompany.Company)
 
-        DataBindTextFields()
-        DisableForm()
-        'Dim comCon As New LogicTier.LogicTier.Company
-        'comCon.getCompanyDataSet(adpCompany, DataSetCompany)
         DataBindTextFields()
         DisableForm()
     End Sub
