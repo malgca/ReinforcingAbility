@@ -436,7 +436,7 @@ Public Class frmCompany
         Me.btnClose.Name = "btnClose"
         Me.btnClose.TabIndex = 6
         Me.btnClose.Text = "Close"
-
+        ' TODO: Fix this so it's uncoupled from dsCompany
         Me.cbxCompNo.DataSource = Me.dsCompany
         Me.cbxCompNo.DisplayMember = "Company.No&Name"
         Me.cbxCompNo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -521,6 +521,7 @@ Public Class frmCompany
     End Function
 
     Private Sub frmCompany_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        ' TODO: Unbind combobox from dsCompany
         dsCompany.Clear()
         logic.LinkAdapter(adpCompany)
         adpCompany.Fill(dsCompany)
@@ -621,71 +622,15 @@ Public Class frmCompany
                 MsgBox("A Company Number is required", MsgBoxStyle.Critical, "Error")
                 txtCompNo.Focus()
             Else
-                Dim DataReader As OleDbDataReader
                 Dim count As Integer
 
-                conCompany.Open()
-                cmdCountCompNo.Parameters("CompanyNo").Value = txtCompNo.Text
-                DataReader = cmdCountCompNo.ExecuteReader(CommandBehavior.CloseConnection)
-                While DataReader.Read()
-                    count += 1
-                End While
-                DataReader.Close()
-                conCompany.Close()
+                logic.GetCompanyCount(count)
 
                 If count > 0 Then
                     MsgBox("Company Number entered is already used", MsgBoxStyle.Critical, "Error")
                     txtCompNo.Focus()
                 Else
-                    Dim row As DataRow = dsCompany.Company.NewCompanyRow
-                    row("CompanyNo") = txtCompNo.Text
-
-                    If txtCompName.Text <> "" Then
-                        row("CompanyName") = txtCompName.Text
-                    End If
-                    If txtRegNo.Text <> "" Then
-                        row("RegNo") = txtRegNo.Text
-                    End If
-                    If txtVATNo.Text <> "" Then
-                        row("VatNo") = txtVATNo.Text
-                    End If
-                    If txtAddress.Text <> "" Then
-                        row("Address") = txtAddress.Text
-                    End If
-                    If txtAddress2.Text <> "" Then
-                        row("AddressLine2") = txtAddress2.Text
-                    End If
-                    If txtAddress3.Text <> "" Then
-                        row("AddressLine3") = txtAddress3.Text
-                    End If
-                    If txtPostalCode.Text <> "" Then
-                        row("PostalCode") = txtPostalCode.Text
-                    End If
-                    If txtTelNo.Text <> "" Then
-                        row("Telephone") = txtTelNo.Text
-                    End If
-                    If txtEmail.Text <> "" Then
-                        row("Email") = txtEmail.Text
-                    End If
-                    If txtFaxNo.Text <> "" Then
-                        row("Fax") = txtFaxNo.Text
-                    End If
-                    If txtWebsite.Text <> "" Then
-                        row("Website") = txtWebsite.Text
-                    End If
-                    If txtMessage.Text <> "" Then
-                        row("Message") = txtMessage.Text
-                    End If
-                    If txtVAT.Text <> "" Then
-                        row("VatPerc") = txtVAT.Text
-                    End If
-                    If txtLastInvNo.Text <> "" Then
-                        row("LastInvNum") = txtLastInvNo.Text
-                    End If
-
-                    dsCompany.Company.AddCompanyRow(row)
-
-                    adpCompany.Update(dsCompany.Company)
+                    logic.AddRowToCompanyTable()
                     MsgBox("Record was successfully saved", MsgBoxStyle.Information, "Information")
 
                     DataBindTextFields()

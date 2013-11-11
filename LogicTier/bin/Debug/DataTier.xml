@@ -6,7 +6,24 @@ DataTier
 </name>
 </assembly>
 <members>
-<member name="P:DataTier.DBOperations.GetInstance">
+<member name="M:DataTier.CompanyData.GetNumberOfCompanies(System.String@,System.Int32@)">
+	<summary>
+ Gets the number of companies currently in the company table
+ </summary>
+	<param name="CompanyNumber">ID to identify a given company</param>
+	<param name="count">Count of existing companies</param>
+</member><member name="M:DataTier.CompanyData.AddCompanyRow(System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Int32@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Double@,System.Int32@)">
+ adds a new row to the company table
+
+</member><member name="M:DataTier.CompanyData.IsNotEmpty(System.String)">
+	<summary>
+ Determines whether a parameter string is empty or not
+ </summary>
+</member><member name="T:DataTier.CompanyData">
+	<summary>
+ Company Data Operations
+ </summary>
+</member><member name="P:DataTier.DBOperations.GetInstance">
 	<summary>
  Get the running instance of the DBOperations class
  </summary>
@@ -24,10 +41,6 @@ DataTier
 	<summary>
   A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
-</member><member name="T:DataTier.CompanyData">
-	<summary>
- Company Data Operations
- </summary>
 </member>
 </members>
 </doc>

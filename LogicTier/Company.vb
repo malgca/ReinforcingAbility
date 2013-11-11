@@ -246,10 +246,9 @@ Public Class Company
 
     ' Initialize company parameters
     Private Sub InitializeCompanyProperties()
-        Dim companyData As CompanyData
-        companyData = New CompanyData()
-
+        Dim companyData As New CompanyData
         Dim companySet As New DataSet
+
         companyData.Adapter.Fill(companySet)
 
         Dim columns = companySet.Tables.Item(0).Columns
@@ -276,11 +275,28 @@ Public Class Company
         'UnitOfMeasurement = row.Item(columns.IndexOf("UnitOfMeas"))
     End Sub
 
-    ' update the company database
+    ''' <summary>
+    ''' Update the company table in the database
+    ''' </summary>
+    Public Sub GetCompanyCount(ByRef count As Integer)
+        Dim companyData As New CompanyData
+
+        ' get the number of available companies in the database
+        companyData.GetNumberOfCompanies(CompanyNumber, count)
+    End Sub
+
+    ''' <summary>
+    ''' Adds a row to the company table
+    ''' </summary>
+    Public Sub AddRowToCompanyTable()
+        Dim companyData As New CompanyData
+
+        ' update the company table with data currently in the company fields
+        companyData.AddCompanyRow(CompanyNumber, CompanyName, RegNumber, VatNumber, AddressLine1, AddressLine2, AddressLine3, PostalCode, Telephone, Email, Fax, Website, Message, VAT, LastInvoiceNumber)
+    End Sub
 
     Public Sub LinkAdapter(ByRef adapter As OleDbDataAdapter)
-        Dim companyData As CompanyData
-        companyData = New CompanyData()
+        Dim companyData As New CompanyData
         adapter = companyData.Adapter
     End Sub
 

@@ -23,6 +23,14 @@ LogicTier
 	<summary>
  Company Form States
  </summary>
+</member><member name="M:LogicTier.Company.GetCompanyCount(System.Int32@)">
+	<summary>
+ Update the company table in the database
+ </summary>
+</member><member name="M:LogicTier.Company.AddRowToCompanyTable">
+	<summary>
+ Adds a row to the company table
+ </summary>
 </member><member name="M:LogicTier.Company.NotifyPropertyChanged(System.String[])">
 	<summary>
  Notifies listener of a change in a property
