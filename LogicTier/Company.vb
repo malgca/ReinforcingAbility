@@ -37,6 +37,8 @@ Public Class Company
         _lastInvoiceNumber,
         _lastCuttingSheetNumber As Integer
 
+    Private _vat As Double
+
     Private _unitOfMeasurement As MeasurementUnit
 
     Public Property CompanyNumber As String
@@ -193,10 +195,16 @@ Public Class Company
             End If
         End Set
     End Property
-    Public ReadOnly Property VAT As Double
+    Public Property VAT As Double
         Get
-            Return 0.14
+            Return _vat
         End Get
+        Private Set(value As Double)
+            If value <> _vat Then
+                _vat = value
+                NotifyPropertyChanged("VAT")
+            End If
+        End Set
     End Property
     Public Property LastInvoiceNumber As Integer
         Get
@@ -244,13 +252,31 @@ Public Class Company
         Dim companySet As New DataSet
         companyData.Adapter.Fill(companySet)
 
-        Dim tableData = companySet.Tables.Item(0).Rows.Item(0)
+        Dim columns = companySet.Tables.Item(0).Columns
+        Dim row = companySet.Tables.Item(0).Rows.Item(0)
 
-        Console.WriteLine(companySet.Tables.Item(0).Constraints)
-        Console.WriteLine(companySet.Tables.Item(0).PrimaryKey.Length)
-        Console.WriteLine(companySet.Tables.Item(0).PrimaryKey.GetLength(0))
-        Console.WriteLine(companySet.Tables.Item(0).Columns)
+        ' map properties to database fields
+        CompanyNumber = row.Item(columns.IndexOf("CompanyNo"))
+        RegNumber = row.Item(columns.IndexOf("RegNo"))
+        VatNumber = row.Item(columns.IndexOf("VatNo"))
+        CompanyName = row.Item(columns.IndexOf("CompanyName"))
+        AddressLine1 = row.Item(columns.IndexOf("Address"))
+        AddressLine2 = row.Item(columns.IndexOf("AddressLine2"))
+        AddressLine3 = row.Item(columns.IndexOf("AddressLine3"))
+        AddressLine4 = row.Item(columns.IndexOf("AddressLine4"))
+        PostalCode = row.Item(columns.IndexOf("PostalCode"))
+        Telephone = row.Item(columns.IndexOf("Telephone"))
+        Fax = row.Item(columns.IndexOf("Fax"))
+        Message = row.Item(columns.IndexOf("Message"))
+        'Email = row.Item(columns.IndexOf("Email"))
+        'Website = row.Item(columns.IndexOf("Website"))
+        VAT = row.Item(columns.IndexOf("VatPerc"))
+        LastInvoiceNumber = row.Item(columns.IndexOf("LastInvNum"))
+        LastCuttingSheetNumber = row.Item(columns.IndexOf("LastCutNum"))
+        'UnitOfMeasurement = row.Item(columns.IndexOf("UnitOfMeas"))
     End Sub
+
+    ' update the company database
 
     Public Sub LinkAdapter(ByRef adapter As OleDbDataAdapter)
         Dim companyData As CompanyData

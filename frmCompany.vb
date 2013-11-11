@@ -583,22 +583,23 @@ Public Class frmCompany
     Private Sub DataBindTextFields()
         'txtCompNo.DataBindings.Add("Text", dsCompany, "Company.CompanyNo")
         txtCompNo.DataBindings.Add("Text", logic, "CompanyNumber", False, DataSourceUpdateMode.OnPropertyChanged)
-        txtCompName.DataBindings.Add("Text", dsCompany, "Company.CompanyName")
-        txtRegNo.DataBindings.Add("Text", dsCompany, "Company.RegNo")
-        txtVATNo.DataBindings.Add("Text", dsCompany, "Company.VatNo")
-        txtAddress.DataBindings.Add("Text", dsCompany, "Company.Address")
-        txtAddress2.DataBindings.Add("Text", dsCompany, "Company.AddressLine2")
-        txtAddress3.DataBindings.Add("Text", dsCompany, "Company.AddressLine3")
-        txtPostalCode.DataBindings.Add("Text", dsCompany, "Company.PostalCode")
-        txtTelNo.DataBindings.Add("Text", dsCompany, "Company.Telephone")
-        txtEmail.DataBindings.Add("Text", dsCompany, "Company.Email")
-        txtFaxNo.DataBindings.Add("Text", dsCompany, "Company.Fax")
-        txtWebsite.DataBindings.Add("Text", dsCompany, "Company.Website")
-        txtMessage.DataBindings.Add("Text", dsCompany, "Company.Message")
-        txtVAT.DataBindings.Add("Text", dsCompany, "Company.VatPerc")
-        txtLastInvNo.DataBindings.Add("Text", dsCompany, "Company.LastInvNum")
+        txtCompName.DataBindings.Add("Text", logic, "CompanyName", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtRegNo.DataBindings.Add("Text", logic, "RegNumber", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtVATNo.DataBindings.Add("Text", logic, "VatNumber", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtAddress.DataBindings.Add("Text", logic, "AddressLine1", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtAddress2.DataBindings.Add("Text", logic, "AddressLine2", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtAddress3.DataBindings.Add("Text", logic, "AddressLine3", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtPostalCode.DataBindings.Add("Text", logic, "PostalCode", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtTelNo.DataBindings.Add("Text", logic, "Telephone", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtEmail.DataBindings.Add("Text", logic, "Email", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtFaxNo.DataBindings.Add("Text", logic, "Fax", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtWebsite.DataBindings.Add("Text", logic, "Website", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtMessage.DataBindings.Add("Text", logic, "Message", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtVAT.DataBindings.Add("Text", logic, "VAT", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtLastInvNo.DataBindings.Add("Text", logic, "LastInvoiceNumber", False, DataSourceUpdateMode.OnPropertyChanged)
     End Sub
 
+    ' handles form add logic
     Private Sub btnAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdd.Click
         If formState = FormStates.Empty Then
             cbxCompNo.SendToBack()
@@ -613,7 +614,7 @@ Public Class frmCompany
             formState = FormStates.Add
         End If
     End Sub
-
+    ' handles form save logic
     Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
         If formState = FormStates.Add Then
             If txtCompNo.Text = "" Then
