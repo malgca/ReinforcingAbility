@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompanyData.vb" />
+    <Compile Include="ContractorData.vb" />
     <Compile Include="DBOperations.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

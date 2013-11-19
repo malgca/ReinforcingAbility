@@ -5,15 +5,6 @@ Imports System.Data.OleDb
 Imports System.ComponentModel
 
 ''' <summary>
-''' Company Form States
-''' </summary>
-Public Enum FormStates
-    Empty = 0
-    Add = 2
-    Edit = 4
-End Enum
-
-''' <summary>
 ''' Handles logical operations related to the company
 ''' </summary>
 Public Class Company

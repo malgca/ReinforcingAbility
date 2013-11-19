@@ -60,6 +60,7 @@
     <Import Include="System.Diagnostics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormStates.vb" />
     <Compile Include="Company.vb" />
     <Compile Include="Contractor.vb" />
     <Compile Include="CuttingSheet.vb" />

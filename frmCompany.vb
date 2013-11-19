@@ -8,9 +8,9 @@ Imports LogicTier
 Public Class frmCompany
     Inherits Form
 
-    Private formState As FormStates
-    Private logic As New Company
-    Private callingForm As Object
+    Private Property FormState As FormStates
+    Private Property Logic As New Company
+    Private Property CallingForm As Object
 
 #Region " Windows Form Designer generated code "
 
@@ -434,7 +434,7 @@ Public Class frmCompany
         '
         'cbxCompNo
         '
-        Me.cbxCompNo.DataSource = logic.CompanyNameList
+        Me.cbxCompNo.DataSource = Logic.CompanyNameList
         Me.cbxCompNo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbxCompNo.Location = New System.Drawing.Point(120, 48)
         Me.cbxCompNo.Name = "cbxCompNo"
@@ -482,7 +482,7 @@ Public Class frmCompany
         InitializeComponent()
 
         ' save the calling form
-        callingForm = caller
+        CallingForm = caller
     End Sub
 
     ''' <summary>
@@ -555,26 +555,26 @@ Public Class frmCompany
 
     ' binds database data to text fields
     Private Sub DataBindTextFields()
-        txtCompNo.DataBindings.Add("Text", logic, "CompanyNumber", False, DataSourceUpdateMode.OnPropertyChanged)
-        txtCompName.DataBindings.Add("Text", logic, "CompanyName", False, DataSourceUpdateMode.OnPropertyChanged)
-        txtRegNo.DataBindings.Add("Text", logic, "RegNumber", False, DataSourceUpdateMode.OnPropertyChanged)
-        txtVATNo.DataBindings.Add("Text", logic, "VatNumber", False, DataSourceUpdateMode.OnPropertyChanged)
-        txtAddress.DataBindings.Add("Text", logic, "AddressLine1", False, DataSourceUpdateMode.OnPropertyChanged)
-        txtAddress2.DataBindings.Add("Text", logic, "AddressLine2", False, DataSourceUpdateMode.OnPropertyChanged)
-        txtAddress3.DataBindings.Add("Text", logic, "AddressLine3", False, DataSourceUpdateMode.OnPropertyChanged)
-        txtPostalCode.DataBindings.Add("Text", logic, "PostalCode", False, DataSourceUpdateMode.OnPropertyChanged)
-        txtTelNo.DataBindings.Add("Text", logic, "Telephone", False, DataSourceUpdateMode.OnPropertyChanged)
-        txtEmail.DataBindings.Add("Text", logic, "Email", False, DataSourceUpdateMode.OnPropertyChanged)
-        txtFaxNo.DataBindings.Add("Text", logic, "Fax", False, DataSourceUpdateMode.OnPropertyChanged)
-        txtWebsite.DataBindings.Add("Text", logic, "Website", False, DataSourceUpdateMode.OnPropertyChanged)
-        txtMessage.DataBindings.Add("Text", logic, "Message", False, DataSourceUpdateMode.OnPropertyChanged)
-        txtVAT.DataBindings.Add("Text", logic, "VAT", False, DataSourceUpdateMode.OnPropertyChanged)
-        txtLastInvNo.DataBindings.Add("Text", logic, "LastInvoiceNumber", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtCompNo.DataBindings.Add("Text", Logic, "CompanyNumber", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtCompName.DataBindings.Add("Text", Logic, "CompanyName", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtRegNo.DataBindings.Add("Text", Logic, "RegNumber", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtVATNo.DataBindings.Add("Text", Logic, "VatNumber", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtAddress.DataBindings.Add("Text", Logic, "AddressLine1", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtAddress2.DataBindings.Add("Text", Logic, "AddressLine2", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtAddress3.DataBindings.Add("Text", Logic, "AddressLine3", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtPostalCode.DataBindings.Add("Text", Logic, "PostalCode", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtTelNo.DataBindings.Add("Text", Logic, "Telephone", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtEmail.DataBindings.Add("Text", Logic, "Email", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtFaxNo.DataBindings.Add("Text", Logic, "Fax", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtWebsite.DataBindings.Add("Text", Logic, "Website", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtMessage.DataBindings.Add("Text", Logic, "Message", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtVAT.DataBindings.Add("Text", Logic, "VAT", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtLastInvNo.DataBindings.Add("Text", Logic, "LastInvoiceNumber", False, DataSourceUpdateMode.OnPropertyChanged)
     End Sub
 
     ' handles form add logic
     Private Sub btnAdd_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnAdd.Click
-        If formState = FormStates.Empty Then
+        If FormState = FormStates.Empty Then
             cbxCompNo.SendToBack()
             cbxCompNo.Enabled = False
 
@@ -582,39 +582,39 @@ Public Class frmCompany
             'ClearDataBindings()
             'ClearTextFields()
 
-            txtVAT.Text = logic.VAT
+            txtVAT.Text = Logic.VAT
             txtCompNo.Focus()
-            formState = FormStates.Add
+            FormState = FormStates.Add
         End If
     End Sub
     ' handles form save logic
     Private Sub btnSave_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSave.Click
-        If formState = FormStates.Add Then
+        If FormState = FormStates.Add Then
             If txtCompNo.Text = "" Then
                 MsgBox("A Company Number is required", MsgBoxStyle.Critical, "Error")
                 txtCompNo.Focus()
             Else
                 Dim count As New Integer
 
-                logic.GetCompanyCount(count)
+                Logic.GetCompanyCount(count)
 
                 If count > 1 Then
                     MsgBox("Company Number entered is already used", MsgBoxStyle.Critical, "Error")
                     txtCompNo.Focus()
                 Else
-                    logic.AddRowToCompanyTable()
+                    Logic.AddRowToCompanyTable()
                     MsgBox("Record was successfully saved", MsgBoxStyle.Information, "Information")
 
                     'DataBindTextFields()
                     cbxCompNo.BringToFront()
                     DisableForm()
-                    formState = FormStates.Empty
+                    FormState = FormStates.Empty
                 End If
             End If
         End If
 
-        If formState = FormStates.Edit Then
-            logic.SaveEditToCompanyTable()
+        If FormState = FormStates.Edit Then
+            Logic.SaveEditToCompanyTable()
             MsgBox("Record was successfully saved", MsgBoxStyle.Information, "Information")
 
             DisableForm()
@@ -623,19 +623,19 @@ Public Class frmCompany
             cbxCompNo.Enabled = True
             txtCompNo.Enabled = True
 
-            formState = FormStates.Empty
+            FormState = FormStates.Empty
         End If
     End Sub
 
     Private Sub btnEdit_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnEdit.Click
-        If formState = FormStates.Empty Then
+        If FormState = FormStates.Empty Then
             cbxCompNo.SendToBack()
             txtCompNo.Enabled = False
 
             EnableForm()
 
             txtCompName.Focus()
-            formState = FormStates.Edit
+            FormState = FormStates.Edit
         End If
     End Sub
 
@@ -644,14 +644,14 @@ Public Class frmCompany
     End Sub
 
     Private Sub frmCompany_Closing(ByVal sender As Object, ByVal e As CancelEventArgs) Handles MyBase.Closing
-        If Not IsNothing(callingForm) Then
-            callingForm.Show()
+        If Not IsNothing(CallingForm) Then
+            CallingForm.Show()
         End If
 
-        callingForm = Nothing
+        CallingForm = Nothing
     End Sub
 
     Private Sub cbxCompNo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxCompNo.SelectedIndexChanged
-        logic.InitializeCompanyProperties(cbxCompNo.SelectedIndex)
+        Logic.InitializeCompanyProperties(cbxCompNo.SelectedIndex)
     End Sub
 End Class
