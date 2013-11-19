@@ -12,12 +12,13 @@ DataTier
  </summary>
 	<param name="CompanyNumber">ID to identify a given company</param>
 	<param name="count">Count of existing companies</param>
-</member><member name="M:DataTier.CompanyData.AddCompanyRow(System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Int32@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Double@,System.Int32@)">
- adds a new row to the company table
-
-</member><member name="M:DataTier.CompanyData.IsNotEmpty(System.String)">
+</member><member name="M:DataTier.CompanyData.AddCompanyRow(System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Int32@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Double@,System.Int32@,System.Int32@)">
 	<summary>
- Determines whether a parameter string is empty or not
+ adds a new row to the company table
+ </summary>
+</member><member name="M:DataTier.CompanyData.SaveCompanyRowEdit(System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Int32@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Double@,System.Int32@,System.Int32@)">
+	<summary>
+ Saves an edit to a row in the company table
  </summary>
 </member><member name="T:DataTier.CompanyData">
 	<summary>

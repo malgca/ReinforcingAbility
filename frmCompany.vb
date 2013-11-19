@@ -1,8 +1,16 @@
+Imports System
+Imports System.ComponentModel
+Imports System.Drawing
+Imports System.Windows.Forms
 Imports System.Data.OleDb
 Imports LogicTier
 
 Public Class frmCompany
-    Inherits System.Windows.Forms.Form
+    Inherits Form
+
+    Private formState As FormStates
+    Private logic As New Company
+    Private callingForm As Object
 
 #Region " Windows Form Designer generated code "
 
@@ -11,9 +19,6 @@ Public Class frmCompany
 
         'This call is required by the Windows Form Designer.
         InitializeComponent()
-
-        'Add any initialization after the InitializeComponent() call
-
     End Sub
 
     'Form overrides dispose to clean up the component list.
@@ -27,94 +32,85 @@ Public Class frmCompany
     End Sub
 
     'Required by the Windows Form Designer
-    Private components As System.ComponentModel.IContainer
+    Private components As IContainer
 
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    Friend WithEvents lblCompNo As System.Windows.Forms.Label
-    Friend WithEvents grpCompDetails As System.Windows.Forms.GroupBox
-    Friend WithEvents txtCompNo As System.Windows.Forms.TextBox
-    Friend WithEvents lblRegNo As System.Windows.Forms.Label
-    Friend WithEvents lblAddress As System.Windows.Forms.Label
-    Friend WithEvents txtAddress As System.Windows.Forms.TextBox
-    Friend WithEvents lblPostalCode As System.Windows.Forms.Label
-    Friend WithEvents lblCompName As System.Windows.Forms.Label
-    Friend WithEvents lblVATNo As System.Windows.Forms.Label
-    Friend WithEvents grpContactDetails As System.Windows.Forms.GroupBox
-    Friend WithEvents lblTelNo As System.Windows.Forms.Label
-    Friend WithEvents lblFaxNo As System.Windows.Forms.Label
-    Friend WithEvents lblEmail As System.Windows.Forms.Label
-    Friend WithEvents lblWebsite As System.Windows.Forms.Label
-    Friend WithEvents grpMiscDetails As System.Windows.Forms.GroupBox
-    Friend WithEvents lblMessage As System.Windows.Forms.Label
-    Friend WithEvents lblLastInvNo As System.Windows.Forms.Label
-    Friend WithEvents lblVAT As System.Windows.Forms.Label
-    Friend WithEvents btnAdd As System.Windows.Forms.Button
-    Friend WithEvents btnSave As System.Windows.Forms.Button
-    Friend WithEvents btnClose As System.Windows.Forms.Button
-    Friend WithEvents conCompany As System.Data.OleDb.OleDbConnection
-    Friend WithEvents adpCompany As System.Data.OleDb.OleDbDataAdapter
-    Friend WithEvents dsCompany As PresentationTier.dsReinforcingAbility
-    Friend WithEvents txtCompName As System.Windows.Forms.TextBox
-    Friend WithEvents txtVATNo As System.Windows.Forms.TextBox
-    Friend WithEvents txtPostalCode As System.Windows.Forms.TextBox
-    Friend WithEvents txtWebsite As System.Windows.Forms.TextBox
-    Friend WithEvents txtEmail As System.Windows.Forms.TextBox
-    Friend WithEvents txtFaxNo As System.Windows.Forms.TextBox
-    Friend WithEvents txtTelNo As System.Windows.Forms.TextBox
-    Friend WithEvents txtMessage As System.Windows.Forms.TextBox
-    Friend WithEvents txtVAT As System.Windows.Forms.TextBox
-    Friend WithEvents txtLastInvNo As System.Windows.Forms.TextBox
-    Friend WithEvents txtRegNo As System.Windows.Forms.TextBox
-    Friend WithEvents cmdCountCompNo As System.Data.OleDb.OleDbCommand
-    Friend WithEvents cbxCompNo As System.Windows.Forms.ComboBox
-    Friend WithEvents btnEdit As System.Windows.Forms.Button
-    Friend WithEvents txtAddress2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtAddress3 As System.Windows.Forms.TextBox
-    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.grpCompDetails = New System.Windows.Forms.GroupBox
-        Me.txtVATNo = New System.Windows.Forms.TextBox
-        Me.lblVATNo = New System.Windows.Forms.Label
-        Me.txtCompName = New System.Windows.Forms.TextBox
-        Me.lblCompName = New System.Windows.Forms.Label
-        Me.txtPostalCode = New System.Windows.Forms.TextBox
-        Me.lblPostalCode = New System.Windows.Forms.Label
-        Me.txtAddress = New System.Windows.Forms.TextBox
-        Me.lblAddress = New System.Windows.Forms.Label
-        Me.txtRegNo = New System.Windows.Forms.TextBox
-        Me.lblRegNo = New System.Windows.Forms.Label
-        Me.txtCompNo = New System.Windows.Forms.TextBox
-        Me.lblCompNo = New System.Windows.Forms.Label
-        Me.dsCompany = New PresentationTier.dsReinforcingAbility
-        Me.grpContactDetails = New System.Windows.Forms.GroupBox
-        Me.txtWebsite = New System.Windows.Forms.TextBox
-        Me.lblWebsite = New System.Windows.Forms.Label
-        Me.txtEmail = New System.Windows.Forms.TextBox
-        Me.lblEmail = New System.Windows.Forms.Label
-        Me.txtFaxNo = New System.Windows.Forms.TextBox
-        Me.lblFaxNo = New System.Windows.Forms.Label
-        Me.txtTelNo = New System.Windows.Forms.TextBox
-        Me.lblTelNo = New System.Windows.Forms.Label
-        Me.grpMiscDetails = New System.Windows.Forms.GroupBox
-        Me.txtVAT = New System.Windows.Forms.TextBox
-        Me.lblVAT = New System.Windows.Forms.Label
-        Me.txtLastInvNo = New System.Windows.Forms.TextBox
-        Me.lblLastInvNo = New System.Windows.Forms.Label
-        Me.txtMessage = New System.Windows.Forms.TextBox
-        Me.lblMessage = New System.Windows.Forms.Label
-        Me.btnAdd = New System.Windows.Forms.Button
-        Me.btnSave = New System.Windows.Forms.Button
-        Me.btnClose = New System.Windows.Forms.Button
-        Me.conCompany = New System.Data.OleDb.OleDbConnection
-        Me.adpCompany = New System.Data.OleDb.OleDbDataAdapter
-        Me.cmdCountCompNo = New System.Data.OleDb.OleDbCommand
-        Me.cbxCompNo = New System.Windows.Forms.ComboBox
-        Me.btnEdit = New System.Windows.Forms.Button
-        Me.txtAddress2 = New System.Windows.Forms.TextBox
-        Me.txtAddress3 = New System.Windows.Forms.TextBox
+    Friend WithEvents lblCompNo As Label
+    Friend WithEvents grpCompDetails As GroupBox
+    Friend WithEvents txtCompNo As TextBox
+    Friend WithEvents lblRegNo As Label
+    Friend WithEvents lblAddress As Label
+    Friend WithEvents txtAddress As TextBox
+    Friend WithEvents lblPostalCode As Label
+    Friend WithEvents lblCompName As Label
+    Friend WithEvents lblVATNo As Label
+    Friend WithEvents grpContactDetails As GroupBox
+    Friend WithEvents lblTelNo As Label
+    Friend WithEvents lblFaxNo As Label
+    Friend WithEvents lblEmail As Label
+    Friend WithEvents lblWebsite As Label
+    Friend WithEvents grpMiscDetails As GroupBox
+    Friend WithEvents lblMessage As Label
+    Friend WithEvents lblLastInvNo As Label
+    Friend WithEvents lblVAT As Label
+    Friend WithEvents btnAdd As Button
+    Friend WithEvents btnSave As Button
+    Friend WithEvents btnClose As Button
+    Friend WithEvents txtCompName As TextBox
+    Friend WithEvents txtVATNo As TextBox
+    Friend WithEvents txtPostalCode As TextBox
+    Friend WithEvents txtWebsite As TextBox
+    Friend WithEvents txtEmail As TextBox
+    Friend WithEvents txtFaxNo As TextBox
+    Friend WithEvents txtTelNo As TextBox
+    Friend WithEvents txtMessage As TextBox
+    Friend WithEvents txtVAT As TextBox
+    Friend WithEvents txtLastInvNo As TextBox
+    Friend WithEvents txtRegNo As TextBox
+    Friend WithEvents cbxCompNo As ComboBox
+    Friend WithEvents btnEdit As Button
+    Friend WithEvents txtAddress2 As TextBox
+    Friend WithEvents txtAddress3 As TextBox
+    <Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+        Me.grpCompDetails = New System.Windows.Forms.GroupBox()
+        Me.txtAddress3 = New System.Windows.Forms.TextBox()
+        Me.txtAddress2 = New System.Windows.Forms.TextBox()
+        Me.txtVATNo = New System.Windows.Forms.TextBox()
+        Me.lblVATNo = New System.Windows.Forms.Label()
+        Me.txtCompName = New System.Windows.Forms.TextBox()
+        Me.lblCompName = New System.Windows.Forms.Label()
+        Me.txtPostalCode = New System.Windows.Forms.TextBox()
+        Me.lblPostalCode = New System.Windows.Forms.Label()
+        Me.txtAddress = New System.Windows.Forms.TextBox()
+        Me.lblAddress = New System.Windows.Forms.Label()
+        Me.txtRegNo = New System.Windows.Forms.TextBox()
+        Me.lblRegNo = New System.Windows.Forms.Label()
+        Me.txtCompNo = New System.Windows.Forms.TextBox()
+        Me.lblCompNo = New System.Windows.Forms.Label()
+        Me.grpContactDetails = New System.Windows.Forms.GroupBox()
+        Me.txtWebsite = New System.Windows.Forms.TextBox()
+        Me.lblWebsite = New System.Windows.Forms.Label()
+        Me.txtEmail = New System.Windows.Forms.TextBox()
+        Me.lblEmail = New System.Windows.Forms.Label()
+        Me.txtFaxNo = New System.Windows.Forms.TextBox()
+        Me.lblFaxNo = New System.Windows.Forms.Label()
+        Me.txtTelNo = New System.Windows.Forms.TextBox()
+        Me.lblTelNo = New System.Windows.Forms.Label()
+        Me.grpMiscDetails = New System.Windows.Forms.GroupBox()
+        Me.txtVAT = New System.Windows.Forms.TextBox()
+        Me.lblVAT = New System.Windows.Forms.Label()
+        Me.txtLastInvNo = New System.Windows.Forms.TextBox()
+        Me.lblLastInvNo = New System.Windows.Forms.Label()
+        Me.txtMessage = New System.Windows.Forms.TextBox()
+        Me.lblMessage = New System.Windows.Forms.Label()
+        Me.btnAdd = New System.Windows.Forms.Button()
+        Me.btnSave = New System.Windows.Forms.Button()
+        Me.btnClose = New System.Windows.Forms.Button()
+        Me.cbxCompNo = New System.Windows.Forms.ComboBox()
+        Me.btnEdit = New System.Windows.Forms.Button()
         Me.grpCompDetails.SuspendLayout()
-        CType(Me.dsCompany, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpContactDetails.SuspendLayout()
         Me.grpMiscDetails.SuspendLayout()
         Me.SuspendLayout()
@@ -143,6 +139,20 @@ Public Class frmCompany
         Me.grpCompDetails.TabStop = False
         Me.grpCompDetails.Text = "Company Details"
         '
+        'txtAddress3
+        '
+        Me.txtAddress3.Location = New System.Drawing.Point(104, 160)
+        Me.txtAddress3.Name = "txtAddress3"
+        Me.txtAddress3.Size = New System.Drawing.Size(184, 20)
+        Me.txtAddress3.TabIndex = 13
+        '
+        'txtAddress2
+        '
+        Me.txtAddress2.Location = New System.Drawing.Point(104, 128)
+        Me.txtAddress2.Name = "txtAddress2"
+        Me.txtAddress2.Size = New System.Drawing.Size(184, 20)
+        Me.txtAddress2.TabIndex = 12
+        '
         'txtVATNo
         '
         Me.txtVATNo.Location = New System.Drawing.Point(352, 64)
@@ -150,7 +160,6 @@ Public Class frmCompany
         Me.txtVATNo.Name = "txtVATNo"
         Me.txtVATNo.Size = New System.Drawing.Size(136, 20)
         Me.txtVATNo.TabIndex = 7
-        Me.txtVATNo.Text = ""
         '
         'lblVATNo
         '
@@ -168,7 +177,6 @@ Public Class frmCompany
         Me.txtCompName.Name = "txtCompName"
         Me.txtCompName.Size = New System.Drawing.Size(256, 20)
         Me.txtCompName.TabIndex = 3
-        Me.txtCompName.Text = ""
         '
         'lblCompName
         '
@@ -186,7 +194,6 @@ Public Class frmCompany
         Me.txtPostalCode.Name = "txtPostalCode"
         Me.txtPostalCode.Size = New System.Drawing.Size(80, 20)
         Me.txtPostalCode.TabIndex = 11
-        Me.txtPostalCode.Text = ""
         '
         'lblPostalCode
         '
@@ -205,7 +212,6 @@ Public Class frmCompany
         Me.txtAddress.Name = "txtAddress"
         Me.txtAddress.Size = New System.Drawing.Size(184, 24)
         Me.txtAddress.TabIndex = 9
-        Me.txtAddress.Text = ""
         '
         'lblAddress
         '
@@ -223,7 +229,6 @@ Public Class frmCompany
         Me.txtRegNo.Name = "txtRegNo"
         Me.txtRegNo.Size = New System.Drawing.Size(128, 20)
         Me.txtRegNo.TabIndex = 5
-        Me.txtRegNo.Text = ""
         '
         'lblRegNo
         '
@@ -241,7 +246,6 @@ Public Class frmCompany
         Me.txtCompNo.Name = "txtCompNo"
         Me.txtCompNo.Size = New System.Drawing.Size(80, 20)
         Me.txtCompNo.TabIndex = 1
-        Me.txtCompNo.Text = ""
         '
         'lblCompNo
         '
@@ -251,11 +255,6 @@ Public Class frmCompany
         Me.lblCompNo.TabIndex = 0
         Me.lblCompNo.Text = "Company No."
         Me.lblCompNo.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'dsCompany
-        '
-        Me.dsCompany.DataSetName = "dsReinforcingAbility"
-        Me.dsCompany.Locale = New System.Globalization.CultureInfo("en-ZA")
         '
         'grpContactDetails
         '
@@ -281,7 +280,6 @@ Public Class frmCompany
         Me.txtWebsite.Name = "txtWebsite"
         Me.txtWebsite.Size = New System.Drawing.Size(256, 20)
         Me.txtWebsite.TabIndex = 7
-        Me.txtWebsite.Text = ""
         '
         'lblWebsite
         '
@@ -299,7 +297,6 @@ Public Class frmCompany
         Me.txtEmail.Name = "txtEmail"
         Me.txtEmail.Size = New System.Drawing.Size(256, 20)
         Me.txtEmail.TabIndex = 3
-        Me.txtEmail.Text = ""
         '
         'lblEmail
         '
@@ -317,7 +314,6 @@ Public Class frmCompany
         Me.txtFaxNo.Name = "txtFaxNo"
         Me.txtFaxNo.Size = New System.Drawing.Size(160, 20)
         Me.txtFaxNo.TabIndex = 5
-        Me.txtFaxNo.Text = ""
         '
         'lblFaxNo
         '
@@ -335,7 +331,6 @@ Public Class frmCompany
         Me.txtTelNo.Name = "txtTelNo"
         Me.txtTelNo.Size = New System.Drawing.Size(160, 20)
         Me.txtTelNo.TabIndex = 1
-        Me.txtTelNo.Text = ""
         '
         'lblTelNo
         '
@@ -368,7 +363,6 @@ Public Class frmCompany
         Me.txtVAT.Name = "txtVAT"
         Me.txtVAT.Size = New System.Drawing.Size(64, 20)
         Me.txtVAT.TabIndex = 3
-        Me.txtVAT.Text = ""
         '
         'lblVAT
         '
@@ -386,7 +380,6 @@ Public Class frmCompany
         Me.txtLastInvNo.Name = "txtLastInvNo"
         Me.txtLastInvNo.Size = New System.Drawing.Size(120, 20)
         Me.txtLastInvNo.TabIndex = 5
-        Me.txtLastInvNo.Text = ""
         '
         'lblLastInvNo
         '
@@ -405,7 +398,6 @@ Public Class frmCompany
         Me.txtMessage.Name = "txtMessage"
         Me.txtMessage.Size = New System.Drawing.Size(232, 64)
         Me.txtMessage.TabIndex = 1
-        Me.txtMessage.Text = ""
         '
         'lblMessage
         '
@@ -420,6 +412,7 @@ Public Class frmCompany
         '
         Me.btnAdd.Location = New System.Drawing.Point(16, 480)
         Me.btnAdd.Name = "btnAdd"
+        Me.btnAdd.Size = New System.Drawing.Size(75, 23)
         Me.btnAdd.TabIndex = 3
         Me.btnAdd.Text = "Add"
         '
@@ -427,6 +420,7 @@ Public Class frmCompany
         '
         Me.btnSave.Location = New System.Drawing.Point(488, 480)
         Me.btnSave.Name = "btnSave"
+        Me.btnSave.Size = New System.Drawing.Size(75, 23)
         Me.btnSave.TabIndex = 5
         Me.btnSave.Text = "Save"
         '
@@ -434,40 +428,26 @@ Public Class frmCompany
         '
         Me.btnClose.Location = New System.Drawing.Point(576, 480)
         Me.btnClose.Name = "btnClose"
+        Me.btnClose.Size = New System.Drawing.Size(75, 23)
         Me.btnClose.TabIndex = 6
         Me.btnClose.Text = "Close"
-        ' TODO: Fix this so it's uncoupled from dsCompany
-        Me.cbxCompNo.DataSource = Me.dsCompany
-        Me.cbxCompNo.DisplayMember = "Company.No&Name"
+        '
+        'cbxCompNo
+        '
+        Me.cbxCompNo.DataSource = logic.CompanyNameList
         Me.cbxCompNo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbxCompNo.Location = New System.Drawing.Point(120, 48)
         Me.cbxCompNo.Name = "cbxCompNo"
         Me.cbxCompNo.Size = New System.Drawing.Size(504, 21)
         Me.cbxCompNo.TabIndex = 7
-        Me.cbxCompNo.ValueMember = "Company.CompanyNo"
         '
         'btnEdit
         '
         Me.btnEdit.Location = New System.Drawing.Point(104, 480)
         Me.btnEdit.Name = "btnEdit"
+        Me.btnEdit.Size = New System.Drawing.Size(75, 23)
         Me.btnEdit.TabIndex = 4
         Me.btnEdit.Text = "Edit"
-        '
-        'txtAddress2
-        '
-        Me.txtAddress2.Location = New System.Drawing.Point(104, 128)
-        Me.txtAddress2.Name = "txtAddress2"
-        Me.txtAddress2.Size = New System.Drawing.Size(184, 20)
-        Me.txtAddress2.TabIndex = 12
-        Me.txtAddress2.Text = ""
-        '
-        'txtAddress3
-        '
-        Me.txtAddress3.Location = New System.Drawing.Point(104, 160)
-        Me.txtAddress3.Name = "txtAddress3"
-        Me.txtAddress3.Size = New System.Drawing.Size(184, 20)
-        Me.txtAddress3.TabIndex = 13
-        Me.txtAddress3.Text = ""
         '
         'frmCompany
         '
@@ -481,24 +461,21 @@ Public Class frmCompany
         Me.Controls.Add(Me.grpMiscDetails)
         Me.Controls.Add(Me.grpContactDetails)
         Me.Controls.Add(Me.grpCompDetails)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.Name = "frmCompany"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Company Maintenance"
         Me.grpCompDetails.ResumeLayout(False)
-        CType(Me.dsCompany, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.grpCompDetails.PerformLayout()
         Me.grpContactDetails.ResumeLayout(False)
+        Me.grpContactDetails.PerformLayout()
         Me.grpMiscDetails.ResumeLayout(False)
+        Me.grpMiscDetails.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
 
 #End Region
-
-    Private formState As FormStates
-    Private logic As New Company
-    Private callingForm As Object
 
     Public Sub New(ByVal caller As Object)
         MyBase.New()
@@ -520,11 +497,7 @@ Public Class frmCompany
         Return MyBase.ProcessCmdKey(msg, key)
     End Function
 
-    Private Sub frmCompany_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        ' TODO: Unbind combobox from dsCompany
-        dsCompany.Clear()
-        logic.LinkAdapter(adpCompany)
-        adpCompany.Fill(dsCompany)
+    Private Sub frmCompany_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
         DataBindTextFields()
         DisableForm()
     End Sub
@@ -582,7 +555,6 @@ Public Class frmCompany
 
     ' binds database data to text fields
     Private Sub DataBindTextFields()
-        'txtCompNo.DataBindings.Add("Text", dsCompany, "Company.CompanyNo")
         txtCompNo.DataBindings.Add("Text", logic, "CompanyNumber", False, DataSourceUpdateMode.OnPropertyChanged)
         txtCompName.DataBindings.Add("Text", logic, "CompanyName", False, DataSourceUpdateMode.OnPropertyChanged)
         txtRegNo.DataBindings.Add("Text", logic, "RegNumber", False, DataSourceUpdateMode.OnPropertyChanged)
@@ -601,14 +573,14 @@ Public Class frmCompany
     End Sub
 
     ' handles form add logic
-    Private Sub btnAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdd.Click
+    Private Sub btnAdd_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnAdd.Click
         If formState = FormStates.Empty Then
             cbxCompNo.SendToBack()
             cbxCompNo.Enabled = False
 
             EnableForm()
-            ClearDataBindings()
-            ClearTextFields()
+            'ClearDataBindings()
+            'ClearTextFields()
 
             txtVAT.Text = logic.VAT
             txtCompNo.Focus()
@@ -616,24 +588,24 @@ Public Class frmCompany
         End If
     End Sub
     ' handles form save logic
-    Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
+    Private Sub btnSave_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSave.Click
         If formState = FormStates.Add Then
             If txtCompNo.Text = "" Then
                 MsgBox("A Company Number is required", MsgBoxStyle.Critical, "Error")
                 txtCompNo.Focus()
             Else
-                Dim count As Integer
+                Dim count As New Integer
 
                 logic.GetCompanyCount(count)
 
-                If count > 0 Then
+                If count > 1 Then
                     MsgBox("Company Number entered is already used", MsgBoxStyle.Critical, "Error")
                     txtCompNo.Focus()
                 Else
                     logic.AddRowToCompanyTable()
                     MsgBox("Record was successfully saved", MsgBoxStyle.Information, "Information")
 
-                    DataBindTextFields()
+                    'DataBindTextFields()
                     cbxCompNo.BringToFront()
                     DisableForm()
                     formState = FormStates.Empty
@@ -642,13 +614,10 @@ Public Class frmCompany
         End If
 
         If formState = FormStates.Edit Then
-            dsCompany.Company.FindByCompanyNo(txtCompNo.Text).EndEdit()
-
-            adpCompany.Update(dsCompany.Company)
+            logic.SaveEditToCompanyTable()
             MsgBox("Record was successfully saved", MsgBoxStyle.Information, "Information")
 
             DisableForm()
-
             ' enable required fields
             cbxCompNo.BringToFront()
             cbxCompNo.Enabled = True
@@ -658,7 +627,7 @@ Public Class frmCompany
         End If
     End Sub
 
-    Private Sub btnEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEdit.Click
+    Private Sub btnEdit_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnEdit.Click
         If formState = FormStates.Empty Then
             cbxCompNo.SendToBack()
             txtCompNo.Enabled = False
@@ -666,15 +635,23 @@ Public Class frmCompany
             EnableForm()
 
             txtCompName.Focus()
-            formState = FormStates.Empty
+            formState = FormStates.Edit
         End If
     End Sub
 
-    Private Sub frmCompany_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Sub btnClose_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnClose.Click
+        Me.Close()
+    End Sub
+
+    Private Sub frmCompany_Closing(ByVal sender As Object, ByVal e As CancelEventArgs) Handles MyBase.Closing
         If Not IsNothing(callingForm) Then
             callingForm.Show()
         End If
 
         callingForm = Nothing
+    End Sub
+
+    Private Sub cbxCompNo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxCompNo.SelectedIndexChanged
+        logic.InitializeCompanyProperties(cbxCompNo.SelectedIndex)
     End Sub
 End Class

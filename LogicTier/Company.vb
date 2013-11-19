@@ -239,65 +239,127 @@ Public Class Company
             End If
         End Set
     End Property
+    Public Property CompanyNameList As New List(Of String)
+
+    Private Property CompanyData As CompanyData
+    Private Property CompanySet As New DataSet
 
     Public Sub New()
-        InitializeCompanyProperties()
-    End Sub
+        CompanyData = New CompanyData(CompanyNumber, CompanyName, RegNumber, VatNumber, AddressLine1, AddressLine2, AddressLine3, AddressLine4, PostalCode, Telephone, Email, Fax, Website, Message, VAT, LastInvoiceNumber, LastCuttingSheetNumber)
 
-    ' Initialize company parameters
-    Private Sub InitializeCompanyProperties()
-        Dim companyData As New CompanyData
-        Dim companySet As New DataSet
-
-        companyData.Adapter.Fill(companySet)
-
-        Dim columns = companySet.Tables.Item(0).Columns
-        Dim row = companySet.Tables.Item(0).Rows.Item(0)
-
-        ' map properties to database fields
-        CompanyNumber = row.Item(columns.IndexOf("CompanyNo"))
-        RegNumber = row.Item(columns.IndexOf("RegNo"))
-        VatNumber = row.Item(columns.IndexOf("VatNo"))
-        CompanyName = row.Item(columns.IndexOf("CompanyName"))
-        AddressLine1 = row.Item(columns.IndexOf("Address"))
-        AddressLine2 = row.Item(columns.IndexOf("AddressLine2"))
-        AddressLine3 = row.Item(columns.IndexOf("AddressLine3"))
-        AddressLine4 = row.Item(columns.IndexOf("AddressLine4"))
-        PostalCode = row.Item(columns.IndexOf("PostalCode"))
-        Telephone = row.Item(columns.IndexOf("Telephone"))
-        Fax = row.Item(columns.IndexOf("Fax"))
-        Message = row.Item(columns.IndexOf("Message"))
-        'Email = row.Item(columns.IndexOf("Email"))
-        'Website = row.Item(columns.IndexOf("Website"))
-        VAT = row.Item(columns.IndexOf("VatPerc"))
-        LastInvoiceNumber = row.Item(columns.IndexOf("LastInvNum"))
-        LastCuttingSheetNumber = row.Item(columns.IndexOf("LastCutNum"))
-        'UnitOfMeasurement = row.Item(columns.IndexOf("UnitOfMeas"))
+        InitializeCompanyProperties(0)
     End Sub
 
     ''' <summary>
-    ''' Update the company table in the database
+    ''' Update company property parameters
+    ''' </summary>
+    Public Sub InitializeCompanyProperties(ByRef index As Integer)
+        CompanyData.Adapter.Fill(CompanySet)
+
+        Dim row = CompanySet.Tables.Item(0).Rows.Item(index)
+
+        ' map properties to database fields
+        If IsNotNull(row("CompanyNo")) Then
+            CompanyNumber = row("CompanyNo")
+        End If
+
+        If IsNotNull(row("RegNo")) Then
+            RegNumber = row("RegNo")
+        End If
+
+        If IsNotNull(row("VatNo")) Then
+            VatNumber = row("VatNo")
+        End If
+
+        If IsNotNull(row("CompanyName")) Then
+            CompanyName = row("CompanyName")
+        End If
+
+        If IsNotNull(row("Address")) Then
+            AddressLine1 = row("Address")
+        End If
+
+        If IsNotNull(row("AddressLine2")) Then
+            AddressLine2 = row("AddressLine2")
+        End If
+
+        If IsNotNull(row("AddressLine3")) Then
+            AddressLine3 = row("AddressLine3")
+        End If
+
+        If IsNotNull(row("AddressLine4")) Then
+            AddressLine4 = row("AddressLine4")
+        End If
+
+        If IsNotNull(row("PostalCode")) Then
+            PostalCode = row("PostalCode")
+        End If
+
+        If IsNotNull(row("Telephone")) Then
+            Telephone = row("Telephone")
+        End If
+
+        If IsNotNull(row("Fax")) Then
+            Fax = row("Fax")
+        End If
+
+        If IsNotNull(row("Message")) Then
+            Message = row("Message")
+        End If
+
+        'If IsNotNull(row("Email")) Then
+        '    Email = row("Email")
+        'End If
+
+        'If IsNotNull(row("Website")) Then
+        '    Website = row("Website")
+        'End If
+
+        If IsNotNull(row("VatPerc")) Then
+            VAT = row("VatPerc")
+        End If
+
+        If IsNotNull(row("LastInvNum")) Then
+            LastInvoiceNumber = row("LastInvNum")
+        End If
+
+        If IsNotNull(row("LastCutNum")) Then
+            LastCuttingSheetNumber = row("LastCutNum")
+        End If
+
+        'If IsNotNull(row("UnitOfMeas")) Then
+        '    UnitOfMeasurement = row("UnitOfMeas")
+        'End If
+
+        If IsNotNull(row("CompanyNo")) And IsNotNull(row("CompanyName")) Then
+            For Each newRow As DataRow In CompanySet.Tables.Item(0).Rows
+                CompanyNameList.Add(String.Format("[{0}] {1}", newRow("CompanyNo"), newRow("CompanyName")))
+            Next
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Get the number of companies in the company table in the database
     ''' </summary>
     Public Sub GetCompanyCount(ByRef count As Integer)
-        Dim companyData As New CompanyData
-
         ' get the number of available companies in the database
-        companyData.GetNumberOfCompanies(CompanyNumber, count)
+        CompanyData.GetNumberOfCompanies(CompanyNumber, count)
     End Sub
 
     ''' <summary>
     ''' Adds a row to the company table
     ''' </summary>
     Public Sub AddRowToCompanyTable()
-        Dim companyData As New CompanyData
-
         ' update the company table with data currently in the company fields
-        companyData.AddCompanyRow(CompanyNumber, CompanyName, RegNumber, VatNumber, AddressLine1, AddressLine2, AddressLine3, PostalCode, Telephone, Email, Fax, Website, Message, VAT, LastInvoiceNumber)
+        CompanyData.AddCompanyRow(CompanyNumber, CompanyName, RegNumber, VatNumber, AddressLine1, AddressLine2, AddressLine3, AddressLine4, PostalCode, Telephone, Email, Fax, Website, Message, VAT, LastInvoiceNumber, LastCuttingSheetNumber)
     End Sub
 
-    Public Sub LinkAdapter(ByRef adapter As OleDbDataAdapter)
-        Dim companyData As New CompanyData
-        adapter = companyData.Adapter
+    ''' <summary>
+    ''' Save an edit to the company table
+    ''' </summary>
+    Public Sub SaveEditToCompanyTable()
+        ' save the editted row to the table
+        CompanyData.SaveCompanyRowEdit(CompanyNumber, CompanyName, RegNumber, VatNumber, AddressLine1, AddressLine2, AddressLine3, AddressLine4, PostalCode, Telephone, Email, Fax, Website, Message, VAT, LastInvoiceNumber, LastCuttingSheetNumber)
     End Sub
 
     Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
@@ -310,5 +372,8 @@ Public Class Company
             RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(Prop))
         Next
     End Sub
+    ' Checks if a DB field is not equal to null
+    Private Function IsNotNull(ByRef param As Object) As Boolean
+        Return Not param.Equals(DBNull.Value)
+    End Function
 End Class
-
