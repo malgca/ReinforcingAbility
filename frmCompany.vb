@@ -498,7 +498,7 @@ Public Class frmCompany
     End Function
 
     Private Sub frmCompany_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
-        DataBindTextFields()
+        AddDataBindings()
         DisableForm()
     End Sub
     ' disables all elements on the company form
@@ -554,7 +554,7 @@ Public Class frmCompany
     End Sub
 
     ' binds database data to text fields
-    Private Sub DataBindTextFields()
+    Private Sub AddDataBindings()
         txtCompNo.DataBindings.Add("Text", Logic, "CompanyNumber", False, DataSourceUpdateMode.OnPropertyChanged)
         txtCompName.DataBindings.Add("Text", Logic, "CompanyName", False, DataSourceUpdateMode.OnPropertyChanged)
         txtRegNo.DataBindings.Add("Text", Logic, "RegNumber", False, DataSourceUpdateMode.OnPropertyChanged)
@@ -580,7 +580,7 @@ Public Class frmCompany
 
             EnableForm()
             'ClearDataBindings()
-            'ClearTextFields()
+            ClearTextFields()
 
             txtVAT.Text = Logic.VAT
             txtCompNo.Focus()
@@ -598,7 +598,7 @@ Public Class frmCompany
 
                 Logic.GetCompanyCount(count)
 
-                If count > 1 Then
+                If count > 0 Then
                     MsgBox("Company Number entered is already used", MsgBoxStyle.Critical, "Error")
                     txtCompNo.Focus()
                 Else
@@ -652,6 +652,6 @@ Public Class frmCompany
     End Sub
 
     Private Sub cbxCompNo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxCompNo.SelectedIndexChanged
-        Logic.InitializeCompanyProperties(cbxCompNo.SelectedIndex)
+        Logic.InitializeContractorProperties(cbxCompNo.SelectedIndex)
     End Sub
 End Class

@@ -19,10 +19,6 @@ LogicTier
 	<summary>
   A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
-</member><member name="T:LogicTier.FormStates">
-	<summary>
- Company Form States
- </summary>
 </member><member name="M:LogicTier.Company.InitializeCompanyProperties(System.Int32@)">
 	<summary>
  Update company property parameters
@@ -46,6 +42,10 @@ LogicTier
 </member><member name="T:LogicTier.Company">
 	<summary>
  Handles logical operations related to the company
+ </summary>
+</member><member name="T:LogicTier.FormStates">
+	<summary>
+ Company Form States
  </summary>
 </member><member name="M:LogicTier.Job.#ctor(System.String@,System.String@,System.Double,System.Double,System.String@,System.String@,LogicTier.MeasurementUnit)">
 	<summary>

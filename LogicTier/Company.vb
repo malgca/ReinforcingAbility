@@ -1,7 +1,5 @@
-﻿Imports System
+﻿Imports DataTier
 Imports System.Data
-Imports DataTier
-Imports System.Data.OleDb
 Imports System.ComponentModel
 
 ''' <summary>
@@ -236,15 +234,15 @@ Public Class Company
     Private Property CompanySet As New DataSet
 
     Public Sub New()
-        CompanyData = New CompanyData(CompanyNumber, CompanyName, RegNumber, VatNumber, AddressLine1, AddressLine2, AddressLine3, AddressLine4, PostalCode, Telephone, Email, Fax, Website, Message, VAT, LastInvoiceNumber, LastCuttingSheetNumber)
+        CompanyData = New CompanyData(CompanyNumber)
 
-        InitializeCompanyProperties(0)
+        InitializeContractorProperties(0)
     End Sub
 
     ''' <summary>
     ''' Update company property parameters
     ''' </summary>
-    Public Sub InitializeCompanyProperties(ByRef index As Integer)
+    Public Sub InitializeContractorProperties(ByRef index As Integer)
         CompanyData.Adapter.Fill(CompanySet)
 
         Dim row = CompanySet.Tables.Item(0).Rows.Item(index)
@@ -358,7 +356,7 @@ Public Class Company
     ''' <summary>
     ''' Notifies listener of a change in a property
     ''' </summary>
-    Public Sub NotifyPropertyChanged(ByVal ParamArray Properties() As String)
+    Private Sub NotifyPropertyChanged(ByVal ParamArray Properties() As String)
         For Each Prop As String In Properties
             RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(Prop))
         Next

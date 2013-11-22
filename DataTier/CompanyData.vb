@@ -15,11 +15,11 @@ Public Class CompanyData
     Private Property UpdateCommand As New OleDbCommand
     Private Property DeleteCommand As New OleDbCommand
 
-    Private Property CountCompaniesCommand As New OleDbCommand
+    Private Property CountCommand As New OleDbCommand
 
     Private Property CompanySet As New DataSet
 
-    Public Sub New(ByRef companyNumber As String, ByRef companyName As String, ByRef regNumber As String, ByRef vatNumber As String, ByRef addressLine1 As String, ByRef addressLine2 As String, ByRef addressLine3 As String, ByRef addressLine4 As String, ByRef postalCode As Integer, ByRef telephone As String, ByRef email As String, ByRef fax As String, ByRef website As String, ByRef message As String, ByRef vatPercentage As Double, ByRef lastInvoiceNumber As Integer, ByRef lastCuttingSheetNumber As Integer)
+    Public Sub New(ByRef companyNumber As String)
         CompanySet.Locale = New CultureInfo("en-ZA")
         CompanySet.SchemaSerializationMode = SchemaSerializationMode.IncludeSchema
 
@@ -27,25 +27,25 @@ Public Class CompanyData
 
         PrepareDeleteCommand(companyNumber)
 
-        PrepareInsertCommand(companyNumber, companyName, regNumber, vatNumber, addressLine1, addressLine2, addressLine3, addressLine4, postalCode, telephone, email, fax, website, message, vatPercentage, lastInvoiceNumber, lastCuttingSheetNumber)
+        PrepareInsertCommand()
 
         PrepareSelectCommand()
 
-        PrepareUpdateCommand(companyNumber, companyName, regNumber, vatNumber, addressLine1, addressLine2, addressLine3, addressLine4, postalCode, telephone, email, fax, website, message, vatPercentage, lastInvoiceNumber, lastCuttingSheetNumber)
+        PrepareUpdateCommand()
 
-        PrepareCountCompaniesCommand(companyNumber)
+        PrepareCountCommand(companyNumber)
     End Sub
 
     ''' <summary>
-    ''' Gets the number of companies currently in the company table
+    ''' Checks if a particular company number key exists in the company table
     ''' </summary>
-    ''' <param name="CompanyNumber">ID to identify a given company</param>
+    ''' <param name="companyNumber">ID to identify a given company</param>
     ''' <param name="count">Count of existing companies</param>
-    Public Sub GetNumberOfCompanies(ByRef CompanyNumber As String, ByRef count As Integer)
+    Public Sub GetNumberOfCompanies(ByRef companyNumber As String, ByRef count As Integer)
         DBOperations.GetInstance.Connection.Open()
-        CountCompaniesCommand.Parameters("CompanyNo").Value = CompanyNumber
+        CountCommand.Parameters("companyNumber").Value = companyNumber
 
-        Dim dataReader = CountCompaniesCommand.ExecuteReader(CommandBehavior.CloseConnection)
+        Dim dataReader = CountCommand.ExecuteReader(CommandBehavior.CloseConnection)
 
         While dataReader.Read()
             count += 1
@@ -56,7 +56,7 @@ Public Class CompanyData
     End Sub
 
     ''' <summary>
-    ''' adds a new row to the company table
+    ''' Adds a new row to the company table
     ''' </summary>
     Public Sub AddCompanyRow(ByRef companyNumber As String, ByRef companyName As String, ByRef regNumber As String, ByRef vatNumber As String, ByRef addressLine1 As String, ByRef addressLine2 As String, ByRef addressLine3 As String, ByRef addressLine4 As String, ByRef postalCode As Integer, ByRef telephone As String, ByRef email As String, ByRef fax As String, ByRef website As String, ByRef message As String, ByRef vatPercentage As Double, ByRef lastInvoiceNumber As Integer, ByRef lastCuttingSheetNumber As Integer)
         CompanySet.Clear()
@@ -94,7 +94,7 @@ Public Class CompanyData
     End Sub
 
     ' prepares insert command for adapter
-    Private Sub PrepareInsertCommand(ByRef companyNumber As String, ByRef companyName As String, ByRef regNumber As String, ByRef vatNumber As String, ByRef addressLine1 As String, ByRef addressLine2 As String, ByRef addressLine3 As String, ByRef addressLine4 As String, ByRef postalCode As Integer, ByRef telephone As String, ByRef email As String, ByRef fax As String, ByRef website As String, ByRef message As String, ByRef vatPercentage As Double, ByRef lastInvoiceNumber As Integer, ByRef lastCuttingSheetNumber As Integer)
+    Private Sub PrepareInsertCommand()
         ' set insert command in adapter
         Adapter.InsertCommand = Me.InsertCommand
 
@@ -106,106 +106,103 @@ Public Class CompanyData
 
         InsertCommand.Connection = DBOperations.GetInstance.Connection
 
-        Dim newParam As New OleDbParameter("addressLine1", addressLine1)
+        Dim newParam As New OleDbParameter()
         newParam.SourceColumn = "Address"
         newParam.OleDbType = OleDbType.VarWChar
         Me.InsertCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("addressLine2", addressLine2)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "AddressLine2"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
         Me.InsertCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("addressLine3", addressLine3)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "AddressLine3"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
         newParam.IsNullable = True
-        newParam.Value = DBNull.Value
         Me.InsertCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("addressLine4", addressLine4)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "AddressLine4"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
         newParam.IsNullable = True
-        newParam.Value = DBNull.Value
         Me.InsertCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("companyName", companyName)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "CompanyName"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
         Me.InsertCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("companyNo", companyNumber)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "CompanyNo"
         newParam.OleDbType = OleDbType.VarWChar
-        newParam.Size = 255
+        newParam.Size = 10
         Me.InsertCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("email", email)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Email"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
         newParam.IsNullable = True
-        newParam.Value = DBNull.Value
         Me.InsertCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("fax", fax)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Fax"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 15
         Me.InsertCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("lastCuttingSheetNumber", lastCuttingSheetNumber)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "LastCutNum"
         newParam.OleDbType = OleDbType.Integer
         Me.InsertCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("lastInvoiceNumber", lastInvoiceNumber)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "LastInvNum"
         newParam.OleDbType = OleDbType.Integer
         Me.InsertCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("message", message)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Message"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 200
         Me.InsertCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("postalCode", postalCode)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "PostalCode"
         newParam.OleDbType = OleDbType.Integer
         Me.InsertCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("regNumber", regNumber)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "RegNo"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 20
         Me.InsertCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("telephone", telephone)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Telephone"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 15
         Me.InsertCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("unitOfMeasurement", DBNull.Value)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "UnitOfMeas"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 50
         newParam.IsNullable = True
         Me.InsertCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("vatNumber", vatNumber)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "VatNo"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 20
         Me.InsertCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("vatPercentage", vatPercentage)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "VatPerc"
         newParam.OleDbType = OleDbType.Double
         newParam.Direction = ParameterDirection.Input
@@ -215,12 +212,11 @@ Public Class CompanyData
         newParam.SourceVersion = DataRowVersion.Current
         Me.InsertCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("website", website)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Website"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 30
         newParam.IsNullable = True
-        newParam.Value = DBNull.Value
         Me.InsertCommand.Parameters.Add(newParam)
     End Sub
 
@@ -235,24 +231,12 @@ Public Class CompanyData
     End Sub
 
     ' prepares update query for adapter
-    Private Sub PrepareUpdateCommand(ByRef companyNumber As String, ByRef companyName As String, ByRef regNumber As String, ByRef vatNumber As String, ByRef addressLine1 As String, ByRef addressLine2 As String, ByRef addressLine3 As String, ByRef addressLine4 As String, ByRef postalCode As Integer, ByRef telephone As String, ByRef email As String, ByRef fax As String, ByRef website As String, ByRef message As String, ByRef vatPercentage As Double, ByRef lastInvoiceNumber As Integer, ByRef lastCuttingSheetNumber As Integer)
+    Private Sub PrepareUpdateCommand()
         Me.Adapter.UpdateCommand = Me.UpdateCommand
 
         CompanySet.Clear()
 
         Adapter.Fill(CompanySet)
-
-        Dim col = CompanySet.Tables.Item(0).Columns
-        Dim row = CompanySet.Tables.Item(0).Rows.Item(0)
-
-        For counter As Integer = 0 To CompanySet.Tables.Item(0).Rows.Count - 1
-            Dim thisRow = CompanySet.Tables.Item(0).Rows.Item(counter)
-
-            If thisRow("CompanyNo") = companyNumber Then
-                row = thisRow
-                Exit For
-            End If
-        Next
 
         ' UpdateCommand
         Me.UpdateCommand.CommandText =
@@ -295,106 +279,106 @@ Public Class CompanyData
 
         Me.UpdateCommand.Connection = DBOperations.GetInstance.Connection
 
-        Dim newParam As New OleDbParameter("addressLine1", addressLine1)
+        Dim newParam As New OleDbParameter()
         newParam.SourceColumn = "Address"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 0
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("addressLine2", addressLine2)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "AddressLine2"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("addressLine3", addressLine3)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "AddressLine3"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
         newParam.Value = DBNull.Value
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("addressLine4", addressLine4)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "AddressLine4"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
         newParam.Value = DBNull.Value
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("companyName", companyName)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "CompanyName"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("companyNumber", companyNumber)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "CompanyNo"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 10
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("email", email)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Email"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
         newParam.Value = DBNull.Value
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("fax", fax)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Fax"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("lastCuttingSheetNumber", lastCuttingSheetNumber)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "LastCutNum"
         newParam.OleDbType = OleDbType.Integer
         newParam.Size = 0
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("lastInvoiceNumber", lastInvoiceNumber)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "LastInvNum"
         newParam.OleDbType = OleDbType.Integer
         newParam.Size = 0
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("message", message)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Message"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 200
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("postalCode", postalCode)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "PostalCode"
         newParam.OleDbType = OleDbType.Integer
         newParam.Size = 0
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("regNumber", regNumber)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "RegNo"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 20
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("telephone", telephone)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Telephone"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 15
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("unitOfMeasurement", DBNull.Value)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "UnitOfMeas"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 50
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("vatNumber", vatNumber)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "VatNo"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 20
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("vatPercentage", vatPercentage)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "VatPerc"
         newParam.OleDbType = OleDbType.Double
         newParam.Size = 0
@@ -406,14 +390,14 @@ Public Class CompanyData
         newParam.Value = DBNull.Value
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("website", website)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Website"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 30
         newParam.Value = DBNull.Value
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalCompayNo", companyNumber)
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "CompanyNo"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 10
@@ -425,7 +409,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalAddressLine2", row("AddressLine2"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "AddressLine2"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
@@ -437,7 +421,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalAddressLine21", row("AddressLine2"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "AddressLine2"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
@@ -449,7 +433,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalAddressLine3", row("AddressLine3"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "AddressLine3"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
@@ -461,7 +445,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalAddressLine31", row("AddressLine3"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "AddressLine3"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
@@ -473,7 +457,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalAddressLine4", row("AddressLine4"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "AddressLine4"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
@@ -485,7 +469,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalAddressLine41", row("AddressLine4"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "AddressLine4"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
@@ -497,7 +481,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalCompanyName", row("CompanyName"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "CompanyName"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
@@ -509,7 +493,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalCompanyName1", row("CompanyName"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "CompanyName"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
@@ -521,7 +505,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalEmail", row("Email"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Email"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
@@ -533,7 +517,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalEmail1", row("Email"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Email"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 40
@@ -545,7 +529,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalFax", row("Fax"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Fax"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 15
@@ -557,7 +541,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalFax1", row("Fax"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Fax"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 15
@@ -569,7 +553,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalLastCuttingSheetNumber", row("LastCutNum"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "LastCutNum"
         newParam.OleDbType = OleDbType.Integer
         newParam.Size = 0
@@ -581,7 +565,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalLastCuttingSheetNumber1", row("LastCutNum"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "LastCutNum"
         newParam.OleDbType = OleDbType.Integer
         newParam.Size = 0
@@ -593,7 +577,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalLastInvNum", row("LastInvNum"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "LastInvNum"
         newParam.OleDbType = OleDbType.Integer
         newParam.Size = 0
@@ -605,7 +589,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalLastInvoiceNumber", row("LastInvNum"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "LastInvNum"
         newParam.OleDbType = OleDbType.Integer
         newParam.Size = 0
@@ -617,7 +601,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalMessage", row("Message"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Message"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 200
@@ -629,7 +613,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalMessage1", row("Message"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Message"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 200
@@ -641,7 +625,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalPostalCode", row("PostalCode"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "PostalCode"
         newParam.OleDbType = OleDbType.Integer
         newParam.Size = 0
@@ -653,7 +637,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalPostalCode1", row("PostalCode"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "PostalCode"
         newParam.OleDbType = OleDbType.Integer
         newParam.Size = 0
@@ -665,7 +649,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalRegNumber", row("RegNo"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "RegNo"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 20
@@ -677,7 +661,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalRegNumber1", row("RegNo"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "RegNo"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 20
@@ -689,7 +673,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalTelephone", row("Telephone"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Telephone"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 15
@@ -701,7 +685,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalTelephone1", row("Telephone"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Telephone"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 15
@@ -713,7 +697,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalUnitOfMeasurement", row("UnitOfMeas"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "UnitOfMeas"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 50
@@ -725,7 +709,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalUnitOfMeasurement1", row("UnitOfMeas"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "UnitOfMeas"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 50
@@ -737,7 +721,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalVatNumber", row("VatNo"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "VatNo"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 20
@@ -749,7 +733,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalVatNumber1", row("VatNo"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "VatNo"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 20
@@ -761,7 +745,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalVatPercentage", row("VatPerc"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "VatPerc"
         newParam.OleDbType = OleDbType.Double
         newParam.Size = 0
@@ -773,7 +757,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalVatPercentage1", row("VatPerc"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "VatPerc"
         newParam.OleDbType = OleDbType.Double
         newParam.Size = 0
@@ -785,7 +769,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalWebsite", row("Website"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Website"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 30
@@ -797,7 +781,7 @@ Public Class CompanyData
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
 
-        newParam = New OleDbParameter("originalWebsite1", row("Website"))
+        newParam = New OleDbParameter()
         newParam.SourceColumn = "Website"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 30
@@ -833,15 +817,16 @@ Public Class CompanyData
     End Sub
 
     ' prepares count companies query for adapter
-    Private Sub PrepareCountCompaniesCommand(ByRef companyNumber As String)
-        Me.CountCompaniesCommand.CommandText = "SELECT * FROM Company WHERE (CompanyNo = ?)"
+    Private Sub PrepareCountCommand(ByRef companyNumber As String)
+        Me.CountCommand.CommandText = "SELECT * FROM Company WHERE (CompanyNo = ?)"
 
-        Me.CountCompaniesCommand.Connection = DBOperations.GetInstance.Connection
+        Me.CountCommand.Connection = DBOperations.GetInstance.Connection
 
-        Dim newParam As New OleDbParameter("CompanyNo", companyNumber)
+        Dim newParam As New OleDbParameter("companyNumber", companyNumber)
+        newParam.SourceColumn = "CompanyNo"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 10
-        Me.CountCompaniesCommand.Parameters.Add(newParam)
+        Me.CountCommand.Parameters.Add(newParam)
     End Sub
 
     ' map table to values

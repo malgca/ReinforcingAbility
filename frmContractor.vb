@@ -316,147 +316,14 @@ Public Class frmContractor
         Me.btnClose.TabIndex = 4
         Me.btnClose.Text = "Close"
         '
-        'cmdCountContractorNo
-        '
-        Me.cmdCountContractorNo.CommandText = "SELECT Contractor.* FROM Contractor WHERE (ContractorNo = ?) ORDER BY ContractorNo"
-        Me.cmdCountContractorNo.Connection = Me.conContractor
-        Me.cmdCountContractorNo.Parameters.Add(New OleDbParameter("ContractorNo", OleDbType.VarWChar, 10, "ContractorNo"))
-        '
-        'conContractor
-        '
-        Me.conContractor.ConnectionString = "Jet OLEDB:Global Partial Bulk Ops=2;Jet OLEDB:Registry Path=;Jet OLEDB:Database L" & _
-        "ocking Mode=1;Data Source=""winsteelVers5.mdb"";Mode=Share Deny None;Jet OLEDB:Eng" & _
-        "ine Type=5;Provider=""Microsoft.Jet.OLEDB.4.0"";Jet OLEDB:System database=;Jet OLE" & _
-        "DB:SFP=False;persist security info=False;Extended Properties=;Jet OLEDB:Compact " & _
-        "Without Replica Repair=False;Jet OLEDB:Encrypt Database=False;Jet OLEDB:Create S" & _
-        "ystem Database=False;Jet OLEDB:Don't Copy Locale on Compact=False;User ID=Admin;" & _
-        "Jet OLEDB:Global Bulk Transactions=1"
-        '
-        'adpContractor
-        '
-        Me.adpContractor.DeleteCommand = Me.OleDbDeleteCommand1
-        Me.adpContractor.InsertCommand = Me.OleDbInsertCommand1
-        Me.adpContractor.SelectCommand = Me.OleDbSelectCommand1
-        Me.adpContractor.TableMappings.AddRange(New System.Data.Common.DataTableMapping() {New System.Data.Common.DataTableMapping("Table", "Contractor", New System.Data.Common.DataColumnMapping() {New System.Data.Common.DataColumnMapping("ActiveY/N", "ActiveY/N"), New System.Data.Common.DataColumnMapping("AddressLine1", "AddressLine1"), New System.Data.Common.DataColumnMapping("AddressLine2", "AddressLine2"), New System.Data.Common.DataColumnMapping("AddressLine3", "AddressLine3"), New System.Data.Common.DataColumnMapping("AddressLine4", "AddressLine4"), New System.Data.Common.DataColumnMapping("ContractorName", "ContractorName"), New System.Data.Common.DataColumnMapping("ContractorNo", "ContractorNo"), New System.Data.Common.DataColumnMapping("PostalCode", "PostalCode"), New System.Data.Common.DataColumnMapping("Reg No", "Reg No"), New System.Data.Common.DataColumnMapping("Telephone", "Telephone"), New System.Data.Common.DataColumnMapping("VAT No", "VAT No")})})
-        Me.adpContractor.UpdateCommand = Me.OleDbUpdateCommand1
-        '
-        'OleDbDeleteCommand1
-        '
-        Me.OleDbDeleteCommand1.CommandText = "DELETE FROM Contractor WHERE (ContractorNo = ?) AND ([ActiveY/N] = ?) AND (Addres" & _
-        "sLine1 = ? OR ? IS NULL AND AddressLine1 IS NULL) AND (AddressLine2 = ? OR ? IS " & _
-        "NULL AND AddressLine2 IS NULL) AND (AddressLine3 = ? OR ? IS NULL AND AddressLin" & _
-        "e3 IS NULL) AND (AddressLine4 = ? OR ? IS NULL AND AddressLine4 IS NULL) AND (Co" & _
-        "ntractorName = ? OR ? IS NULL AND ContractorName IS NULL) AND (PostalCode = ? OR" & _
-        " ? IS NULL AND PostalCode IS NULL) AND ([Reg No] = ? OR ? IS NULL AND [Reg No] I" & _
-        "S NULL) AND (Telephone = ? OR ? IS NULL AND Telephone IS NULL) AND ([VAT No] = ?" & _
-        " OR ? IS NULL AND [VAT No] IS NULL)"
-        Me.OleDbDeleteCommand1.Connection = Me.conContractor
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_ContractorNo", OleDbType.VarWChar, 10, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "ContractorNo", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_ActiveY_N", OleDbType.Boolean, 2, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "ActiveY/N", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_AddressLine1", OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine1", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_AddressLine11", OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine1", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_AddressLine2", OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine2", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_AddressLine21", OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine2", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_AddressLine3", OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine3", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_AddressLine31", OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine3", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_AddressLine4", OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine4", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_AddressLine41", OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine4", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_ContractorName", OleDbType.VarWChar, 70, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "ContractorName", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_ContractorName1", OleDbType.VarWChar, 70, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "ContractorName", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_PostalCode", OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "PostalCode", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_PostalCode1", OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "PostalCode", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_Reg_No", OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Reg No", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_Reg_No1", OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Reg No", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_Telephone", OleDbType.VarWChar, 15, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Telephone", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_Telephone1", OleDbType.VarWChar, 15, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Telephone", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_VAT_No", OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "VAT No", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbDeleteCommand1.Parameters.Add(New OleDbParameter("Original_VAT_No1", OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "VAT No", System.Data.DataRowVersion.Original, Nothing))
-        '
-        'OleDbInsertCommand1
-        '
-        Me.OleDbInsertCommand1.CommandText = "INSERT INTO Contractor([ActiveY/N], AddressLine1, AddressLine2, AddressLine3, Add" & _
-        "ressLine4, ContractorName, ContractorNo, PostalCode, [Reg No], Telephone, [VAT N" & _
-        "o]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-        Me.OleDbInsertCommand1.Connection = Me.conContractor
-        Me.OleDbInsertCommand1.Parameters.Add(New OleDbParameter("ActiveY_N", OleDbType.Boolean, 2, "ActiveY/N"))
-        Me.OleDbInsertCommand1.Parameters.Add(New OleDbParameter("AddressLine1", OleDbType.VarWChar, 40, "AddressLine1"))
-        Me.OleDbInsertCommand1.Parameters.Add(New OleDbParameter("AddressLine2", OleDbType.VarWChar, 40, "AddressLine2"))
-        Me.OleDbInsertCommand1.Parameters.Add(New OleDbParameter("AddressLine3", OleDbType.VarWChar, 40, "AddressLine3"))
-        Me.OleDbInsertCommand1.Parameters.Add(New OleDbParameter("AddressLine4", OleDbType.VarWChar, 40, "AddressLine4"))
-        Me.OleDbInsertCommand1.Parameters.Add(New OleDbParameter("ContractorName", OleDbType.VarWChar, 70, "ContractorName"))
-        Me.OleDbInsertCommand1.Parameters.Add(New OleDbParameter("ContractorNo", OleDbType.VarWChar, 10, "ContractorNo"))
-        Me.OleDbInsertCommand1.Parameters.Add(New OleDbParameter("PostalCode", OleDbType.Integer, 0, "PostalCode"))
-        Me.OleDbInsertCommand1.Parameters.Add(New OleDbParameter("Reg_No", OleDbType.VarWChar, 20, "Reg No"))
-        Me.OleDbInsertCommand1.Parameters.Add(New OleDbParameter("Telephone", OleDbType.VarWChar, 15, "Telephone"))
-        Me.OleDbInsertCommand1.Parameters.Add(New OleDbParameter("VAT_No", OleDbType.VarWChar, 20, "VAT No"))
-        '
-        'OleDbSelectCommand1
-        '
-        Me.OleDbSelectCommand1.CommandText = "SELECT [ActiveY/N], AddressLine1, AddressLine2, AddressLine3, AddressLine4, Contr" & _
-        "actorName, ContractorNo, PostalCode, [Reg No], Telephone, [VAT No] FROM Contract" & _
-        "or ORDER BY ContractorNo"
-        Me.OleDbSelectCommand1.Connection = Me.conContractor
-        '
-        'OleDbUpdateCommand1
-        '
-        Me.OleDbUpdateCommand1.CommandText = "UPDATE Contractor SET [ActiveY/N] = ?, AddressLine1 = ?, AddressLine2 = ?, Addres" & _
-        "sLine3 = ?, AddressLine4 = ?, ContractorName = ?, ContractorNo = ?, PostalCode =" & _
-        " ?, [Reg No] = ?, Telephone = ?, [VAT No] = ? WHERE (ContractorNo = ?) AND ([Act" & _
-        "iveY/N] = ?) AND (AddressLine1 = ? OR ? IS NULL AND AddressLine1 IS NULL) AND (A" & _
-        "ddressLine2 = ? OR ? IS NULL AND AddressLine2 IS NULL) AND (AddressLine3 = ? OR " & _
-        "? IS NULL AND AddressLine3 IS NULL) AND (AddressLine4 = ? OR ? IS NULL AND Addre" & _
-        "ssLine4 IS NULL) AND (ContractorName = ? OR ? IS NULL AND ContractorName IS NULL" & _
-        ") AND (PostalCode = ? OR ? IS NULL AND PostalCode IS NULL) AND ([Reg No] = ? OR " & _
-        "? IS NULL AND [Reg No] IS NULL) AND (Telephone = ? OR ? IS NULL AND Telephone IS" & _
-        " NULL) AND ([VAT No] = ? OR ? IS NULL AND [VAT No] IS NULL)"
-        Me.OleDbUpdateCommand1.Connection = Me.conContractor
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("ActiveY_N", OleDbType.Boolean, 2, "ActiveY/N"))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("AddressLine1", OleDbType.VarWChar, 40, "AddressLine1"))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("AddressLine2", OleDbType.VarWChar, 40, "AddressLine2"))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("AddressLine3", OleDbType.VarWChar, 40, "AddressLine3"))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("AddressLine4", OleDbType.VarWChar, 40, "AddressLine4"))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("ContractorName", OleDbType.VarWChar, 70, "ContractorName"))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("ContractorNo", OleDbType.VarWChar, 10, "ContractorNo"))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("PostalCode", OleDbType.Integer, 0, "PostalCode"))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Reg_No", OleDbType.VarWChar, 20, "Reg No"))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Telephone", OleDbType.VarWChar, 15, "Telephone"))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("VAT_No", OleDbType.VarWChar, 20, "VAT No"))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_ContractorNo", OleDbType.VarWChar, 10, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "ContractorNo", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_ActiveY_N", OleDbType.Boolean, 2, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "ActiveY/N", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_AddressLine1", OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine1", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_AddressLine11", OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine1", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_AddressLine2", OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine2", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_AddressLine21", OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine2", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_AddressLine3", OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine3", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_AddressLine31", OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine3", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_AddressLine4", OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine4", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_AddressLine41", OleDbType.VarWChar, 40, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AddressLine4", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_ContractorName", OleDbType.VarWChar, 70, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "ContractorName", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_ContractorName1", OleDbType.VarWChar, 70, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "ContractorName", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_PostalCode", OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "PostalCode", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_PostalCode1", OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "PostalCode", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_Reg_No", OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Reg No", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_Reg_No1", OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Reg No", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_Telephone", OleDbType.VarWChar, 15, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Telephone", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_Telephone1", OleDbType.VarWChar, 15, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Telephone", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_VAT_No", OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "VAT No", System.Data.DataRowVersion.Original, Nothing))
-        Me.OleDbUpdateCommand1.Parameters.Add(New OleDbParameter("Original_VAT_No1", OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "VAT No", System.Data.DataRowVersion.Original, Nothing))
-        '
-        'dsContractor
-        '
-        Me.dsContractor.DataSetName = "dsReinforcingAbility"
-        Me.dsContractor.Locale = New System.Globalization.CultureInfo("en-ZA")
-        '
         'cbxCompNo
         '
-        Me.cbxCompNo.DataSource = Me.dsContractor
-        Me.cbxCompNo.DisplayMember = "Contractor.No&Name"
+        Me.cbxCompNo.DataSource = Logic.ContractorNameList
         Me.cbxCompNo.DropDownStyle = ComboBoxStyle.DropDownList
         Me.cbxCompNo.Location = New Point(144, 48)
         Me.cbxCompNo.Name = "cbxCompNo"
         Me.cbxCompNo.Size = New Size(344, 21)
         Me.cbxCompNo.TabIndex = 5
-        Me.cbxCompNo.ValueMember = "Contractor.ContractorNo"
         '
         'btnEdit
         '
@@ -520,7 +387,7 @@ Public Class frmContractor
         adpContractor.Fill(dsContractor.Contractor)
 
         grpContractorDetails.Enabled = False
-        enablebinding()
+        AddDataBindings()
     End Sub
 
     Private Sub ClearDataBindings()
@@ -547,16 +414,16 @@ Public Class frmContractor
         txtTelNo.Clear()
     End Sub
 
-    Private Sub enablebinding()
-        txtContractorNo.DataBindings.Add("Text", dsContractor, "Contractor.ContractorNo")
-        txtContractorName.DataBindings.Add("Text", dsContractor, "Contractor.ContractorName")
-        txtVATNo.DataBindings.Add("Text", dsContractor, "Contractor.VAT No")
-        txtAddress1.DataBindings.Add("Text", dsContractor, "Contractor.AddressLine1")
-        txtAddress2.DataBindings.Add("Text", dsContractor, "Contractor.AddressLine2")
-        txtAddress3.DataBindings.Add("Text", dsContractor, "Contractor.AddressLine3")
-        txtAddress4.DataBindings.Add("Text", dsContractor, "Contractor.AddressLine4")
-        txtPostalCode.DataBindings.Add("Text", dsContractor, "Contractor.PostalCode")
-        txtTelNo.DataBindings.Add("Text", dsContractor, "Contractor.Telephone")
+    Private Sub AddDataBindings()
+        txtContractorNo.DataBindings.Add("Text", Logic, "ContractorNumber")
+        txtContractorName.DataBindings.Add("Text", Logic, "ContractorName")
+        txtVATNo.DataBindings.Add("Text", Logic, "VatNumber")
+        txtAddress1.DataBindings.Add("Text", Logic, "AddressLine1")
+        txtAddress2.DataBindings.Add("Text", Logic, "AddressLine2")
+        txtAddress3.DataBindings.Add("Text", Logic, "AddressLine3")
+        txtAddress4.DataBindings.Add("Text", Logic, "AddressLine4")
+        txtPostalCode.DataBindings.Add("Text", Logic, "PostalCode")
+        txtTelNo.DataBindings.Add("Text", Logic, "Telephone")
     End Sub
 
     Private Sub btnAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdd.Click
@@ -629,7 +496,7 @@ Public Class frmContractor
                     adpContractor.Update(dsContractor.Contractor)
                     MsgBox("Record was successfully saved", MsgBoxStyle.Information, "Information")
 
-                    enablebinding()
+                    AddDataBindings()
 
                     cbxCompNo.BringToFront()
                     cbxCompNo.Enabled = True
