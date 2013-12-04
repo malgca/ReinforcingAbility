@@ -23,6 +23,10 @@ PresentationTier
 	<summary>
  Converts Enter key to Tab key when pressed.
  </summary>
+</member><member name="M:PresentationTier.frmContractor.ProcessCmdKey(System.Windows.Forms.Message@,System.Windows.Forms.Keys)">
+	<summary>
+ Converts Enter key to Tab key when pressed.
+ </summary>
 </member><member name="T:PresentationTier.dsReinforcingAbility.JobRateDataTable">
 	<summary>
 Represents the strongly named DataTable class.

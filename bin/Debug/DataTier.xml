@@ -8,15 +8,15 @@ DataTier
 <members>
 <member name="M:DataTier.CompanyData.GetNumberOfCompanies(System.String@,System.Int32@)">
 	<summary>
- Gets the number of companies currently in the company table
+ Checks if a particular company number key exists in the company table
  </summary>
-	<param name="CompanyNumber">ID to identify a given company</param>
+	<param name="companyNumber">ID to identify a given company</param>
 	<param name="count">Count of existing companies</param>
-</member><member name="M:DataTier.CompanyData.AddCompanyRow(System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Int32@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Double@,System.Int32@,System.Int32@)">
+</member><member name="M:DataTier.CompanyData.AddRow(System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Int32@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Double@,System.Int32@,System.Int32@)">
 	<summary>
- adds a new row to the company table
+ Adds a new row to the company table
  </summary>
-</member><member name="M:DataTier.CompanyData.SaveCompanyRowEdit(System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Int32@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Double@,System.Int32@,System.Int32@)">
+</member><member name="M:DataTier.CompanyData.SaveRowEdit(System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Int32@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Double@,System.Int32@,System.Int32@)">
 	<summary>
  Saves an edit to a row in the company table
  </summary>
@@ -42,6 +42,24 @@ DataTier
 	<summary>
   A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
+</member><member name="M:DataTier.ContractorData.GetNumberOfContractors(System.String@,System.Int32@)">
+	<summary>
+ Checks if a particular contractor number key exists in the contractor table
+ </summary>
+	<param name="contractorNumber">ID to identify a given company</param>
+	<param name="count">Count of existing companies</param>
+</member><member name="M:DataTier.ContractorData.AddRow(System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Int32,System.String@,System.Boolean,System.String@,System.String@)">
+	<summary>
+ Adds a new row to the contractor table
+ </summary>
+</member><member name="M:DataTier.ContractorData.SaveRowEdit(System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.Int32,System.String@,System.Boolean,System.String@,System.String@)">
+	<summary>
+ Saves an edit to a row in the company table
+ </summary>
+</member><member name="T:DataTier.ContractorData">
+	<summary>
+ Contractor Data Operations
+ </summary>
 </member>
 </members>
 </doc>

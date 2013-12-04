@@ -501,6 +501,7 @@ Public Class frmCompany
         AddDataBindings()
         DisableForm()
     End Sub
+
     ' disables all elements on the company form
     Private Sub DisableForm()
         grpCompDetails.Enabled = False
@@ -587,6 +588,7 @@ Public Class frmCompany
             FormState = FormStates.Add
         End If
     End Sub
+
     ' handles form save logic
     Private Sub btnSave_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSave.Click
         If FormState = FormStates.Add Then
@@ -596,16 +598,15 @@ Public Class frmCompany
             Else
                 Dim count As New Integer
 
-                Logic.GetCompanyCount(count)
+                Logic.GetCount(count)
 
                 If count > 0 Then
                     MsgBox("Company Number entered is already used", MsgBoxStyle.Critical, "Error")
                     txtCompNo.Focus()
                 Else
-                    Logic.AddRowToCompanyTable()
+                    Logic.AddRowToTable()
                     MsgBox("Record was successfully saved", MsgBoxStyle.Information, "Information")
 
-                    'DataBindTextFields()
                     cbxCompNo.BringToFront()
                     DisableForm()
                     FormState = FormStates.Empty
@@ -614,7 +615,7 @@ Public Class frmCompany
         End If
 
         If FormState = FormStates.Edit Then
-            Logic.SaveEditToCompanyTable()
+            Logic.SaveEditToTable()
             MsgBox("Record was successfully saved", MsgBoxStyle.Information, "Information")
 
             DisableForm()
@@ -652,6 +653,6 @@ Public Class frmCompany
     End Sub
 
     Private Sub cbxCompNo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxCompNo.SelectedIndexChanged
-        Logic.InitializeContractorProperties(cbxCompNo.SelectedIndex)
+        Logic.InitializeProperties(cbxCompNo.SelectedIndex)
     End Sub
 End Class

@@ -143,41 +143,41 @@ Public Class Contractor
     Public Property ContractorNameList As New List(Of String)
 
     Private Property ContractorData As ContractorData
-    Private Property ContractorSet As DataSet
+    Private Property ContractorSet As New DataSet
 
     Public Sub New()
-        ContractorData = New ContractorData(ContractorNumber, ContractorName, AddressLine1, AddressLine2, AddressLine3, AddressLine4, PostalCode, Telephone, IsActive, VatNumber, RegNumber)
+        ContractorData = New ContractorData(ContractorNumber)
 
-        InitializeContractorProperties(0)
+        InitializeProperties(0)
     End Sub
 
     ''' <summary>
     ''' Update company property parameters
     ''' </summary>
-    Public Sub InitializeContractorProperties(ByRef index As Integer)
+    Public Sub InitializeProperties(ByRef index As Integer)
         ContractorData.Adapter.Fill(ContractorSet)
 
         Dim row = ContractorSet.Tables.Item(0).Rows.Item(index)
 
         ' map properties to database fields
-        If IsNotNull(row("CompanyNo")) Then
-            CompanyNumber = row("CompanyNo")
+        If IsNotNull(row("ContractorNo")) Then
+            ContractorNumber = row("ContractorNo")
         End If
 
-        If IsNotNull(row("RegNo")) Then
-            RegNumber = row("RegNo")
+        If IsNotNull(row("Reg No")) Then
+            RegNumber = row("Reg No")
         End If
 
-        If IsNotNull(row("VatNo")) Then
-            VatNumber = row("VatNo")
+        If IsNotNull(row("Vat No")) Then
+            VatNumber = row("Vat No")
         End If
 
-        If IsNotNull(row("CompanyName")) Then
-            CompanyName = row("CompanyName")
+        If IsNotNull(row("ContractorName")) Then
+            ContractorName = row("ContractorName")
         End If
 
-        If IsNotNull(row("Address")) Then
-            AddressLine1 = row("Address")
+        If IsNotNull(row("AddressLine1")) Then
+            AddressLine1 = row("AddressLine1")
         End If
 
         If IsNotNull(row("AddressLine2")) Then
@@ -200,41 +200,13 @@ Public Class Contractor
             Telephone = row("Telephone")
         End If
 
-        If IsNotNull(row("Fax")) Then
-            Fax = row("Fax")
+        If IsNotNull(row("ActiveY/N")) Then
+            IsActive = row("ActiveY/N")
         End If
 
-        If IsNotNull(row("Message")) Then
-            Message = row("Message")
-        End If
-
-        'If IsNotNull(row("Email")) Then
-        '    Email = row("Email")
-        'End If
-
-        'If IsNotNull(row("Website")) Then
-        '    Website = row("Website")
-        'End If
-
-        If IsNotNull(row("VatPerc")) Then
-            VAT = row("VatPerc")
-        End If
-
-        If IsNotNull(row("LastInvNum")) Then
-            LastInvoiceNumber = row("LastInvNum")
-        End If
-
-        If IsNotNull(row("LastCutNum")) Then
-            LastCuttingSheetNumber = row("LastCutNum")
-        End If
-
-        'If IsNotNull(row("UnitOfMeas")) Then
-        '    UnitOfMeasurement = row("UnitOfMeas")
-        'End If
-
-        If IsNotNull(row("CompanyNo")) And IsNotNull(row("CompanyName")) Then
+        If IsNotNull(row("ContractorNo")) And IsNotNull(row("ContractorName")) Then
             For Each newRow As DataRow In ContractorSet.Tables.Item(0).Rows
-                CompanyNameList.Add(String.Format("[{0}] {1}", newRow("CompanyNo"), newRow("CompanyName")))
+                ContractorNameList.Add(String.Format("[{0}] {1}", newRow("ContractorNo"), newRow("ContractorName")))
             Next
         End If
     End Sub
@@ -242,7 +214,7 @@ Public Class Contractor
     ''' <summary>
     ''' Get the number of companies in the company table in the database
     ''' </summary>
-    Public Sub GetCompanyCount(ByRef count As Integer)
+    Public Sub GetCount(ByRef count As Integer)
         ' get the number of available companies in the database
         ContractorData.GetNumberOfContractors(ContractorNumber, count)
     End Sub
@@ -250,17 +222,17 @@ Public Class Contractor
     ''' <summary>
     ''' Adds a row to the company table
     ''' </summary>
-    Public Sub AddRowToCompanyTable()
+    Public Sub AddRowToTable()
         ' update the company table with data currently in the company fields
-        ContractorData.AddContractorRow(ContractorNumber, ContractorName, AddressLine1, AddressLine2, AddressLine3, AddressLine4, PostalCode, Telephone, IsActive, VatNumber, RegNumber)
+        ContractorData.AddRow(ContractorNumber, ContractorName, AddressLine1, AddressLine2, AddressLine3, AddressLine4, PostalCode, Telephone, IsActive, VatNumber, RegNumber)
     End Sub
 
     ''' <summary>
     ''' Save an edit to the company table
     ''' </summary>
-    Public Sub SaveEditToCompanyTable()
+    Public Sub SaveEditToTable()
         ' save the editted row to the table
-        ContractorData.SaveCompanyRowEdit(ContractorNumber, ContractorName, AddressLine1, AddressLine2, AddressLine3, AddressLine4, PostalCode, Telephone, IsActive, VatNumber, RegNumber)
+        ContractorData.SaveRowEdit(ContractorNumber, ContractorName, AddressLine1, AddressLine2, AddressLine3, AddressLine4, PostalCode, Telephone, IsActive, VatNumber, RegNumber)
     End Sub
 
     Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged

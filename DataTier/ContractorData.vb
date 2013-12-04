@@ -58,7 +58,7 @@ Public Class ContractorData
     ''' <summary>
     ''' Adds a new row to the contractor table
     ''' </summary>
-    Public Sub AddContractorRow(ByRef contractorNumber As String, ByRef contractorName As String, ByRef addressLine1 As String, ByRef addressLine2 As String, ByRef addressLine3 As String, ByRef addressLine4 As String, ByVal postalCode As Integer, ByRef telephone As String, ByVal isActive As Boolean, ByRef vatNumber As String, ByRef regNumber As String)
+    Public Sub AddRow(ByRef contractorNumber As String, ByRef contractorName As String, ByRef addressLine1 As String, ByRef addressLine2 As String, ByRef addressLine3 As String, ByRef addressLine4 As String, ByVal postalCode As Integer, ByRef telephone As String, ByVal isActive As Boolean, ByRef vatNumber As String, ByRef regNumber As String)
         ContracterSet.Clear()
         Adapter.Fill(ContracterSet)
 
@@ -73,7 +73,7 @@ Public Class ContractorData
     ''' <summary>
     ''' Saves an edit to a row in the company table
     ''' </summary>
-    Public Sub SaveCompanyRowEdit(ByRef contractorNumber As String, ByRef contractorName As String, ByRef addressLine1 As String, ByRef addressLine2 As String, ByRef addressLine3 As String, ByRef addressLine4 As String, ByVal postalCode As Integer, ByRef telephone As String, ByVal isActive As Boolean, ByRef vatNumber As String, ByRef regNumber As String)
+    Public Sub SaveRowEdit(ByRef contractorNumber As String, ByRef contractorName As String, ByRef addressLine1 As String, ByRef addressLine2 As String, ByRef addressLine3 As String, ByRef addressLine4 As String, ByVal postalCode As Integer, ByRef telephone As String, ByVal isActive As Boolean, ByRef vatNumber As String, ByRef regNumber As String)
         ContracterSet.Clear()
         Adapter.Fill(ContracterSet)
 
@@ -107,7 +107,7 @@ Public Class ContractorData
         InsertCommand.Connection = DBOperations.GetInstance.Connection
 
         Dim newParam As New OleDbParameter()
-        newParam.SourceColumn = "ActiveY/N"
+        newParam.SourceColumn = "[ActiveY/N]"
         newParam.OleDbType = OleDbType.Boolean
         newParam.Size = 2
         Me.InsertCommand.Parameters.Add(newParam)
@@ -219,7 +219,7 @@ Public Class ContractorData
         Me.UpdateCommand.Connection = DBOperations.GetInstance.Connection
 
         Dim newParam As New OleDbParameter()
-        newParam.SourceColumn = "ActiveY/N"
+        newParam.SourceColumn = "[ActiveY/N]"
         newParam.OleDbType = OleDbType.Boolean
         newParam.Size = 2
         Me.UpdateCommand.Parameters.Add(newParam)
@@ -297,7 +297,7 @@ Public Class ContractorData
         Me.UpdateCommand.Parameters.Add(newParam)
 
         newParam = New OleDbParameter()
-        newParam.SourceColumn = "ActiveY/N"
+        newParam.SourceColumn = "[ActiveY/N]"
         newParam.OleDbType = OleDbType.Boolean
         newParam.Size = 2
         newParam.Direction = ParameterDirection.Input
@@ -523,6 +523,28 @@ Public Class ContractorData
         newParam.SourceVersion = DataRowVersion.Original
         newParam.Value = Nothing
         Me.UpdateCommand.Parameters.Add(newParam)
+    End Sub
+
+    ' prepares delete query for adapter
+    Private Sub PrepareDeleteCommand(ByRef contractorNumber As String)
+        Me.Adapter.DeleteCommand = Me.DeleteCommand
+
+        'Delete Command
+        Me.DeleteCommand.CommandText =
+            "DELETE FROM Contractor WHERE (ContractorNo = ?)"
+
+        Me.DeleteCommand.Connection = DBOperations.GetInstance.Connection
+
+        Dim newParam As New OleDbParameter("originalContractorNo", contractorNumber)
+        newParam.OleDbType = OleDbType.WChar
+        newParam.Direction = ParameterDirection.Input
+        newParam.IsNullable = False
+        newParam.Precision = CType(0, Byte)
+        newParam.Scale = CType(0, Byte)
+        newParam.SourceColumn = "ContractorNo"
+        newParam.SourceVersion = DataRowVersion.Original
+        newParam.Value = DBNull.Value
+        Me.DeleteCommand.Parameters.Add(newParam)
     End Sub
 
     ' prepares count companies query for adapter
@@ -558,24 +580,24 @@ Public Class ContractorData
 
     ' updates a single row in the database
     Private Sub UpdateRowValues(ByRef row As DataRow, ByRef contractorNumber As String, ByRef contractorName As String, ByRef addressLine1 As String, ByRef addressLine2 As String, ByRef addressLine3 As String, ByRef addressLine4 As String, ByVal postalCode As Integer, ByRef telephone As String, ByVal isActive As Boolean, ByRef vatNumber As String, ByRef regNumber As String)
-        If IsNotEmpty(companyNumber) Then
-            row("CompanyNo") = companyNumber
+        If IsNotEmpty(contractorNumber) Then
+            row("ContractorNo") = contractorNumber
         End If
 
-        If IsNotEmpty(companyName) Then
-            row("CompanyName") = companyName
+        If IsNotEmpty(contractorName) Then
+            row("ContractorName") = contractorName
         End If
 
         If IsNotEmpty(regNumber) Then
-            row("RegNo") = regNumber
+            row("Reg No") = regNumber
         End If
 
         If IsNotEmpty(vatNumber) Then
-            row("VatNo") = vatNumber
+            row("Vat No") = vatNumber
         End If
 
         If IsNotEmpty(addressLine1) Then
-            row("Address") = addressLine1
+            row("AddressLine1") = addressLine1
         End If
 
         If IsNotEmpty(addressLine2) Then
@@ -598,36 +620,11 @@ Public Class ContractorData
             row("Telephone") = telephone
         End If
 
-        If IsNotEmpty(email) Then
-            row("Email") = email
+        If IsNotEmpty(isActive) Then
+            row("ActiveY/N") = isActive
         End If
-
-        If IsNotEmpty(fax) Then
-            row("Fax") = fax
-        End If
-
-        If IsNotEmpty(website) Then
-            row("Website") = website
-        End If
-
-        If IsNotEmpty(message) Then
-            row("Message") = message
-        End If
-
-        If IsNotEmpty(vatPercentage) Then
-            row("VatPerc") = vatPercentage
-        End If
-
-        If IsNotEmpty(lastInvoiceNumber) Then
-            row("LastInvNum") = lastInvoiceNumber
-        End If
-
-        If IsNotEmpty(lastCuttingSheetNumber) Then
-            row("LastCutNum") = lastCuttingSheetNumber
-        End If
-
-        row("UnitOfMeas") = DBNull.Value
     End Sub
+
     'Determines whether a parameter string is empty or not
     Private Function IsNotEmpty(ByVal parameter As String) As Boolean
         If parameter = Nothing Then

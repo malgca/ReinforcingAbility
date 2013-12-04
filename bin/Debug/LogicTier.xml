@@ -19,19 +19,19 @@ LogicTier
 	<summary>
   A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
-</member><member name="M:LogicTier.Company.InitializeCompanyProperties(System.Int32@)">
+</member><member name="M:LogicTier.Company.InitializeProperties(System.Int32@)">
 	<summary>
  Update company property parameters
  </summary>
-</member><member name="M:LogicTier.Company.GetCompanyCount(System.Int32@)">
+</member><member name="M:LogicTier.Company.GetCount(System.Int32@)">
 	<summary>
  Get the number of companies in the company table in the database
  </summary>
-</member><member name="M:LogicTier.Company.AddRowToCompanyTable">
+</member><member name="M:LogicTier.Company.AddRowToTable">
 	<summary>
  Adds a row to the company table
  </summary>
-</member><member name="M:LogicTier.Company.SaveEditToCompanyTable">
+</member><member name="M:LogicTier.Company.SaveEditToTable">
 	<summary>
  Save an edit to the company table
  </summary>
@@ -42,6 +42,26 @@ LogicTier
 </member><member name="T:LogicTier.Company">
 	<summary>
  Handles logical operations related to the company
+ </summary>
+</member><member name="M:LogicTier.Contractor.InitializeProperties(System.Int32@)">
+	<summary>
+ Update company property parameters
+ </summary>
+</member><member name="M:LogicTier.Contractor.GetCount(System.Int32@)">
+	<summary>
+ Get the number of companies in the company table in the database
+ </summary>
+</member><member name="M:LogicTier.Contractor.AddRowToTable">
+	<summary>
+ Adds a row to the company table
+ </summary>
+</member><member name="M:LogicTier.Contractor.SaveEditToTable">
+	<summary>
+ Save an edit to the company table
+ </summary>
+</member><member name="M:LogicTier.Contractor.NotifyPropertyChanged(System.String[])">
+	<summary>
+ Notifies listener of a change in a property
  </summary>
 </member><member name="T:LogicTier.FormStates">
 	<summary>

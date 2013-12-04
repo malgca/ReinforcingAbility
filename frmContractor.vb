@@ -1,8 +1,8 @@
 Imports System
-Imports System.ComponentModel
-Imports System.Drawing
-Imports System.Windows.Forms
-Imports System.Data.OleDb
+Imports ComponentModel
+Imports Drawing
+Imports Windows.Forms
+Imports Data.OleDb
 Imports LogicTier
 
 Public Class frmContractor
@@ -32,7 +32,7 @@ Public Class frmContractor
     End Sub
 
     'Required by the Windows Form Designer
-    Private components As System.ComponentModel.IContainer
+    Private components As ComponentModel.IContainer
 
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
@@ -57,19 +57,11 @@ Public Class frmContractor
     Friend WithEvents btnClose As Button
     Friend WithEvents txtAddress1 As TextBox
     Friend WithEvents txtPostalCode As TextBox
-    Friend WithEvents cmdCountContractorNo As OleDbCommand
     Friend WithEvents txtVATNo As TextBox
     Friend WithEvents lblVATNo As Label
-    Friend WithEvents OleDbSelectCommand1 As OleDbCommand
-    Friend WithEvents OleDbInsertCommand1 As OleDbCommand
-    Friend WithEvents OleDbUpdateCommand1 As OleDbCommand
-    Friend WithEvents OleDbDeleteCommand1 As OleDbCommand
-    Friend WithEvents conContractor As OleDbConnection
-    Friend WithEvents adpContractor As OleDbDataAdapter
-    Friend WithEvents dsContractor As PresentationTier.dsReinforcingAbility
     Friend WithEvents cbxCompNo As ComboBox
     Friend WithEvents btnEdit As Button
-    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+    <Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.grpContractorDetails = New GroupBox
         Me.txtVATNo = New TextBox
         Me.lblVATNo = New Label
@@ -92,18 +84,9 @@ Public Class frmContractor
         Me.btnAdd = New Button
         Me.btnSave = New Button
         Me.btnClose = New Button
-        Me.cmdCountContractorNo = New OleDbCommand
-        Me.conContractor = New OleDbConnection
-        Me.adpContractor = New OleDbDataAdapter
-        Me.OleDbDeleteCommand1 = New OleDbCommand
-        Me.OleDbInsertCommand1 = New OleDbCommand
-        Me.OleDbSelectCommand1 = New OleDbCommand
-        Me.OleDbUpdateCommand1 = New OleDbCommand
-        Me.dsContractor = New PresentationTier.dsReinforcingAbility
         Me.cbxCompNo = New ComboBox
         Me.btnEdit = New Button
         Me.grpContractorDetails.SuspendLayout()
-        CType(Me.dsContractor, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'grpContractorDetails
@@ -348,12 +331,22 @@ Public Class frmContractor
         Me.StartPosition = FormStartPosition.CenterScreen
         Me.Text = "Contractor Maintenance"
         Me.grpContractorDetails.ResumeLayout(False)
-        CType(Me.dsContractor, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
 #End Region
+
+    Public Sub New(ByVal caller As Object)
+        MyBase.New()
+        InitializeComponent()
+
+        CallingForm = caller
+    End Sub
+
+    ''' <summary>
+    ''' Converts Enter key to Tab key when pressed.
+    ''' </summary>
     Protected Overrides Function ProcessCmdKey(ByRef msg As Message, ByVal keyData As Keys) As Boolean
         If keyData = Keys.Enter Then
             SendKeys.Send("{Tab}")
@@ -363,14 +356,7 @@ Public Class frmContractor
         Return MyBase.ProcessCmdKey(msg, keyData)
     End Function
 
-    Public Sub New(ByVal caller As Object)
-        MyBase.New()
-        InitializeComponent()
-
-        CallingForm = caller
-    End Sub
-
-    Private Sub frmContractor_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Sub frmContractor_Closing(ByVal sender As Object, ByVal e As ComponentModel.CancelEventArgs) Handles MyBase.Closing
         If Not IsNothing(CallingForm) Then
             CallingForm.Show()
         End If
@@ -378,18 +364,16 @@ Public Class frmContractor
         CallingForm = Nothing
     End Sub
 
-    Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
+    Private Sub btnClose_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnClose.Click
         Close()
     End Sub
 
-    Private Sub frmContractor_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        dsContractor.Clear()
-        adpContractor.Fill(dsContractor.Contractor)
-
-        grpContractorDetails.Enabled = False
+    Private Sub frmContractor_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
         AddDataBindings()
+        grpContractorDetails.Enabled = False
     End Sub
 
+    ' clears databindings on all text fields
     Private Sub ClearDataBindings()
         txtContractorNo.DataBindings.Clear()
         txtContractorName.DataBindings.Clear()
@@ -402,6 +386,7 @@ Public Class frmContractor
         txtTelNo.DataBindings.Clear()
     End Sub
 
+    ' clears text from all text fields
     Private Sub ClearTextFields()
         txtContractorNo.Clear()
         txtContractorName.Clear()
@@ -414,6 +399,7 @@ Public Class frmContractor
         txtTelNo.Clear()
     End Sub
 
+    ' binds database data to text fields
     Private Sub AddDataBindings()
         txtContractorNo.DataBindings.Add("Text", Logic, "ContractorNumber")
         txtContractorName.DataBindings.Add("Text", Logic, "ContractorName")
@@ -426,7 +412,7 @@ Public Class frmContractor
         txtTelNo.DataBindings.Add("Text", Logic, "Telephone")
     End Sub
 
-    Private Sub btnAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdd.Click
+    Private Sub btnAdd_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnAdd.Click
         If FormState = FormStates.Empty Then
             cbxCompNo.SendToBack()
             cbxCompNo.Enabled = False
@@ -440,63 +426,22 @@ Public Class frmContractor
         End If
     End Sub
 
-    Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
+    Private Sub btnSave_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSave.Click
         If FormState = FormStates.Add Then
             If txtContractorNo.Text = String.Empty Then
                 MsgBox("A Contractor Number is required", MsgBoxStyle.Critical, "Error")
                 txtContractorNo.Focus()
             Else
-                Dim DataReader As OleDbDataReader
-                Dim count As Integer
+                Dim count As New Integer
 
-                conContractor.Open()
-                cmdCountContractorNo.Parameters("ContractorNo").Value = txtContractorNo.Text
-                DataReader = cmdCountContractorNo.ExecuteReader(CommandBehavior.CloseConnection)
-                While DataReader.Read()
-                    count += 1
-                End While
-                DataReader.Close()
-                conContractor.Close()
+                Logic.GetCount(count)
 
                 If count > 0 Then
                     MsgBox("Contractor Number entered is already used", MsgBoxStyle.Critical, "Error")
                     txtContractorNo.Focus()
                 Else
-                    Dim row As DataRow = dsContractor.Contractor.NewContractorRow
-                    row("ContractorNo") = txtContractorNo.Text
-
-                    If txtContractorName.Text <> "" Then
-                        row("ContractorName") = txtContractorName.Text
-                    End If
-                    If txtVATNo.Text <> "" Then
-                        row("VAT No") = txtVATNo.Text
-                    End If
-                    If txtAddress1.Text <> "" Then
-                        row("AddressLine1") = txtAddress1.Text
-                    End If
-                    If txtAddress2.Text <> "" Then
-                        row("AddressLine2") = txtAddress2.Text
-                    End If
-                    If txtAddress3.Text <> "" Then
-                        row("AddressLine3") = txtAddress3.Text
-                    End If
-                    If txtAddress4.Text <> "" Then
-                        row("AddressLine4") = txtAddress4.Text
-                    End If
-                    If txtPostalCode.Text <> "" Then
-                        row("PostalCode") = txtPostalCode.Text
-                    End If
-                    If txtTelNo.Text <> "" Then
-                        row("Telephone") = txtTelNo.Text
-                    End If
-                    'row("ActiveY/N") = chbActive.Checked
-
-                    dsContractor.Contractor.AddContractorRow(row)
-
-                    adpContractor.Update(dsContractor.Contractor)
+                    Logic.AddRowToTable()
                     MsgBox("Record was successfully saved", MsgBoxStyle.Information, "Information")
-
-                    AddDataBindings()
 
                     cbxCompNo.BringToFront()
                     cbxCompNo.Enabled = True
@@ -508,9 +453,7 @@ Public Class frmContractor
         End If
 
         If FormState = FormStates.Edit Then
-            dsContractor.Contractor.FindByContractorNo(txtContractorNo.Text).EndEdit()
-
-            adpContractor.Update(dsContractor.Contractor)
+            Logic.SaveEditToTable()
             MsgBox("Record was successfully saved", MsgBoxStyle.Information, "Information")
 
             cbxCompNo.BringToFront()
@@ -523,7 +466,7 @@ Public Class frmContractor
         End If
     End Sub
 
-    Private Sub btnEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEdit.Click
+    Private Sub btnEdit_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnEdit.Click
         If FormState = FormStates.Empty Then
             cbxCompNo.SendToBack()
             cbxCompNo.Enabled = False
@@ -533,6 +476,12 @@ Public Class frmContractor
 
             FormState = FormStates.Edit
             txtContractorName.Focus()
+        End If
+    End Sub
+
+    Private Sub cbxCompNo_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles cbxCompNo.SelectedIndexChanged
+        If FormState = FormStates.Empty Then
+            Logic.InitializeProperties(cbxCompNo.SelectedIndex)
         End If
     End Sub
 End Class

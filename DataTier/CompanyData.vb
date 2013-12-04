@@ -58,7 +58,7 @@ Public Class CompanyData
     ''' <summary>
     ''' Adds a new row to the company table
     ''' </summary>
-    Public Sub AddCompanyRow(ByRef companyNumber As String, ByRef companyName As String, ByRef regNumber As String, ByRef vatNumber As String, ByRef addressLine1 As String, ByRef addressLine2 As String, ByRef addressLine3 As String, ByRef addressLine4 As String, ByRef postalCode As Integer, ByRef telephone As String, ByRef email As String, ByRef fax As String, ByRef website As String, ByRef message As String, ByRef vatPercentage As Double, ByRef lastInvoiceNumber As Integer, ByRef lastCuttingSheetNumber As Integer)
+    Public Sub AddRow(ByRef companyNumber As String, ByRef companyName As String, ByRef regNumber As String, ByRef vatNumber As String, ByRef addressLine1 As String, ByRef addressLine2 As String, ByRef addressLine3 As String, ByRef addressLine4 As String, ByRef postalCode As Integer, ByRef telephone As String, ByRef email As String, ByRef fax As String, ByRef website As String, ByRef message As String, ByRef vatPercentage As Double, ByRef lastInvoiceNumber As Integer, ByRef lastCuttingSheetNumber As Integer)
         CompanySet.Clear()
         Adapter.Fill(CompanySet)
 
@@ -73,7 +73,7 @@ Public Class CompanyData
     ''' <summary>
     ''' Saves an edit to a row in the company table
     ''' </summary>
-    Public Sub SaveCompanyRowEdit(ByRef companyNumber As String, ByRef companyName As String, ByRef regNumber As String, ByRef vatNumber As String, ByRef addressLine1 As String, ByRef addressLine2 As String, ByRef addressLine3 As String, ByRef addressLine4 As String, ByRef postalCode As Integer, ByRef telephone As String, ByRef email As String, ByRef fax As String, ByRef website As String, ByRef message As String, ByRef vatPercentage As Double, ByRef lastInvoiceNumber As Integer, ByRef lastCuttingSheetNumber As Integer)
+    Public Sub SaveRowEdit(ByRef companyNumber As String, ByRef companyName As String, ByRef regNumber As String, ByRef vatNumber As String, ByRef addressLine1 As String, ByRef addressLine2 As String, ByRef addressLine3 As String, ByRef addressLine4 As String, ByRef postalCode As Integer, ByRef telephone As String, ByRef email As String, ByRef fax As String, ByRef website As String, ByRef message As String, ByRef vatPercentage As Double, ByRef lastInvoiceNumber As Integer, ByRef lastCuttingSheetNumber As Integer)
         CompanySet.Clear()
         Adapter.Fill(CompanySet)
 

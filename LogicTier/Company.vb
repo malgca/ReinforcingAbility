@@ -236,13 +236,13 @@ Public Class Company
     Public Sub New()
         CompanyData = New CompanyData(CompanyNumber)
 
-        InitializeContractorProperties(0)
+        InitializeProperties(0)
     End Sub
 
     ''' <summary>
     ''' Update company property parameters
     ''' </summary>
-    Public Sub InitializeContractorProperties(ByRef index As Integer)
+    Public Sub InitializeProperties(ByRef index As Integer)
         CompanyData.Adapter.Fill(CompanySet)
 
         Dim row = CompanySet.Tables.Item(0).Rows.Item(index)
@@ -330,7 +330,7 @@ Public Class Company
     ''' <summary>
     ''' Get the number of companies in the company table in the database
     ''' </summary>
-    Public Sub GetCompanyCount(ByRef count As Integer)
+    Public Sub GetCount(ByRef count As Integer)
         ' get the number of available companies in the database
         CompanyData.GetNumberOfCompanies(CompanyNumber, count)
     End Sub
@@ -338,17 +338,17 @@ Public Class Company
     ''' <summary>
     ''' Adds a row to the company table
     ''' </summary>
-    Public Sub AddRowToCompanyTable()
+    Public Sub AddRowToTable()
         ' update the company table with data currently in the company fields
-        CompanyData.AddCompanyRow(CompanyNumber, CompanyName, RegNumber, VatNumber, AddressLine1, AddressLine2, AddressLine3, AddressLine4, PostalCode, Telephone, Email, Fax, Website, Message, VAT, LastInvoiceNumber, LastCuttingSheetNumber)
+        CompanyData.AddRow(CompanyNumber, CompanyName, RegNumber, VatNumber, AddressLine1, AddressLine2, AddressLine3, AddressLine4, PostalCode, Telephone, Email, Fax, Website, Message, VAT, LastInvoiceNumber, LastCuttingSheetNumber)
     End Sub
 
     ''' <summary>
     ''' Save an edit to the company table
     ''' </summary>
-    Public Sub SaveEditToCompanyTable()
+    Public Sub SaveEditToTable()
         ' save the editted row to the table
-        CompanyData.SaveCompanyRowEdit(CompanyNumber, CompanyName, RegNumber, VatNumber, AddressLine1, AddressLine2, AddressLine3, AddressLine4, PostalCode, Telephone, Email, Fax, Website, Message, VAT, LastInvoiceNumber, LastCuttingSheetNumber)
+        CompanyData.SaveRowEdit(CompanyNumber, CompanyName, RegNumber, VatNumber, AddressLine1, AddressLine2, AddressLine3, AddressLine4, PostalCode, Telephone, Email, Fax, Website, Message, VAT, LastInvoiceNumber, LastCuttingSheetNumber)
     End Sub
 
     Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
