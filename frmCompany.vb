@@ -516,25 +516,6 @@ Public Class frmCompany
         grpMiscDetails.Enabled = True
     End Sub
 
-    ' clears databindings on all text fields
-    Private Sub ClearDataBindings()
-        txtCompNo.DataBindings.Clear()
-        txtCompName.DataBindings.Clear()
-        txtRegNo.DataBindings.Clear()
-        txtVATNo.DataBindings.Clear()
-        txtAddress.DataBindings.Clear()
-        txtAddress2.DataBindings.Clear()
-        txtAddress3.DataBindings.Clear()
-        txtPostalCode.DataBindings.Clear()
-        txtTelNo.DataBindings.Clear()
-        txtEmail.DataBindings.Clear()
-        txtFaxNo.DataBindings.Clear()
-        txtWebsite.DataBindings.Clear()
-        txtMessage.DataBindings.Clear()
-        txtVAT.DataBindings.Clear()
-        txtLastInvNo.DataBindings.Clear()
-    End Sub
-
     ' clears text from all text fields
     Private Sub ClearTextFields()
         txtCompNo.Clear()
@@ -580,7 +561,6 @@ Public Class frmCompany
             cbxCompNo.Enabled = False
 
             EnableForm()
-            'ClearDataBindings()
             ClearTextFields()
 
             txtVAT.Text = Logic.VAT
@@ -626,6 +606,8 @@ Public Class frmCompany
 
             FormState = FormStates.Empty
         End If
+
+        Logic.InitializeProperties(0)
     End Sub
 
     Private Sub btnEdit_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnEdit.Click

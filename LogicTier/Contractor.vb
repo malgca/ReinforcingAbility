@@ -58,7 +58,7 @@ Public Class Contractor
         End Get
         Set(value As String)
             If value <> _addressLine2 Then
-                _addressLine1 = value
+                _addressLine2 = value
                 NotifyPropertyChanged("AddressLine2")
             End If
         End Set
@@ -162,46 +162,68 @@ Public Class Contractor
         ' map properties to database fields
         If IsNotNull(row("ContractorNo")) Then
             ContractorNumber = row("ContractorNo")
+        Else
+            ContractorNumber = String.Empty
         End If
 
         If IsNotNull(row("Reg No")) Then
             RegNumber = row("Reg No")
+        Else
+            RegNumber = String.Empty
         End If
 
         If IsNotNull(row("Vat No")) Then
             VatNumber = row("Vat No")
+        Else
+            VatNumber = String.Empty
         End If
 
         If IsNotNull(row("ContractorName")) Then
             ContractorName = row("ContractorName")
+        Else
+            ContractorName = String.Empty
         End If
 
         If IsNotNull(row("AddressLine1")) Then
             AddressLine1 = row("AddressLine1")
+        Else
+            AddressLine1 = String.Empty
         End If
 
         If IsNotNull(row("AddressLine2")) Then
             AddressLine2 = row("AddressLine2")
+        Else
+            AddressLine2 = String.Empty
         End If
 
         If IsNotNull(row("AddressLine3")) Then
             AddressLine3 = row("AddressLine3")
+        Else
+            AddressLine3 = String.Empty
         End If
 
         If IsNotNull(row("AddressLine4")) Then
             AddressLine4 = row("AddressLine4")
+        Else
+            AddressLine4 = String.Empty
         End If
 
         If IsNotNull(row("PostalCode")) Then
             PostalCode = row("PostalCode")
+        Else
+            PostalCode = 0
         End If
 
         If IsNotNull(row("Telephone")) Then
             Telephone = row("Telephone")
+        Else
+            Telephone = String.Empty
         End If
 
         If IsNotNull(row("ActiveY/N")) Then
             IsActive = row("ActiveY/N")
+        Else
+            IsActive = False
         End If
 
         If IsNotNull(row("ContractorNo")) And IsNotNull(row("ContractorName")) Then

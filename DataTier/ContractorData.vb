@@ -107,7 +107,7 @@ Public Class ContractorData
         InsertCommand.Connection = DBOperations.GetInstance.Connection
 
         Dim newParam As New OleDbParameter()
-        newParam.SourceColumn = "[ActiveY/N]"
+        newParam.SourceColumn = "ActiveY/N"
         newParam.OleDbType = OleDbType.Boolean
         newParam.Size = 2
         Me.InsertCommand.Parameters.Add(newParam)
@@ -219,7 +219,7 @@ Public Class ContractorData
         Me.UpdateCommand.Connection = DBOperations.GetInstance.Connection
 
         Dim newParam As New OleDbParameter()
-        newParam.SourceColumn = "[ActiveY/N]"
+        newParam.SourceColumn = "ActiveY/N"
         newParam.OleDbType = OleDbType.Boolean
         newParam.Size = 2
         Me.UpdateCommand.Parameters.Add(newParam)
@@ -297,7 +297,7 @@ Public Class ContractorData
         Me.UpdateCommand.Parameters.Add(newParam)
 
         newParam = New OleDbParameter()
-        newParam.SourceColumn = "[ActiveY/N]"
+        newParam.SourceColumn = "ActiveY/N"
         newParam.OleDbType = OleDbType.Boolean
         newParam.Size = 2
         newParam.Direction = ParameterDirection.Input
@@ -588,37 +588,20 @@ Public Class ContractorData
             row("ContractorName") = contractorName
         End If
 
-        If IsNotEmpty(regNumber) Then
-            row("Reg No") = regNumber
-        End If
-
-        If IsNotEmpty(vatNumber) Then
-            row("Vat No") = vatNumber
-        End If
-
-        If IsNotEmpty(addressLine1) Then
-            row("AddressLine1") = addressLine1
-        End If
-
-        If IsNotEmpty(addressLine2) Then
-            row("AddressLine2") = addressLine2
-        End If
-
-        If IsNotEmpty(addressLine3) Then
-            row("AddressLine3") = addressLine3
-        End If
-
-        If IsNotEmpty(addressLine4) Then
-            row("AddressLine4") = addressLine4
-        End If
+        row("Reg No") = regNumber
+        row("Vat No") = vatNumber
+        row("AddressLine1") = addressLine1
+        row("AddressLine2") = addressLine2
+        row("AddressLine3") = addressLine3
+        row("AddressLine4") = addressLine4
 
         If IsNotEmpty(postalCode.ToString()) Then
             row("PostalCode") = postalCode
+        Else
+            row("PostalCode") = 0
         End If
 
-        If IsNotEmpty(telephone) Then
-            row("Telephone") = telephone
-        End If
+        row("Telephone") = telephone
 
         If IsNotEmpty(isActive) Then
             row("ActiveY/N") = isActive

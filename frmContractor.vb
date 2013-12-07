@@ -373,19 +373,6 @@ Public Class frmContractor
         grpContractorDetails.Enabled = False
     End Sub
 
-    ' clears databindings on all text fields
-    Private Sub ClearDataBindings()
-        txtContractorNo.DataBindings.Clear()
-        txtContractorName.DataBindings.Clear()
-        txtVATNo.DataBindings.Clear()
-        txtAddress1.DataBindings.Clear()
-        txtAddress2.DataBindings.Clear()
-        txtAddress3.DataBindings.Clear()
-        txtAddress4.DataBindings.Clear()
-        txtPostalCode.DataBindings.Clear()
-        txtTelNo.DataBindings.Clear()
-    End Sub
-
     ' clears text from all text fields
     Private Sub ClearTextFields()
         txtContractorNo.Clear()
@@ -401,15 +388,15 @@ Public Class frmContractor
 
     ' binds database data to text fields
     Private Sub AddDataBindings()
-        txtContractorNo.DataBindings.Add("Text", Logic, "ContractorNumber")
-        txtContractorName.DataBindings.Add("Text", Logic, "ContractorName")
-        txtVATNo.DataBindings.Add("Text", Logic, "VatNumber")
-        txtAddress1.DataBindings.Add("Text", Logic, "AddressLine1")
-        txtAddress2.DataBindings.Add("Text", Logic, "AddressLine2")
-        txtAddress3.DataBindings.Add("Text", Logic, "AddressLine3")
-        txtAddress4.DataBindings.Add("Text", Logic, "AddressLine4")
-        txtPostalCode.DataBindings.Add("Text", Logic, "PostalCode")
-        txtTelNo.DataBindings.Add("Text", Logic, "Telephone")
+        txtContractorNo.DataBindings.Add("Text", Logic, "ContractorNumber", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtContractorName.DataBindings.Add("Text", Logic, "ContractorName", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtVATNo.DataBindings.Add("Text", Logic, "VatNumber", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtAddress1.DataBindings.Add("Text", Logic, "AddressLine1", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtAddress2.DataBindings.Add("Text", Logic, "AddressLine2", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtAddress3.DataBindings.Add("Text", Logic, "AddressLine3", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtAddress4.DataBindings.Add("Text", Logic, "AddressLine4", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtPostalCode.DataBindings.Add("Text", Logic, "PostalCode", False, DataSourceUpdateMode.OnPropertyChanged)
+        txtTelNo.DataBindings.Add("Text", Logic, "Telephone", False, DataSourceUpdateMode.OnPropertyChanged)
     End Sub
 
     Private Sub btnAdd_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnAdd.Click
@@ -418,7 +405,6 @@ Public Class frmContractor
             cbxCompNo.Enabled = False
 
             grpContractorDetails.Enabled = True
-            ClearDataBindings()
             ClearTextFields()
 
             FormState = FormStates.Add
@@ -464,6 +450,8 @@ Public Class frmContractor
 
             FormState = FormStates.Empty
         End If
+
+        Logic.InitializeProperties(0)
     End Sub
 
     Private Sub btnEdit_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnEdit.Click

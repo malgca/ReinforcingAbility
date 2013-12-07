@@ -872,24 +872,15 @@ Public Class CompanyData
             row("VatNo") = vatNumber
         End If
 
-        If IsNotEmpty(addressLine1) Then
-            row("Address") = addressLine1
-        End If
-
-        If IsNotEmpty(addressLine2) Then
-            row("AddressLine2") = addressLine2
-        End If
-
-        If IsNotEmpty(addressLine3) Then
-            row("AddressLine3") = addressLine3
-        End If
-
-        If IsNotEmpty(addressLine4) Then
-            row("AddressLine4") = addressLine4
-        End If
+        row("Address") = addressLine1
+        row("AddressLine2") = addressLine2
+        row("AddressLine3") = addressLine3
+        row("AddressLine4") = addressLine4
 
         If IsNotEmpty(postalCode.ToString()) Then
             row("PostalCode") = postalCode
+        Else
+            row("PostalCode") = 0
         End If
 
         If IsNotEmpty(telephone) Then
@@ -900,28 +891,30 @@ Public Class CompanyData
             row("Email") = email
         End If
 
-        If IsNotEmpty(fax) Then
-            row("Fax") = fax
-        End If
+        row("Fax") = fax
 
         If IsNotEmpty(website) Then
             row("Website") = website
         End If
 
-        If IsNotEmpty(message) Then
-            row("Message") = message
-        End If
+        row("Message") = message
 
         If IsNotEmpty(vatPercentage) Then
             row("VatPerc") = vatPercentage
+        Else
+            row("VatPerc") = 0
         End If
 
         If IsNotEmpty(lastInvoiceNumber) Then
             row("LastInvNum") = lastInvoiceNumber
+        Else
+            row("LastInvNum") = 0
         End If
 
         If IsNotEmpty(lastCuttingSheetNumber) Then
             row("LastCutNum") = lastCuttingSheetNumber
+        Else
+            row("LastCutNum") = 0
         End If
 
         row("UnitOfMeas") = DBNull.Value
