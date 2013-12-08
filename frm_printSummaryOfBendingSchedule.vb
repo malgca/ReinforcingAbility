@@ -1,5 +1,10 @@
+Imports System
+Imports System.Windows.Forms
+Imports System.Drawing
+Imports System.Drawing.Printing
+
 Public Class frm_printSummaryOfBendingSchedule
-    Inherits System.Windows.Forms.Form
+    Inherits Form
 
 #Region " Global Variables "
     Dim DBConnection As New OleDb.OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source = winsteelVers5.mdb")
@@ -57,69 +62,69 @@ Public Class frm_printSummaryOfBendingSchedule
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    Friend WithEvents btnPrintPreview As System.Windows.Forms.Button
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents cmbJobs As System.Windows.Forms.ComboBox
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents btnClose As System.Windows.Forms.Button
-    Friend WithEvents dtpReportDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents DocumentToPrint As System.Drawing.Printing.PrintDocument
-    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.btnPrintPreview = New System.Windows.Forms.Button
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.cmbJobs = New System.Windows.Forms.ComboBox
-        Me.dtpReportDate = New System.Windows.Forms.DateTimePicker
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.btnClose = New System.Windows.Forms.Button
-        Me.DocumentToPrint = New System.Drawing.Printing.PrintDocument
+    Friend WithEvents btnPrintPreview As Button
+    Friend WithEvents Label1 As Label
+    Friend WithEvents cmbJobs As ComboBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents btnClose As Button
+    Friend WithEvents dtpReportDate As DateTimePicker
+    Friend WithEvents DocumentToPrint As PrintDocument
+    <Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+        Me.btnPrintPreview = New Button
+        Me.Label1 = New Label
+        Me.cmbJobs = New ComboBox
+        Me.dtpReportDate = New DateTimePicker
+        Me.Label2 = New Label
+        Me.btnClose = New Button
+        Me.DocumentToPrint = New PrintDocument
         Me.SuspendLayout()
         '
         'btnPrintPreview
         '
-        Me.btnPrintPreview.Location = New System.Drawing.Point(40, 104)
+        Me.btnPrintPreview.Location = New Point(40, 104)
         Me.btnPrintPreview.Name = "btnPrintPreview"
-        Me.btnPrintPreview.Size = New System.Drawing.Size(176, 40)
+        Me.btnPrintPreview.Size = New Size(176, 40)
         Me.btnPrintPreview.TabIndex = 9
         Me.btnPrintPreview.Text = "Print Preview..."
         '
         'Label1
         '
-        Me.Label1.Location = New System.Drawing.Point(40, 32)
+        Me.Label1.Location = New Point(40, 32)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(64, 23)
+        Me.Label1.Size = New Size(64, 23)
         Me.Label1.TabIndex = 7
         Me.Label1.Text = "Job No.:"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label1.TextAlign = ContentAlignment.MiddleLeft
         '
         'cmbJobs
         '
-        Me.cmbJobs.Location = New System.Drawing.Point(112, 32)
+        Me.cmbJobs.Location = New Point(112, 32)
         Me.cmbJobs.Name = "cmbJobs"
-        Me.cmbJobs.Size = New System.Drawing.Size(104, 21)
+        Me.cmbJobs.Size = New Size(104, 21)
         Me.cmbJobs.TabIndex = 4
         '
         'dtpReportDate
         '
-        Me.dtpReportDate.Format = System.Windows.Forms.DateTimePickerFormat.Short
-        Me.dtpReportDate.Location = New System.Drawing.Point(112, 64)
+        Me.dtpReportDate.Format = DateTimePickerFormat.Short
+        Me.dtpReportDate.Location = New Point(112, 64)
         Me.dtpReportDate.Name = "dtpReportDate"
-        Me.dtpReportDate.Size = New System.Drawing.Size(104, 20)
+        Me.dtpReportDate.Size = New Size(104, 20)
         Me.dtpReportDate.TabIndex = 5
         '
         'Label2
         '
-        Me.Label2.Location = New System.Drawing.Point(40, 64)
+        Me.Label2.Location = New Point(40, 64)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(72, 23)
+        Me.Label2.Size = New Size(72, 23)
         Me.Label2.TabIndex = 6
         Me.Label2.Text = "Report Date:"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label2.TextAlign = ContentAlignment.MiddleLeft
         '
         'btnClose
         '
-        Me.btnClose.Location = New System.Drawing.Point(40, 160)
+        Me.btnClose.Location = New Point(40, 160)
         Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(176, 40)
+        Me.btnClose.Size = New Size(176, 40)
         Me.btnClose.TabIndex = 8
         Me.btnClose.Text = "Close"
         '
@@ -128,17 +133,17 @@ Public Class frm_printSummaryOfBendingSchedule
         '
         'frm_printSummaryOfBendingSchedule
         '
-        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
-        Me.ClientSize = New System.Drawing.Size(264, 229)
+        Me.AutoScaleBaseSize = New Size(5, 13)
+        Me.ClientSize = New Size(264, 229)
         Me.Controls.Add(Me.btnPrintPreview)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.cmbJobs)
         Me.Controls.Add(Me.dtpReportDate)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.btnClose)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.FormBorderStyle = FormBorderStyle.FixedToolWindow
         Me.Name = "frm_printSummaryOfBendingSchedule"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = FormStartPosition.CenterScreen
         Me.Text = "Print Summary of Bending Schedule"
         Me.ResumeLayout(False)
 
@@ -146,7 +151,7 @@ Public Class frm_printSummaryOfBendingSchedule
 
 #End Region
 
-    Private Sub frm_printSummaryOfBendingSchedule_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub frm_printSummaryOfBendingSchedule_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
         populate_cmb_jobs()
     End Sub
 
@@ -312,11 +317,11 @@ Public Class frm_printSummaryOfBendingSchedule
         Dim adapter As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(sql4ScheduleNos, DBConnection)
         adapter.Fill(DS4SchNo)
 
-        rowCnt = DS4SchNo.tables(0).rows.count
+        rowCnt = DS4SchNo.Tables(0).Rows.Count
         ' /* FOR EACH SCHEDULE AND CUTTING SHEET*/
         For i = 0 To rowCnt - 1
-            schedNo = DS4SchNo.Tables(0).rows(i).item("ScheduleNo").ToString().ToUpper
-            cutNo = DS4SchNo.Tables(0).rows(i).item("CutSheetNo").ToString()
+            schedNo = DS4SchNo.Tables(0).Rows(i).Item("ScheduleNo").ToString().ToUpper
+            cutNo = DS4SchNo.Tables(0).Rows(i).Item("CutSheetNo").ToString()
 
             ' see if schedule has changed
             If prevSched <> schedNo And prevSched <> "" Then
@@ -507,7 +512,7 @@ Public Class frm_printSummaryOfBendingSchedule
 
     End Sub
 
-    Private Sub btnPrintPreview_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintPreview.Click
+    Private Sub btnPrintPreview_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnPrintPreview.Click
 
         If cmbJobs.Text = "" Then
             MessageBox.Show("Select a job number from the drop-down list.", "Invalid job number", MessageBoxButtons.OK)
@@ -554,7 +559,7 @@ Public Class frm_printSummaryOfBendingSchedule
         End Try
     End Sub
 
-    Private Sub PrintPage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles DocumentToPrint.PrintPage
+    Private Sub PrintPage(ByVal sender As Object, ByVal e As PrintPageEventArgs) Handles DocumentToPrint.PrintPage
 
         Me.Cursor = Windows.Forms.Cursors.Arrow
         Dim curY As Integer = TopMargin
@@ -645,11 +650,11 @@ Public Class frm_printSummaryOfBendingSchedule
         CallingForm = Nothing
     End Sub
 
-    Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
+    Private Sub btnClose_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnClose.Click
         Close()
     End Sub
 
-    Private Sub cmbJobs_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbJobs.SelectedIndexChanged
+    Private Sub cmbJobs_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles cmbJobs.SelectedIndexChanged
 
     End Sub
 End Class
