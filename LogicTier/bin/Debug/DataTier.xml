@@ -6,7 +6,11 @@ DataTier
 </name>
 </assembly>
 <members>
-<member name="M:DataTier.CompanyData.GetNumberOfCompanies(System.String@,System.Int32@)">
+<member name="T:DataTier.BendingScheduleData">
+	<summary>
+ Bending Schedule database operations
+ </summary>
+</member><member name="M:DataTier.CompanyData.GetNumberOfCompanies(System.String@,System.Int32@)">
 	<summary>
  Checks if a particular company number key exists in the company table
  </summary>

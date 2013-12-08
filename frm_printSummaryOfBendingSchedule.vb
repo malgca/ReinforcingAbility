@@ -27,12 +27,11 @@ Public Class frm_printSummaryOfBendingSchedule
     Dim BottomMargin As Integer = 90
     Dim PageWidth As Integer = 873
     Dim ReportType As String
-    'Dim mes
     Dim vatperc As String
     Dim All_Is_OK As Boolean = True
-#End Region
 
     Dim CallingForm As Object
+#End Region
 
 #Region " Windows Form Designer generated code "
 
@@ -166,9 +165,8 @@ Public Class frm_printSummaryOfBendingSchedule
         For aunty = 0 To dataset.Tables(0).Rows.Count - 1
             cmbJobs.Items.Add(dataset.Tables(0).Rows(aunty).Item("JobNo").ToString())
         Next aunty
-
-
     End Sub
+
     Dim sql As String
 
     Const d2 As Integer = 75
@@ -248,7 +246,6 @@ Public Class frm_printSummaryOfBendingSchedule
     End Sub
 
     Private Sub GenerateSummaryOfBendingSchedules(ByVal jobNo As String, ByVal aDate As Date)
-
         PrintArray = New ArrayList
         Dim p As PageElement
         Dim TKg As String = String.Empty
@@ -520,8 +517,6 @@ Public Class frm_printSummaryOfBendingSchedule
             Exit Sub
         End If
 
-
-
         Try
             DocumentToPrint.DocumentName = "Summary of Bending Schedules - Job No: " + cmbJobs.Text
             Dim ppd_JCR As New PrintPreviewDialog
@@ -539,7 +534,6 @@ Public Class frm_printSummaryOfBendingSchedule
 
             'Put method to populate print array here
             GenerateSummaryOfBendingSchedules(cmbJobs.Text, dtpReportDate.Value)
-
 
             curArrayPos = 0
 
@@ -622,7 +616,6 @@ Public Class frm_printSummaryOfBendingSchedule
                         e.Graphics.DrawString(PrintArray(curArrayPos).Text, PrintArray(curArrayPos).Font, Brushes.Black, PrintArray(curArrayPos).x, curY)
                     End If
 
-
                     If PrintArray(curArrayPos).includeEol Then
                         curY += PrintArray(curArrayPos).Font.Size + 10 + PrintArray(curArrayPos).ygap
                     End If
@@ -634,7 +627,6 @@ Public Class frm_printSummaryOfBendingSchedule
         If curY >= MaxY Then
             curpagenum += 1
             e.HasMorePages = True
-
         Else
             e.HasMorePages = False
             curArrayPos = 0

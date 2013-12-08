@@ -60,6 +60,7 @@
     <Import Include="System.Diagnostics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BendingSchedule.vb" />
     <Compile Include="FormStates.vb" />
     <Compile Include="Company.vb" />
     <Compile Include="Contractor.vb" />
@@ -82,7 +83,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="PageElement.vb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">
