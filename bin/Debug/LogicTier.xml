@@ -19,7 +19,7 @@ LogicTier
 	<summary>
   A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
-</member><member name="M:LogicTier.Company.InitializeProperties(System.Int32@)">
+</member><member name="M:LogicTier.Company.InitializeProperties(System.Int32)">
 	<summary>
  Update company property parameters
  </summary>
@@ -97,6 +97,10 @@ LogicTier
 </member><member name="T:LogicTier.MeasurementUnit">
 	<summary>
  Units of measurement used by the Reinforcing Ability system.
+ </summary>
+</member><member name="M:LogicTier.BendingSchedule.NotifyPropertyChanged(System.String[])">
+	<summary>
+ Notifies listener of a change in a property
  </summary>
 </member>
 </members>

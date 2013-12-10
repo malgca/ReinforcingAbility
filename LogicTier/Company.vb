@@ -242,7 +242,7 @@ Public Class Company
     ''' <summary>
     ''' Update company property parameters
     ''' </summary>
-    Public Sub InitializeProperties(ByRef index As Integer)
+    Public Sub InitializeProperties(ByVal index As Integer)
         CompanyData.Adapter.Fill(CompanySet)
 
         Dim row = CompanySet.Tables.Item(0).Rows.Item(index)

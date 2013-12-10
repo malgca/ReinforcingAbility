@@ -10,39 +10,26 @@ Imports System.Data.Common
 Public Class BendingScheduleData
     Public Property Adapter As New OleDbDataAdapter
 
-    Private Property InsertCommand As New OleDbCommand
-    Private Property SelectCommand As New OleDbCommand
-    Private Property UpdateCommand As New OleDbCommand
-    Private Property DeleteCommand As New OleDbCommand
-
-    Private Property CountCommand As New OleDbCommand
-
-    Private Property ScheduleSet As New DataSet
+    Private Property SelectJobsCommand As New OleDbCommand
+    Private Property ScheduleSummaryCommand As New OleDbCommand
+    Private Property DateRangeCommand As New OleDbCommand
+    Private Property FullScheduleCommand As New OleDbCommand
 
     Public Sub New(ByRef jobNumber As String)
-        ScheduleSet.Locale = New CultureInfo("en-ZA")
-        ScheduleSet.SchemaSerializationMode = SchemaSerializationMode.IncludeSchema
-
-        MapTable()
-
-        PrepareDeleteCommand(jobNumber)
-
-        PrepareInsertCommand()
-
-        PrepareSelectJobsCommand()
-
-        PrepareUpdateCommand()
-
-        PrepareCountCommand(jobNumber)
+    
     End Sub
 
-    ' prepares select query for adapter
-    Private Sub PrepareSelectJobsCommand()
-        Me.Adapter.SelectCommand = Me.SelectCommand
+    ''' <summary>
+    ''' Populates a dataset with data from the Job table.
+    ''' </summary>
+    Public Sub PopulateJobsSet(ByRef dataSet As DataSet)
+        Me.Adapter.SelectCommand = Me.SelectJobsCommand
 
         ' SelectCommand
-        Me.SelectCommand.CommandText = "SELECT JobNo FROM Job ORDER BY JobNo"
+        Me.SelectJobsCommand.CommandText = "SELECT JobNo FROM Job ORDER BY JobNo"
 
-        Me.SelectCommand.Connection = DBOperations.GetInstance.Connection
+        Me.SelectJobsCommand.Connection = DBOperations.GetInstance.Connection
+
+        Me.Adapter.Fill(dataSet)
     End Sub
 End Class

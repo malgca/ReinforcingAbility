@@ -2,6 +2,7 @@ Imports System
 Imports System.Windows.Forms
 Imports System.Drawing
 Imports System.Drawing.Printing
+Imports LogicTier
 
 Public Class frm_printSummaryOfBendingSchedule
     Inherits Form
@@ -30,7 +31,8 @@ Public Class frm_printSummaryOfBendingSchedule
     Dim vatperc As String
     Dim All_Is_OK As Boolean = True
 
-    Dim CallingForm As Object
+    Private Property Logic As New BendingSchedule
+    Private Property CallingForm As Object
 #End Region
 
 #Region " Windows Form Designer generated code "
@@ -97,6 +99,7 @@ Public Class frm_printSummaryOfBendingSchedule
         '
         'cmbJobs
         '
+        Me.cmbJobs.DataSource = Logic.JobNameList
         Me.cmbJobs.Location = New Point(112, 32)
         Me.cmbJobs.Name = "cmbJobs"
         Me.cmbJobs.Size = New Size(104, 21)
@@ -151,20 +154,7 @@ Public Class frm_printSummaryOfBendingSchedule
 #End Region
 
     Private Sub frm_printSummaryOfBendingSchedule_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
-        populate_cmb_jobs()
-    End Sub
-
-    Private Sub populate_cmb_jobs()
-        cmbJobs.Items.Clear()
-        Dim sql As String = "SELECT JobNo FROM Job ORDER BY JobNo"
-        Dim dataset As New Data.DataSet
-        Dim adapter As New OleDb.OleDbDataAdapter(sql, DBConnection)
-        adapter.Fill(dataset)
-
-        Dim aunty As Integer
-        For aunty = 0 To dataset.Tables(0).Rows.Count - 1
-            cmbJobs.Items.Add(dataset.Tables(0).Rows(aunty).Item("JobNo").ToString())
-        Next aunty
+        Logic.InitializeProperties(0)
     End Sub
 
     Dim sql As String

@@ -2,7 +2,6 @@ Imports System
 Imports System.ComponentModel
 Imports System.Drawing
 Imports System.Windows.Forms
-Imports System.Data.OleDb
 Imports LogicTier
 
 Public Class frmCompany
@@ -435,7 +434,7 @@ Public Class frmCompany
         'cbxCompNo
         '
         Me.cbxCompNo.DataSource = Logic.CompanyNameList
-        Me.cbxCompNo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbxCompNo.DropDownStyle = ComboBoxStyle.DropDownList
         Me.cbxCompNo.Location = New System.Drawing.Point(120, 48)
         Me.cbxCompNo.Name = "cbxCompNo"
         Me.cbxCompNo.Size = New System.Drawing.Size(504, 21)

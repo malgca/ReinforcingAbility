@@ -6,7 +6,11 @@ DataTier
 </name>
 </assembly>
 <members>
-<member name="T:DataTier.BendingScheduleData">
+<member name="M:DataTier.BendingScheduleData.PopulateJobsSet(System.Data.DataSet@)">
+	<summary>
+ Populates a dataset with data from the Job table.
+ </summary>
+</member><member name="T:DataTier.BendingScheduleData">
 	<summary>
  Bending Schedule database operations
  </summary>
