@@ -22,14 +22,36 @@ Public Class BendingScheduleData
     ''' <summary>
     ''' Populates a dataset with data from the Job table.
     ''' </summary>
-    Public Sub PopulateJobsSet(ByRef dataSet As DataSet)
+    Public Sub PopulateJobsSet()
         Me.Adapter.SelectCommand = Me.SelectJobsCommand
 
-        ' SelectCommand
         Me.SelectJobsCommand.CommandText = "SELECT JobNo FROM Job ORDER BY JobNo"
 
         Me.SelectJobsCommand.Connection = DBOperations.GetInstance.Connection
+    End Sub
 
-        Me.Adapter.Fill(dataSet)
+    ''' <summary>
+    ''' Populates a schedule for a given 
+    ''' </summary>
+    Public Sub PopulateScheduleSummary(ByRef jobNumber As String)
+        Me.Adapter.SelectCommand = Me.ScheduleSummaryCommand
+
+        Me.ScheduleSummaryCommand.CommandText = "SELECT ContractorName, " & _
+            "JobName, " & _
+            "CompanyName, " & _
+            "job.[Tons or Kilograms] AS TKG " & _
+            "FROM Job, Contractor,Company " & _
+            "WHERE Job.ContractorNo = Contractor.ContractorNo " & _
+            "AND Company.CompanyNo = Job.CompanyNo " & _
+            "AND Job.JobNo = ?"
+
+        Me.SelectJobsCommand.Connection = DBOperations.GetInstance.Connection
+
+        Dim newParam As New OleDbParameter()
+        newParam.SourceColumn = "JobNo"
+        newParam.OleDbType = OleDbType.VarWChar
+        newParam.Size = 10
+        newParam.Value = jobNumber
+        Me.ScheduleSummaryCommand.Parameters.Add(newParam)
     End Sub
 End Class

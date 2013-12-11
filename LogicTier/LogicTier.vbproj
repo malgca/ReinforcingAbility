@@ -83,6 +83,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="PageElement.vb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">
