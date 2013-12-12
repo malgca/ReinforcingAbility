@@ -19,6 +19,8 @@ Public Class BendingSchedule
 
         Public Const LeftMargin As Integer = 60
         Public Const PageWidth As Integer = 873
+
+        Public Const d1 As Integer = 85
         Public Const d2 As Integer = 75
     End Class
 
@@ -112,7 +114,8 @@ Public Class BendingSchedule
     End Sub
 
     Private Sub GenerateSummaryOfBendingSchedules(ByVal jobNo As String, ByVal aDate As Date)
-        PrintList = New List(Of PageElement)
+        PrintList.Clear()
+
         Dim newPage As PageElement
         Dim TKg As String = String.Empty
 
@@ -125,21 +128,22 @@ Public Class BendingSchedule
         BendingScheduleData.Adapter.Fill(BendingScheduleSet)
 
         If BendingScheduleSet.Tables(0).Rows.Count = 1 Then
-            Const d1 As Integer = 85
 
-            PrintList.Add(New PageElement(ds.Tables(0).Rows(0).Item("CompanyName").ToString(), EntryFont, 0, True, True, False))
-            PrintList.Add(New PageElement("Job Number:", EntryFont, LeftMargin, False, False, False))
-            PrintList.Add(New PageElement(jobNo, EntryFont, LeftMargin + d1, True, False, False))
+            PrintList.Add(New PageElement(BendingScheduleSet.Tables(0).Rows(0).Item("CompanyName").ToString(), Font, 0, True, True, False))
+            PrintList.Add(New PageElement("Job Number:", Font, PageConstants.LeftMargin, False, False, False))
+            PrintList.Add(New PageElement(jobNo, Font, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
+
             currJobName = BendingScheduleSet.Tables(0).Rows(0).Item("JobName").ToString()
             TKg = BendingScheduleSet.Tables(0).Rows(0).Item("TKG").ToString()
-            PrintList.Add(New PageElement("Job Name:", EntryFont, LeftMargin, False, False, False))
-            PrintList.Add(New PageElement(currJobName, EntryFont, LeftMargin + d1, True, False, False))
-            PrintList.Add(New PageElement("Contractor:", EntryFont, LeftMargin, False, False, False))
-            PrintList.Add(New PageElement(ds.Tables(0).Rows(0).Item("ContractorName").ToString(), EntryFont, LeftMargin + d1, True, False, False))
-            PrintList.Add(New PageElement("Date:", EntryFont, LeftMargin, False, False, False))
-            PrintList.Add(New PageElement(aDate.ToShortDateString, EntryFont, LeftMargin + d1, True, False, False))
-            PrintList.Add(New PageElement("<SPACE>", EntryFont, LeftMargin, True, False, False))
-            PrintList.Add(New PageElement("<HR/BLACK>", EntryFont, LeftMargin, True))
+
+            PrintList.Add(New PageElement("Job Name:", Font, PageConstants.LeftMargin, False, False, False))
+            PrintList.Add(New PageElement(currJobName, Font, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
+            PrintList.Add(New PageElement("Contractor:", Font, PageConstants.LeftMargin, False, False, False))
+            PrintList.Add(New PageElement(BendingScheduleSet.Tables(0).Rows(0).Item("ContractorName").ToString(), Font, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
+            PrintList.Add(New PageElement("Date:", Font, PageConstants.LeftMargin, False, False, False))
+            PrintList.Add(New PageElement(aDate.ToShortDateString, Font, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
+            PrintList.Add(New PageElement("<SPACE>", Font, PageConstants.LeftMargin, True, False, False))
+            PrintList.Add(New PageElement("<HR/BLACK>", Font, PageConstants.LeftMargin, True))
             PrintTypeHeadings()
         End If
 
@@ -340,32 +344,32 @@ Public Class BendingSchedule
             PrintValue(YTotals(ci), ci, TKg)
             TY += YTotals(ci)
         Next ci
-        PrintList.Add(New PageElement("", EntryFont, 0, True, False, False))
-        PrintList.Add(New PageElement("", EntryFont, 0, True, False, False))
-        PrintList.Add(New PageElement("Total Mild Steel:", EntryFont, LeftMargin, False, False, False))
+        PrintList.Add(New PageElement("", Font, 0, True, False, False))
+        PrintList.Add(New PageElement("", Font, 0, True, False, False))
+        PrintList.Add(New PageElement("Total Mild Steel:", Font, PageConstants.LeftMargin, False, False, False))
         Dim v As String
         If TKg = "T" Then
             v = TR.ToString("0.000")
         Else
             v = TR.ToString("0.0")
         End If
-        PrintList.Add(New PageElement(v & " " & TKg, EntryFont, LeftMargin + 300, True, False, True))
+        PrintList.Add(New PageElement(v & " " & TKg, Font, PageConstants.LeftMargin + 300, True, False, True))
 
-        PrintList.Add(New PageElement("Total High Tensile Steel:", EntryFont, LeftMargin, False, False, False))
+        PrintList.Add(New PageElement("Total High Tensile Steel:", Font, PageConstants.LeftMargin, False, False, False))
         If TKg = "T" Then
             v = TY.ToString("0.000")
         Else
             v = TY.ToString("0.0")
         End If
-        PrintList.Add(New PageElement(v & " " & TKg, EntryFont, LeftMargin + 300, True, False, True))
-        PrintList.Add(New PageElement("", EntryFont, 0, True, False, False))
-        PrintList.Add(New PageElement("Grand Total:", EntryFont, LeftMargin, False, False, False))
+        PrintList.Add(New PageElement(v & " " & TKg, Font, PageConstants.LeftMargin + 300, True, False, True))
+        PrintList.Add(New PageElement("", Font, 0, True, False, False))
+        PrintList.Add(New PageElement("Grand Total:", Font, PageConstants.LeftMargin, False, False, False))
         If TKg = "T" Then
             v = (TY + TR).ToString("0.000")
         Else
             v = (TY + TR).ToString("0.0")
         End If
-        PrintList.Add(New PageElement(v & " " & TKg, EntryFont, LeftMargin + 300, True, False, True))
+        PrintList.Add(New PageElement(v & " " & TKg, Font, PageConstants.LeftMargin + 300, True, False, True))
 
     End Sub
 
