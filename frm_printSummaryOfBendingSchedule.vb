@@ -158,7 +158,7 @@ Public Class frm_printSummaryOfBendingSchedule
 
     Private Sub btnPrintPreview_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnPrintPreview.Click
 
-        If cmbJobs.Text = "" Then
+        If cmbJobs.Text = String.Empty Then
             MessageBox.Show("Select a job number from the drop-down list.", "Invalid job number", MessageBoxButtons.OK)
             cmbJobs.Focus()
             Exit Sub
@@ -180,7 +180,7 @@ Public Class frm_printSummaryOfBendingSchedule
             PrintArray.Clear()
 
             'Put method to populate print array here
-            GenerateSummaryOfBendingSchedules(cmbJobs.Text, dtpReportDate.Value)
+            Logic.GenerateSummaryOfBendingSchedules(cmbJobs.Text, dtpReportDate.Value)
 
             curArrayPos = 0
 
