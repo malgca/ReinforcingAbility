@@ -88,23 +88,6 @@ Public Class BendingSchedule
         PrintList.Add(New PageElement(inType, PageConstants.Font, PageConstants.LeftMargin + 40, False, False, False))
     End Sub
 
-    ' adds a type heading to the print queue
-    Private Sub PrintTypeHeadings()
-        PrintList.Add(New PageElement("Schedule", PageConstants.Font, PageConstants.LeftMargin, False))
-
-        PrintList.Add(New PageElement(PageConstants.Six, PageConstants.Font, PageConstants.LeftMargin + 1 * PageConstants.d2, False))
-        PrintList.Add(New PageElement(PageConstants.Eight, PageConstants.Font, PageConstants.LeftMargin + 2 * PageConstants.d2, False))
-        PrintList.Add(New PageElement(PageConstants.Ten, PageConstants.Font, PageConstants.LeftMargin + 3 * PageConstants.d2, False))
-        PrintList.Add(New PageElement(PageConstants.Twelve, PageConstants.Font, PageConstants.LeftMargin + 4 * PageConstants.d2, False))
-        PrintList.Add(New PageElement(PageConstants.Sixteen, PageConstants.Font, PageConstants.LeftMargin + 5 * PageConstants.d2, False))
-        PrintList.Add(New PageElement(PageConstants.Twenty, PageConstants.Font, PageConstants.LeftMargin + 6 * PageConstants.d2, False))
-        PrintList.Add(New PageElement(PageConstants.TwentyFive, PageConstants.Font, PageConstants.LeftMargin + 7 * PageConstants.d2, False))
-        PrintList.Add(New PageElement(PageConstants.ThirtyTwo, PageConstants.Font, PageConstants.LeftMargin + 8 * PageConstants.d2, False))
-        PrintList.Add(New PageElement(PageConstants.Forty, PageConstants.Font, PageConstants.LeftMargin + 9 * PageConstants.d2, True, False, False))
-
-        PrintList.Add(New PageElement("<HR/BLACK>", PageConstants.Font, PageConstants.LeftMargin, True))
-    End Sub
-
     ' adds an r head to the print queue
     Private Sub PrintRHead()
         PrintList.Add(New PageElement("", PageConstants.Font, 0, True, False, False))
@@ -137,22 +120,72 @@ Public Class BendingSchedule
     Public Sub GenerateSummaryOfBendingSchedules(ByVal jobNo As String, ByVal aDate As Date)
         CreateBendingScheduleSummary(jobNo, aDate)
 
-        ' GET ALL THE SCHEDULES AND CUTTING SHEETS FOR THAT JOB IN THAT DATE RANGE
         Dim prevScheduleNumber = String.Empty
 
         ' totals
         Dim RTotals(8) As Double
         Dim YTotals(8) As Double
 
-        For i As Integer = 0 To 8
-            RTotals(i) = 0
-            YTotals(i) = 0
-        Next i
-
         ' schedules
         Dim RBeamsPerSchedule(8) As Double
         Dim YBeamsPerSchedule(8) As Double
 
+        GetScheduleItems(jobNo, aDate, prevScheduleNumber, RBeamsPerSchedule, YBeamsPerSchedule, RTotals, YTotals)
+
+        'PRINT SCHEDULE NUMBER
+        PrintScheduleByNumber(prevScheduleNumber, RBeamsPerSchedule, YBeamsPerSchedule, RTotals, YTotals)
+    End Sub
+
+    ' creates a summary of the Bending schedules
+    Private Sub CreateBendingScheduleSummary(ByVal jobNo As String, ByVal aDate As Date)
+        PrintList.Clear()
+
+        PrintList.Add(New PageElement("SUMMARY OF BENDING SCHEDULES", PageConstants.Font, 0, True, True, False))
+
+        BendingScheduleData.PopulateScheduleSummary(JobNumber)
+
+        BendingScheduleSet.Clear()
+        BendingScheduleData.Adapter.Fill(BendingScheduleSet)
+
+        If BendingScheduleSet.Tables(0).Rows.Count = 1 Then
+            PageConstants.TKG = BendingScheduleSet.Tables(0).Rows(0).Item("TKG").ToString()
+
+            PrintList.Add(New PageElement(BendingScheduleSet.Tables(0).Rows(0).Item("CompanyName").ToString(), PageConstants.Font, 0, True, True, False))
+
+            PrintList.Add(New PageElement("Job Number:", PageConstants.Font, PageConstants.LeftMargin, False, False, False))
+            PrintList.Add(New PageElement(jobNo, PageConstants.Font, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
+
+            PrintList.Add(New PageElement("Job Name:", PageConstants.Font, PageConstants.LeftMargin, False, False, False))
+            PrintList.Add(New PageElement(BendingScheduleSet.Tables(0).Rows(0).Item("JobName").ToString(), PageConstants.Font, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
+
+            PrintList.Add(New PageElement("Contractor:", PageConstants.Font, PageConstants.LeftMargin, False, False, False))
+            PrintList.Add(New PageElement(BendingScheduleSet.Tables(0).Rows(0).Item("ContractorName").ToString(), PageConstants.Font, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
+
+            PrintList.Add(New PageElement("Date:", PageConstants.Font, PageConstants.LeftMargin, False, False, False))
+            PrintList.Add(New PageElement(aDate.ToShortDateString(), PageConstants.Font, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
+
+            PrintList.Add(New PageElement("<SPACE>", PageConstants.Font, PageConstants.LeftMargin, True, False, False))
+            PrintList.Add(New PageElement("<HR/BLACK>", PageConstants.Font, PageConstants.LeftMargin, True))
+
+            PrintList.Add(New PageElement("Schedule", PageConstants.Font, PageConstants.LeftMargin, False))
+
+            PrintList.Add(New PageElement(PageConstants.Six, PageConstants.Font, PageConstants.LeftMargin + 1 * PageConstants.d2, False))
+            PrintList.Add(New PageElement(PageConstants.Eight, PageConstants.Font, PageConstants.LeftMargin + 2 * PageConstants.d2, False))
+            PrintList.Add(New PageElement(PageConstants.Ten, PageConstants.Font, PageConstants.LeftMargin + 3 * PageConstants.d2, False))
+            PrintList.Add(New PageElement(PageConstants.Twelve, PageConstants.Font, PageConstants.LeftMargin + 4 * PageConstants.d2, False))
+            PrintList.Add(New PageElement(PageConstants.Sixteen, PageConstants.Font, PageConstants.LeftMargin + 5 * PageConstants.d2, False))
+            PrintList.Add(New PageElement(PageConstants.Twenty, PageConstants.Font, PageConstants.LeftMargin + 6 * PageConstants.d2, False))
+            PrintList.Add(New PageElement(PageConstants.TwentyFive, PageConstants.Font, PageConstants.LeftMargin + 7 * PageConstants.d2, False))
+            PrintList.Add(New PageElement(PageConstants.ThirtyTwo, PageConstants.Font, PageConstants.LeftMargin + 8 * PageConstants.d2, False))
+            PrintList.Add(New PageElement(PageConstants.Forty, PageConstants.Font, PageConstants.LeftMargin + 9 * PageConstants.d2, True, False, False))
+
+            PrintList.Add(New PageElement("<HR/BLACK>", PageConstants.Font, PageConstants.LeftMargin, True))
+        End If
+    End Sub
+
+    ' get the cutting sheets and the items for the schedule\
+    Private Sub GetScheduleItems(ByVal jobNo As String, ByVal aDate As Date, ByRef prevScheduleNumber As String, ByRef RBeamsPerSchedule() As Double, ByRef YBeamsPerSchedule() As Double, ByRef RTotals() As Double, ByRef YTotals() As Double)
+        ' GET ALL THE SCHEDULES AND CUTTING SHEETS FOR THAT JOB IN THAT DATE RANGE
         BendingScheduleData.PopulateJobSchedule(jobNo, aDate)
 
         BendingScheduleSet.Clear()
@@ -202,108 +235,6 @@ Public Class BendingSchedule
             prevScheduleNumber = scheduleNumber
         Next
         '/* end of all schedules and cutting sheets for this job
-
-        'PRINT SCHEDULE NUMBER
-        PrintSchedule(prevScheduleNumber, BeamType.R.ToString())
-
-        '/* ROUND AND PRINT ALL Rs FOR THE SCHEDULE*/
-        For i As Integer = 0 To 8
-            PrintValue(RBeamsPerSchedule(i), i, PageConstants.TKG)
-        Next
-
-        PrintYHead(BeamType.Y.ToString())
-        ' PRINT ALL Ys
-        For i As Integer = 0 To 8
-            PrintValue(YBeamsPerSchedule(i), i, PageConstants.TKG)
-        Next
-
-        PrintLine()
-
-        PrintRHead()
-
-        Dim totalR As Double = 0
-
-        For i As Integer = 0 To 8
-            PrintValue(RTotals(i), i, PageConstants.TKG)
-            totalR += RTotals(i)
-        Next i
-
-        PrintYHead()
-
-        Dim totalY As Double = 0
-
-        For i As Integer = 0 To 8
-            PrintValue(YTotals(i), i, PageConstants.TKG)
-            totalY += YTotals(i)
-        Next
-
-        PrintList.Add(New PageElement("", PageConstants.Font, 0, True, False, False))
-        PrintList.Add(New PageElement("", PageConstants.Font, 0, True, False, False))
-        PrintList.Add(New PageElement("Total Mild Steel:", PageConstants.Font, PageConstants.LeftMargin, False, False, False))
-
-        Dim totalValue As String
-
-        If PageConstants.TKG = "T" Then
-            totalValue = totalR.ToString("0.000")
-        Else
-            totalValue = totalR.ToString("0.0")
-        End If
-
-        PrintList.Add(New PageElement(totalValue & " " & PageConstants.TKG, PageConstants.Font, PageConstants.LeftMargin + 300, True, False, True))
-        PrintList.Add(New PageElement("Total High Tensile Steel:", PageConstants.Font, PageConstants.LeftMargin, False, False, False))
-
-        If PageConstants.TKG = "T" Then
-            totalValue = totalY.ToString("0.000")
-        Else
-            totalValue = totalY.ToString("0.0")
-        End If
-
-        PrintList.Add(New PageElement(totalValue & " " & PageConstants.TKG, PageConstants.Font, PageConstants.LeftMargin + 300, True, False, True))
-        PrintList.Add(New PageElement("", PageConstants.Font, 0, True, False, False))
-        PrintList.Add(New PageElement("Grand Total:", PageConstants.Font, PageConstants.LeftMargin, False, False, False))
-
-        If PageConstants.TKG = "T" Then
-            totalValue = (totalY + totalR).ToString("0.000")
-        Else
-            totalValue = (totalY + totalR).ToString("0.0")
-        End If
-
-        PrintList.Add(New PageElement(totalValue & " " & PageConstants.TKG, PageConstants.Font, PageConstants.LeftMargin + 300, True, False, True))
-    End Sub
-
-    ' creates a summary of the Bending schedules
-    Private Sub CreateBendingScheduleSummary(ByVal jobNo As String, ByVal aDate As Date)
-        PrintList.Clear()
-
-        PrintList.Add(New PageElement("SUMMARY OF BENDING SCHEDULES", PageConstants.Font, 0, True, True, False))
-
-        BendingScheduleData.PopulateScheduleSummary(JobNumber)
-
-        BendingScheduleSet.Clear()
-        BendingScheduleData.Adapter.Fill(BendingScheduleSet)
-
-        If BendingScheduleSet.Tables(0).Rows.Count = 1 Then
-            PageConstants.TKG = BendingScheduleSet.Tables(0).Rows(0).Item("TKG").ToString()
-
-            PrintList.Add(New PageElement(BendingScheduleSet.Tables(0).Rows(0).Item("CompanyName").ToString(), PageConstants.Font, 0, True, True, False))
-
-            PrintList.Add(New PageElement("Job Number:", PageConstants.Font, PageConstants.LeftMargin, False, False, False))
-            PrintList.Add(New PageElement(jobNo, PageConstants.Font, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
-
-            PrintList.Add(New PageElement("Job Name:", PageConstants.Font, PageConstants.LeftMargin, False, False, False))
-            PrintList.Add(New PageElement(BendingScheduleSet.Tables(0).Rows(0).Item("JobName").ToString(), PageConstants.Font, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
-
-            PrintList.Add(New PageElement("Contractor:", PageConstants.Font, PageConstants.LeftMargin, False, False, False))
-            PrintList.Add(New PageElement(BendingScheduleSet.Tables(0).Rows(0).Item("ContractorName").ToString(), PageConstants.Font, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
-
-            PrintList.Add(New PageElement("Date:", PageConstants.Font, PageConstants.LeftMargin, False, False, False))
-            PrintList.Add(New PageElement(aDate.ToShortDateString(), PageConstants.Font, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
-
-            PrintList.Add(New PageElement("<SPACE>", PageConstants.Font, PageConstants.LeftMargin, True, False, False))
-            PrintList.Add(New PageElement("<HR/BLACK>", PageConstants.Font, PageConstants.LeftMargin, True))
-
-            PrintTypeHeadings()
-        End If
     End Sub
 
     ' reprints schedule if any changes have happened.
@@ -379,6 +310,74 @@ Public Class BendingSchedule
         End Select
     End Sub
 
+    ' print a schedule according to it's schedule number
+    Private Sub PrintScheduleByNumber(ByRef prevScheduleNumber As String, ByRef RBeamsPerSchedule() As Double, ByRef YBeamsPerSchedule() As Double, ByRef RTotals() As Double, ByRef YTotals() As Double)
+        PrintSchedule(prevScheduleNumber, BeamType.R.ToString())
+
+        '/* ROUND AND PRINT ALL Rs FOR THE SCHEDULE*/
+        For i As Integer = 0 To 8
+            PrintValue(RBeamsPerSchedule(i), i, PageConstants.TKG)
+        Next
+
+        PrintYHead(BeamType.Y.ToString())
+        ' PRINT ALL Ys
+        For i As Integer = 0 To 8
+            PrintValue(YBeamsPerSchedule(i), i, PageConstants.TKG)
+        Next
+
+        PrintLine()
+        PrintRHead()
+
+        Dim totalR As Double = 0
+
+        For i As Integer = 0 To 8
+            PrintValue(RTotals(i), i, PageConstants.TKG)
+            totalR += RTotals(i)
+        Next i
+
+        PrintYHead()
+
+        Dim totalY As Double = 0
+
+        For i As Integer = 0 To 8
+            PrintValue(YTotals(i), i, PageConstants.TKG)
+            totalY += YTotals(i)
+        Next
+
+        PrintList.Add(New PageElement("", PageConstants.Font, 0, True, False, False))
+        PrintList.Add(New PageElement("", PageConstants.Font, 0, True, False, False))
+        PrintList.Add(New PageElement("Total Mild Steel:", PageConstants.Font, PageConstants.LeftMargin, False, False, False))
+
+        Dim totalValue As String
+
+        If PageConstants.TKG = "T" Then
+            totalValue = totalR.ToString("0.000")
+        Else
+            totalValue = totalR.ToString("0.0")
+        End If
+
+        PrintList.Add(New PageElement(totalValue & " " & PageConstants.TKG, PageConstants.Font, PageConstants.LeftMargin + 300, True, False, True))
+        PrintList.Add(New PageElement("Total High Tensile Steel:", PageConstants.Font, PageConstants.LeftMargin, False, False, False))
+
+        If PageConstants.TKG = "T" Then
+            totalValue = totalY.ToString("0.000")
+        Else
+            totalValue = totalY.ToString("0.0")
+        End If
+
+        PrintList.Add(New PageElement(totalValue & " " & PageConstants.TKG, PageConstants.Font, PageConstants.LeftMargin + 300, True, False, True))
+        PrintList.Add(New PageElement("", PageConstants.Font, 0, True, False, False))
+        PrintList.Add(New PageElement("Grand Total:", PageConstants.Font, PageConstants.LeftMargin, False, False, False))
+
+        If PageConstants.TKG = "T" Then
+            totalValue = (totalY + totalR).ToString("0.000")
+        Else
+            totalValue = (totalY + totalR).ToString("0.0")
+        End If
+
+        PrintList.Add(New PageElement(totalValue & " " & PageConstants.TKG, PageConstants.Font, PageConstants.LeftMargin + 300, True, False, True))
+    End Sub
+
     Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
 
     ''' <summary>
@@ -389,6 +388,7 @@ Public Class BendingSchedule
             RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(Prop))
         Next
     End Sub
+
     ' Checks if a DB field is not equal to null
     Private Function IsNotNull(ByRef param As Object) As Boolean
         Return Not param.Equals(DBNull.Value)

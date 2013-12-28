@@ -39,7 +39,7 @@ Public Class BendingScheduleData
         Me.ScheduleSummaryCommand.CommandText = "SELECT ContractorName, " & _
             "JobName, " & _
             "CompanyName, " & _
-            "job.[Tons or Kilograms] AS TKG " & _
+            "Job.[Tons or Kilograms] AS TKG " & _
             "FROM Job, Contractor, Company " & _
             "WHERE Job.ContractorNo = Contractor.ContractorNo " & _
             "AND Company.CompanyNo = Job.CompanyNo " & _
@@ -48,7 +48,7 @@ Public Class BendingScheduleData
         Me.SelectJobsCommand.Connection = DBOperations.GetInstance.Connection
 
         Dim newParam As New OleDbParameter()
-        newParam.SourceColumn = "JobNo"
+        newParam.SourceColumn = "Job.JobNo"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 10
         newParam.Value = jobNumber
