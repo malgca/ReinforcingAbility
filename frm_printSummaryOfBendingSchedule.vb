@@ -19,8 +19,8 @@ Public Class frm_printSummaryOfBendingSchedule
     Dim DetailFont As New Font("Arial", 13)
     Dim TimeCardColFont As New Font("Arial", 10, FontStyle.Italic Or FontStyle.Bold)
     Dim ColFont As New Font("Arial", 12, FontStyle.Italic)
-    Dim curArrayPos As Integer = 0
-    Dim curpagenum As Integer = 1
+    Dim currentArrayPosition As Integer = 0
+    Dim currentPageNumber As Integer = 1
     Dim TopMargin As Integer = 60
     Dim LeftMargin As Integer = 60
     Dim RightMargin As Integer = 60
@@ -28,7 +28,6 @@ Public Class frm_printSummaryOfBendingSchedule
     Dim PageWidth As Integer = 873
     Dim ReportType As String
     Dim vatperc As String
-    Dim All_Is_OK As Boolean = True
 
     Private Property Logic As New BendingSchedule
     Private Property CallingForm As Object
@@ -157,7 +156,6 @@ Public Class frm_printSummaryOfBendingSchedule
     End Sub
 
     Private Sub btnPrintPreview_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnPrintPreview.Click
-
         If cmbJobs.Text = String.Empty Then
             MessageBox.Show("Select a job number from the drop-down list.", "Invalid job number", MessageBoxButtons.OK)
             cmbJobs.Focus()
@@ -166,26 +164,31 @@ Public Class frm_printSummaryOfBendingSchedule
 
         Try
             DocumentToPrint.DocumentName = "Summary of Bending Schedules - Job No: " + cmbJobs.Text
-            Dim ppd_JCR As New PrintPreviewDialog
-            ppd_JCR.WindowState = FormWindowState.Maximized
-            ppd_JCR.Document = DocumentToPrint
-            ppd_JCR.AutoScale = True
-            ppd_JCR.AutoScroll = True
-            ppd_JCR.UseAntiAlias = False
-            ppd_JCR.PrintPreviewControl.Zoom = 1
-            ppd_JCR.PrintPreviewControl.Columns = 1
-            ppd_JCR.PrintPreviewControl.Rows = 1
-            ppd_JCR.Text = "Summary of Bending Schedules - Job No: " + cmbJobs.Text
-            curpagenum = 1
-            PrintArray.Clear()
+
+            Dim printPreview As New PrintPreviewDialog
+            printPreview.WindowState = FormWindowState.Maximized
+            printPreview.Document = DocumentToPrint
+            printPreview.AutoScale = True
+            printPreview.AutoScroll = True
+            printPreview.UseAntiAlias = False
+            printPreview.PrintPreviewControl.Zoom = 1
+            printPreview.PrintPreviewControl.Columns = 1
+            printPreview.PrintPreviewControl.Rows = 1
+            printPreview.Text = "Summary of Bending Schedules - Job No: " + cmbJobs.Text
+
+            currentPageNumber = 1
+
+            Logic.PrintList.Clear()
 
             'Put method to populate print array here
             Logic.GenerateSummaryOfBendingSchedules(cmbJobs.Text, dtpReportDate.Value)
 
-            curArrayPos = 0
+            currentArrayPosition = 0
 
-            If All_Is_OK Then
-                ppd_JCR.ShowDialog()
+            Dim noErrors As Boolean = True
+
+            If noErrors Then
+                printPreview.ShowDialog()
             Else
                 Exit Sub
             End If
@@ -196,7 +199,6 @@ Public Class frm_printSummaryOfBendingSchedule
             Else
                 MessageBox.Show(er.Message, "ERROR - PLEASE FIX ME!!")
             End If
-
         End Try
     End Sub
 
@@ -208,76 +210,76 @@ Public Class frm_printSummaryOfBendingSchedule
 
         If ReportType = "Reinforcing Summary" Then
             e.Graphics.DrawString("Date Generated : " & Today().ToShortDateString, New Font("Arial", 8, FontStyle.Italic), Brushes.DimGray, LeftMargin, 1065)
-            e.Graphics.DrawString("Page " & curpagenum, New Font("Arial", 8, FontStyle.Italic), Brushes.DimGray, 700, 1065)
+            e.Graphics.DrawString("Page " & currentPageNumber, New Font("Arial", 8, FontStyle.Italic), Brushes.DimGray, 700, 1065)
         End If
 
-        While (curY < MaxY) And (curArrayPos < PrintArray.Count)
+        While (curY < MaxY) And (currentArrayPosition < Logic.PrintList.Count)
 
-            Select Case PrintArray(curArrayPos).Text.ToString()
+            Select Case Logic.PrintList(currentArrayPosition).Text.ToString()
                 Case "<SPACE>"
                     'e.Graphics.DrawLine(Pens.LightGray, LeftMargin, curY, 800, curY)
-                    If PrintArray(curArrayPos).includeEol Then
-                        curY += PrintArray(curArrayPos).Font.Size + 30 + PrintArray(curArrayPos).ygap
+                    If Logic.PrintList(currentArrayPosition).includeEOL Then
+                        curY += Logic.PrintList(currentArrayPosition).Font.Size + 30 + Logic.PrintList(currentArrayPosition).Ygap
                     End If
                 Case "#LINE__"
-                    e.Graphics.DrawLine(Pens.Black, PrintArray(curArrayPos).x, curY, PrintArray(curArrayPos).x2, curY)
-                    If PrintArray(curArrayPos).includeEol Then
-                        curY += PrintArray(curArrayPos).Font.Size + 10 + PrintArray(curArrayPos).ygap
+                    e.Graphics.DrawLine(Pens.Black, Logic.PrintList(currentArrayPosition).x, curY, Logic.PrintList(currentArrayPosition).x2, curY)
+                    If Logic.PrintList(currentArrayPosition).includeEOL Then
+                        curY += Logic.PrintList(currentArrayPosition).Font.Size + 10 + Logic.PrintList(currentArrayPosition).Ygap
                     End If
                 Case "#DOUBLELINE__"
-                    e.Graphics.DrawLine(Pens.Black, PrintArray(curArrayPos).x, curY, PrintArray(curArrayPos).x2, curY)
-                    e.Graphics.DrawLine(Pens.Black, PrintArray(curArrayPos).x, curY + 3, PrintArray(curArrayPos).x2, curY + 3)
-                    If PrintArray(curArrayPos).includeEol Then
-                        curY += PrintArray(curArrayPos).Font.Size + 10 + PrintArray(curArrayPos).ygap
+                    e.Graphics.DrawLine(Pens.Black, Logic.PrintList(currentArrayPosition).x, curY, Logic.PrintList(currentArrayPosition).x2, curY)
+                    e.Graphics.DrawLine(Pens.Black, Logic.PrintList(currentArrayPosition).x, curY + 3, Logic.PrintList(currentArrayPosition).x2, curY + 3)
+                    If Logic.PrintList(currentArrayPosition).includeEOL Then
+                        curY += Logic.PrintList(currentArrayPosition).Font.Size + 10 + Logic.PrintList(currentArrayPosition).Ygap
                     End If
                 Case "<HR/>"
                     e.Graphics.DrawLine(Pens.LightGray, LeftMargin, curY, 800, curY)
-                    If PrintArray(curArrayPos).includeEol Then
-                        curY += PrintArray(curArrayPos).Font.Size + 10 + PrintArray(curArrayPos).ygap
+                    If Logic.PrintList(currentArrayPosition).includeEOL Then
+                        curY += Logic.PrintList(currentArrayPosition).Font.Size + 10 + Logic.PrintList(currentArrayPosition).Ygap
                     End If
                 Case "<HR/BLACK>"
                     e.Graphics.DrawLine(Pens.Black, LeftMargin, curY, e.PageSettings.Bounds.Width - RightMargin, curY)
-                    If PrintArray(curArrayPos).includeEol Then
-                        curY += PrintArray(curArrayPos).Font.Size + 10 + PrintArray(curArrayPos).ygap
+                    If Logic.PrintList(currentArrayPosition).includeEOL Then
+                        curY += Logic.PrintList(currentArrayPosition).Font.Size + 10 + Logic.PrintList(currentArrayPosition).Ygap
                     End If
                 Case "<HR/LIGHT>"
                     e.Graphics.DrawLine(Pens.WhiteSmoke, LeftMargin, curY, e.PageSettings.Bounds.Width - RightMargin, curY)
-                    If PrintArray(curArrayPos).includeEol Then
-                        curY += PrintArray(curArrayPos).Font.Size + 5 + PrintArray(curArrayPos).ygap
+                    If Logic.PrintList(currentArrayPosition).includeEOL Then
+                        curY += Logic.PrintList(currentArrayPosition).Font.Size + 5 + Logic.PrintList(currentArrayPosition).Ygap
                     End If
                     'Case "<IMG/>"
-                    '   e.Graphics.DrawImage(ImageList1.Images(PrintArray(curArrayPos).imageIndex), PrintArray(curArrayPos).x, curY)
-                    '  If PrintArray(curArrayPos).includeEol Then
-                    ' curY += PrintArray(curArrayPos).ImageHeight + 15
+                    '   e.Graphics.DrawImage(ImageList1.Images(Logic.PrintList(currentArrayPosition).imageIndex), Logic.PrintList(currentArrayPosition).x, curY)
+                    '  If Logic.PrintList(currentArrayPosition).includeEol Then
+                    ' curY += Logic.PrintList(currentArrayPosition).ImageHeight + 15
                     'End If
                 Case Else
-                    If PrintArray(curArrayPos).center Then
+                    If Logic.PrintList(currentArrayPosition).center Then
                         Dim stringSize As New SizeF
-                        stringSize = e.Graphics.MeasureString(PrintArray(curArrayPos).text, EntryFont)
-                        e.Graphics.DrawString(PrintArray(curArrayPos).Text, PrintArray(curArrayPos).Font, Brushes.Black, (e.PageSettings.Bounds.Width / 2) - 0.5 * stringSize.Width, curY)
-                    ElseIf PrintArray(curArrayPos).ralign Then
+                        stringSize = e.Graphics.MeasureString(Logic.PrintList(currentArrayPosition).Text, EntryFont)
+                        e.Graphics.DrawString(Logic.PrintList(currentArrayPosition).Text, Logic.PrintList(currentArrayPosition).Font, Brushes.Black, (e.PageSettings.Bounds.Width / 2) - 0.5 * stringSize.Width, curY)
+                    ElseIf Logic.PrintList(currentArrayPosition).rAlign Then
                         Dim stringSize As New SizeF
-                        stringSize = e.Graphics.MeasureString(PrintArray(curArrayPos).text, EntryFont)
-                        e.Graphics.DrawString(PrintArray(curArrayPos).Text, PrintArray(curArrayPos).Font, Brushes.Black, PrintArray(curArrayPos).x - stringSize.Width, curY)
+                        stringSize = e.Graphics.MeasureString(Logic.PrintList(currentArrayPosition).Text, EntryFont)
+                        e.Graphics.DrawString(Logic.PrintList(currentArrayPosition).Text, Logic.PrintList(currentArrayPosition).Font, Brushes.Black, Logic.PrintList(currentArrayPosition).x - stringSize.Width, curY)
                     Else
-                        e.Graphics.DrawString(PrintArray(curArrayPos).Text, PrintArray(curArrayPos).Font, Brushes.Black, PrintArray(curArrayPos).x, curY)
+                        e.Graphics.DrawString(Logic.PrintList(currentArrayPosition).Text, Logic.PrintList(currentArrayPosition).Font, Brushes.Black, Logic.PrintList(currentArrayPosition).x, curY)
                     End If
 
-                    If PrintArray(curArrayPos).includeEol Then
-                        curY += PrintArray(curArrayPos).Font.Size + 10 + PrintArray(curArrayPos).ygap
+                    If Logic.PrintList(currentArrayPosition).includeEOL Then
+                        curY += Logic.PrintList(currentArrayPosition).Font.Size + 10 + Logic.PrintList(currentArrayPosition).Ygap
                     End If
             End Select
 
-            curArrayPos += 1
+            currentArrayPosition += 1
         End While
 
         If curY >= MaxY Then
-            curpagenum += 1
+            currentPageNumber += 1
             e.HasMorePages = True
         Else
             e.HasMorePages = False
-            curArrayPos = 0
-            curpagenum = 1
+            currentArrayPosition = 0
+            currentPageNumber = 1
         End If
     End Sub
 

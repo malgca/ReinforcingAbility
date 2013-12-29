@@ -98,6 +98,10 @@ LogicTier
 	<summary>
  Units of measurement used by the Reinforcing Ability system.
  </summary>
+</member><member name="M:LogicTier.BendingSchedule.PopulateJobList">
+	<summary>
+ Populates the existing list of jobs from the database.
+ </summary>
 </member><member name="M:LogicTier.BendingSchedule.NotifyPropertyChanged(System.String[])">
 	<summary>
  Notifies listener of a change in a property

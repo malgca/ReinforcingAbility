@@ -32,10 +32,8 @@ Public Class BendingSchedule
         Y = 4
     End Enum
 
-    Dim DBConnection As New OleDb.OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source = winsteelVers5.mdb")
-
     Private Property JobNumber As String
-    Private Property PrintList As New List(Of PageElement)
+    Public Property PrintList As New List(Of PageElement)
 
     Public Property JobNameList As New List(Of String)
 
