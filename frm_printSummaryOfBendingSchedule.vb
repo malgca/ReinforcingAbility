@@ -7,33 +7,8 @@ Imports LogicTier
 Public Class frm_printSummaryOfBendingSchedule
     Inherits Form
 
-#Region " Global Variables "
-    Dim DBConnection As New OleDb.OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source = winsteelVers5.mdb")
-    Dim field As PageElement
-    Dim EntryFont As New Font("Arial", 10)
-    Dim Head1Font As New Font("Arial", 30, FontStyle.Bold Or FontStyle.Underline)
-    Dim Head2Font As New Font("Arial", 15, FontStyle.Bold)
-    Dim Head2DetFont As New Font("Arial", 15, FontStyle.Italic)
-    Dim EntryFontBold As New Font("Arial", 10, FontStyle.Bold)
-    Dim EntryFontUnderline As New Font("Arial", 10, FontStyle.Underline)
-    Dim DetailFont As New Font("Arial", 13)
-    Dim TimeCardColFont As New Font("Arial", 10, FontStyle.Italic Or FontStyle.Bold)
-    Dim ColFont As New Font("Arial", 12, FontStyle.Italic)
-    Dim currentArrayPosition As Integer = 0
-    Dim currentPageNumber As Integer = 1
-    Dim TopMargin As Integer = 60
-    Dim LeftMargin As Integer = 60
-    Dim RightMargin As Integer = 60
-    Dim BottomMargin As Integer = 90
-    Dim PageWidth As Integer = 873
-    Dim ReportType As String
-    Dim vatperc As String
-
     Private Property Logic As New BendingSchedule
     Private Property CallingForm As Object
-
-    Const d2 As Integer = 75
-#End Region
 
 #Region " Windows Form Designer generated code "
 
@@ -176,14 +151,14 @@ Public Class frm_printSummaryOfBendingSchedule
             printPreview.PrintPreviewControl.Rows = 1
             printPreview.Text = "Summary of Bending Schedules - Job No: " + cmbJobs.Text
 
-            currentPageNumber = 1
+            Logic.CurrentPageNumber = 1
 
             Logic.PrintList.Clear()
 
             'Put method to populate print array here
             Logic.GenerateSummaryOfBendingSchedules(cmbJobs.Text, dtpReportDate.Value)
 
-            currentArrayPosition = 0
+            Logic.CurrentListPosition = 0
 
             Dim noErrors As Boolean = True
 
@@ -203,83 +178,83 @@ Public Class frm_printSummaryOfBendingSchedule
     End Sub
 
     Private Sub PrintPage(ByVal sender As Object, ByVal e As PrintPageEventArgs) Handles DocumentToPrint.PrintPage
+        Me.Cursor = Cursors.Arrow
 
-        Me.Cursor = Windows.Forms.Cursors.Arrow
-        Dim curY As Integer = TopMargin
-        Dim MaxY As Integer = e.PageSettings.Bounds.Height - BottomMargin
+        Dim topMargin As Integer = BendingSchedule.PageConstants.TopMargin
+        Dim pageBound As Integer = e.PageSettings.Bounds.Height - BendingSchedule.PageConstants.BottomMargin
 
-        If ReportType = "Reinforcing Summary" Then
-            e.Graphics.DrawString("Date Generated : " & Today().ToShortDateString, New Font("Arial", 8, FontStyle.Italic), Brushes.DimGray, LeftMargin, 1065)
-            e.Graphics.DrawString("Page " & currentPageNumber, New Font("Arial", 8, FontStyle.Italic), Brushes.DimGray, 700, 1065)
+        If BendingSchedule.PageConstants.ReportType = "Reinforcing Summary" Then
+            e.Graphics.DrawString("Date Generated : " & Today().ToShortDateString, BendingSchedule.PrintFonts.SmallItalic, Brushes.DimGray, BendingSchedule.PageConstants.LeftMargin, 1065)
+            e.Graphics.DrawString("Page " & Logic.CurrentPageNumber, BendingSchedule.PrintFonts.SmallItalic, Brushes.DimGray, 700, 1065)
         End If
 
-        While (curY < MaxY) And (currentArrayPosition < Logic.PrintList.Count)
-
-            Select Case Logic.PrintList(currentArrayPosition).Text.ToString()
+        While (topMargin < pageBound) And (Logic.CurrentListPosition < Logic.PrintList.Count)
+            Select Case Logic.PrintList(Logic.CurrentListPosition).Text.ToString()
                 Case "<SPACE>"
-                    'e.Graphics.DrawLine(Pens.LightGray, LeftMargin, curY, 800, curY)
-                    If Logic.PrintList(currentArrayPosition).includeEOL Then
-                        curY += Logic.PrintList(currentArrayPosition).Font.Size + 30 + Logic.PrintList(currentArrayPosition).Ygap
+                    If Logic.PrintList(Logic.CurrentListPosition).includeEOL Then
+                        topMargin += Logic.PrintList(Logic.CurrentListPosition).Font.Size + 30 + Logic.PrintList(Logic.CurrentListPosition).Ygap
                     End If
                 Case "#LINE__"
-                    e.Graphics.DrawLine(Pens.Black, Logic.PrintList(currentArrayPosition).x, curY, Logic.PrintList(currentArrayPosition).x2, curY)
-                    If Logic.PrintList(currentArrayPosition).includeEOL Then
-                        curY += Logic.PrintList(currentArrayPosition).Font.Size + 10 + Logic.PrintList(currentArrayPosition).Ygap
+                    e.Graphics.DrawLine(Pens.Black, Logic.PrintList(Logic.CurrentListPosition).x, topMargin, Logic.PrintList(Logic.CurrentListPosition).x2, topMargin)
+
+                    If Logic.PrintList(Logic.CurrentListPosition).includeEOL Then
+                        topMargin += Logic.PrintList(Logic.CurrentListPosition).Font.Size + 10 + Logic.PrintList(Logic.CurrentListPosition).Ygap
                     End If
                 Case "#DOUBLELINE__"
-                    e.Graphics.DrawLine(Pens.Black, Logic.PrintList(currentArrayPosition).x, curY, Logic.PrintList(currentArrayPosition).x2, curY)
-                    e.Graphics.DrawLine(Pens.Black, Logic.PrintList(currentArrayPosition).x, curY + 3, Logic.PrintList(currentArrayPosition).x2, curY + 3)
-                    If Logic.PrintList(currentArrayPosition).includeEOL Then
-                        curY += Logic.PrintList(currentArrayPosition).Font.Size + 10 + Logic.PrintList(currentArrayPosition).Ygap
+                    e.Graphics.DrawLine(Pens.Black, Logic.PrintList(Logic.CurrentListPosition).x, topMargin, Logic.PrintList(Logic.CurrentListPosition).x2, topMargin)
+                    e.Graphics.DrawLine(Pens.Black, Logic.PrintList(Logic.CurrentListPosition).x, topMargin + 3, Logic.PrintList(Logic.CurrentListPosition).x2, topMargin + 3)
+
+                    If Logic.PrintList(Logic.CurrentListPosition).includeEOL Then
+                        topMargin += Logic.PrintList(Logic.CurrentListPosition).Font.Size + 10 + Logic.PrintList(Logic.CurrentListPosition).Ygap
                     End If
                 Case "<HR/>"
-                    e.Graphics.DrawLine(Pens.LightGray, LeftMargin, curY, 800, curY)
-                    If Logic.PrintList(currentArrayPosition).includeEOL Then
-                        curY += Logic.PrintList(currentArrayPosition).Font.Size + 10 + Logic.PrintList(currentArrayPosition).Ygap
+                    e.Graphics.DrawLine(Pens.LightGray, BendingSchedule.PageConstants.LeftMargin, topMargin, 800, topMargin)
+
+                    If Logic.PrintList(Logic.CurrentListPosition).includeEOL Then
+                        topMargin += Logic.PrintList(Logic.CurrentListPosition).Font.Size + 10 + Logic.PrintList(Logic.CurrentListPosition).Ygap
                     End If
                 Case "<HR/BLACK>"
-                    e.Graphics.DrawLine(Pens.Black, LeftMargin, curY, e.PageSettings.Bounds.Width - RightMargin, curY)
-                    If Logic.PrintList(currentArrayPosition).includeEOL Then
-                        curY += Logic.PrintList(currentArrayPosition).Font.Size + 10 + Logic.PrintList(currentArrayPosition).Ygap
+                    e.Graphics.DrawLine(Pens.Black, BendingSchedule.PageConstants.LeftMargin, topMargin, e.PageSettings.Bounds.Width - BendingSchedule.PageConstants.RightMargin, topMargin)
+
+                    If Logic.PrintList(Logic.CurrentListPosition).includeEOL Then
+                        topMargin += Logic.PrintList(Logic.CurrentListPosition).Font.Size + 10 + Logic.PrintList(Logic.CurrentListPosition).Ygap
                     End If
                 Case "<HR/LIGHT>"
-                    e.Graphics.DrawLine(Pens.WhiteSmoke, LeftMargin, curY, e.PageSettings.Bounds.Width - RightMargin, curY)
-                    If Logic.PrintList(currentArrayPosition).includeEOL Then
-                        curY += Logic.PrintList(currentArrayPosition).Font.Size + 5 + Logic.PrintList(currentArrayPosition).Ygap
+                    e.Graphics.DrawLine(Pens.WhiteSmoke, BendingSchedule.PageConstants.LeftMargin, topMargin, e.PageSettings.Bounds.Width - BendingSchedule.PageConstants.RightMargin, topMargin)
+
+                    If Logic.PrintList(Logic.CurrentListPosition).includeEOL Then
+                        topMargin += Logic.PrintList(Logic.CurrentListPosition).Font.Size + 5 + Logic.PrintList(Logic.CurrentListPosition).Ygap
                     End If
-                    'Case "<IMG/>"
-                    '   e.Graphics.DrawImage(ImageList1.Images(Logic.PrintList(currentArrayPosition).imageIndex), Logic.PrintList(currentArrayPosition).x, curY)
-                    '  If Logic.PrintList(currentArrayPosition).includeEol Then
-                    ' curY += Logic.PrintList(currentArrayPosition).ImageHeight + 15
-                    'End If
                 Case Else
-                    If Logic.PrintList(currentArrayPosition).center Then
+                    If Logic.PrintList(Logic.CurrentListPosition).center Then
                         Dim stringSize As New SizeF
-                        stringSize = e.Graphics.MeasureString(Logic.PrintList(currentArrayPosition).Text, EntryFont)
-                        e.Graphics.DrawString(Logic.PrintList(currentArrayPosition).Text, Logic.PrintList(currentArrayPosition).Font, Brushes.Black, (e.PageSettings.Bounds.Width / 2) - 0.5 * stringSize.Width, curY)
-                    ElseIf Logic.PrintList(currentArrayPosition).rAlign Then
+
+                        stringSize = e.Graphics.MeasureString(Logic.PrintList(Logic.CurrentListPosition).Text, BendingSchedule.PrintFonts.Normal)
+                        e.Graphics.DrawString(Logic.PrintList(Logic.CurrentListPosition).Text, Logic.PrintList(Logic.CurrentListPosition).Font, Brushes.Black, (e.PageSettings.Bounds.Width / 2) - 0.5 * stringSize.Width, topMargin)
+                    ElseIf Logic.PrintList(Logic.CurrentListPosition).rAlign Then
                         Dim stringSize As New SizeF
-                        stringSize = e.Graphics.MeasureString(Logic.PrintList(currentArrayPosition).Text, EntryFont)
-                        e.Graphics.DrawString(Logic.PrintList(currentArrayPosition).Text, Logic.PrintList(currentArrayPosition).Font, Brushes.Black, Logic.PrintList(currentArrayPosition).x - stringSize.Width, curY)
+
+                        stringSize = e.Graphics.MeasureString(Logic.PrintList(Logic.CurrentListPosition).Text, BendingSchedule.PrintFonts.Normal)
+                        e.Graphics.DrawString(Logic.PrintList(Logic.CurrentListPosition).Text, Logic.PrintList(Logic.CurrentListPosition).Font, Brushes.Black, Logic.PrintList(Logic.CurrentListPosition).x - stringSize.Width, topMargin)
                     Else
-                        e.Graphics.DrawString(Logic.PrintList(currentArrayPosition).Text, Logic.PrintList(currentArrayPosition).Font, Brushes.Black, Logic.PrintList(currentArrayPosition).x, curY)
+                        e.Graphics.DrawString(Logic.PrintList(Logic.CurrentListPosition).Text, Logic.PrintList(Logic.CurrentListPosition).Font, Brushes.Black, Logic.PrintList(Logic.CurrentListPosition).x, topMargin)
                     End If
 
-                    If Logic.PrintList(currentArrayPosition).includeEOL Then
-                        curY += Logic.PrintList(currentArrayPosition).Font.Size + 10 + Logic.PrintList(currentArrayPosition).Ygap
+                    If Logic.PrintList(Logic.CurrentListPosition).includeEOL Then
+                        topMargin += Logic.PrintList(Logic.CurrentListPosition).Font.Size + 10 + Logic.PrintList(Logic.CurrentListPosition).Ygap
                     End If
             End Select
 
-            currentArrayPosition += 1
+            Logic.CurrentListPosition += 1
         End While
 
-        If curY >= MaxY Then
-            currentPageNumber += 1
+        If topMargin >= pageBound Then
+            Logic.CurrentPageNumber += 1
             e.HasMorePages = True
         Else
             e.HasMorePages = False
-            currentArrayPosition = 0
-            currentPageNumber = 1
+            Logic.CurrentListPosition = 0
+            Logic.CurrentPageNumber = 1
         End If
     End Sub
 
@@ -296,6 +271,6 @@ Public Class frm_printSummaryOfBendingSchedule
     End Sub
 
     Private Sub cmbJobs_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles cmbJobs.SelectedIndexChanged
-
+        Console.WriteLine(cmbJobs.Text)
     End Sub
 End Class

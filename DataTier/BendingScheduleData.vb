@@ -15,10 +15,6 @@ Public Class BendingScheduleData
     Private Property CuttingSheetScheduleCommand As New OleDbCommand 'used
     Private Property JobScheduleCommand As New OleDbCommand 'used
 
-    Public Sub New(ByRef jobNumber As String)
-    
-    End Sub
-
     ''' <summary>
     ''' Populates a dataset with data from the Job table.
     ''' </summary>
@@ -45,7 +41,7 @@ Public Class BendingScheduleData
             "AND Company.CompanyNo = Job.CompanyNo " & _
             "AND Job.JobNo = ?"
 
-        Me.SelectJobsCommand.Connection = DBOperations.GetInstance.Connection
+        Me.ScheduleSummaryCommand.Connection = DBOperations.GetInstance.Connection
 
         Dim newParam As New OleDbParameter()
         newParam.SourceColumn = "Job.JobNo"
@@ -64,20 +60,14 @@ Public Class BendingScheduleData
         Me.JobScheduleCommand.CommandText = "SELECT DISTINCT ScheduleNo, " & _
             "CuttingSheet.CutSheetNo " & _
             "FROM CuttingSheet INNER JOIN SchedItem ON CuttingSheet.CutSheetNo = SchedItem.CutSheetNo " & _
-            "WHERE CutDate <= #?# " & _
+            "WHERE CutDate <= #" & thisDate.ToShortDateString() & "# " & _
             "AND InvoiceNo <> 0 " & _
-            "AND [Job No] = ?" & _
+            "AND [Job No] = '?'" & _
             "ORDER BY ScheduleNo"
 
         Me.JobScheduleCommand.Connection = DBOperations.GetInstance.Connection
 
         Dim newParam As New OleDbParameter()
-        newParam.SourceColumn = "CutDate"
-        newParam.OleDbType = OleDbType.Date
-        newParam.Value = thisDate
-        Me.JobScheduleCommand.Parameters.Add(newParam)
-
-        newParam = New OleDbParameter()
         newParam.SourceColumn = "Job No"
         newParam.OleDbType = OleDbType.VarWChar
         newParam.Size = 50

@@ -6,9 +6,21 @@ DataTier
 </name>
 </assembly>
 <members>
-<member name="M:DataTier.BendingScheduleData.PopulateJobsSet(System.Data.DataSet@)">
+<member name="M:DataTier.BendingScheduleData.PopulateJobsSet">
 	<summary>
  Populates a dataset with data from the Job table.
+ </summary>
+</member><member name="M:DataTier.BendingScheduleData.PopulateScheduleSummary(System.String@)">
+	<summary>
+ Populates a schedule for a given job number.
+ </summary>
+</member><member name="M:DataTier.BendingScheduleData.PopulateJobSchedule(System.String@,System.DateTime@)">
+	<summary>
+ Populate a complete schedule for a given schedule and date.
+ </summary>
+</member><member name="M:DataTier.BendingScheduleData.PopulateCuttingSheetPerSchedule(System.String@,System.String@)">
+	<summary>
+ Populate summary of all cutting sheets and items per schedule
  </summary>
 </member><member name="T:DataTier.BendingScheduleData">
 	<summary>

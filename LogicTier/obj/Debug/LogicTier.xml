@@ -98,6 +98,14 @@ LogicTier
 	<summary>
  Units of measurement used by the Reinforcing Ability system.
  </summary>
+</member><member name="F:LogicTier.BendingSchedule.PrintFonts.Normal">
+	<summary>
+ Arial 10, Normal
+ </summary>
+</member><member name="F:LogicTier.BendingSchedule.PrintFonts.SmallItalic">
+	<summary>
+ Arial 8, Italic
+ </summary>
 </member><member name="M:LogicTier.BendingSchedule.PopulateJobList">
 	<summary>
  Populates the existing list of jobs from the database.
