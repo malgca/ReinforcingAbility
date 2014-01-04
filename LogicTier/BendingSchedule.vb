@@ -202,7 +202,7 @@ Public Class BendingSchedule
         ' GET ALL THE SCHEDULES AND CUTTING SHEETS FOR THAT JOB IN THAT DATE RANGE
         BendingScheduleData.PopulateJobSchedule(jobNo, aDate)
 
-        BendingScheduleSet.Clear()
+        BendingScheduleSet = New DataSet()
         BendingScheduleData.Adapter.Fill(BendingScheduleSet)
 
         ' /* FOR EACH SCHEDULE AND CUTTING SHEET*/

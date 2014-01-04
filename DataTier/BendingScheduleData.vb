@@ -57,22 +57,19 @@ Public Class BendingScheduleData
     Public Sub PopulateJobSchedule(ByRef jobNumber As String, ByRef thisDate As Date)
         Me.Adapter.SelectCommand = Me.JobScheduleCommand
 
-        Me.JobScheduleCommand.CommandText = "SELECT DISTINCT ScheduleNo, " & _
-            "CuttingSheet.CutSheetNo " & _
-            "FROM CuttingSheet INNER JOIN SchedItem ON CuttingSheet.CutSheetNo = SchedItem.CutSheetNo " & _
-            "WHERE CutDate <= #" & thisDate.ToShortDateString() & "# " & _
-            "AND InvoiceNo <> 0 " & _
-            "AND [Job No] = '?'" & _
-            "ORDER BY ScheduleNo"
+        Me.JobScheduleCommand.CommandText = "SELECT DISTINCT ScheduleNo, CuttingSheet.CutSheetNo" & _
+        " FROM CuttingSheet INNER JOIN SchedItem ON CuttingSheet.CutSheetNo = SchedItem.CutSheetNo " & _
+        "WHERE CutDate <= #" & thisDate.ToShortDateString & "# AND InvoiceNo <> 0 AND [Job No] = '" & jobNumber & "'" & _
+        "ORDER BY ScheduleNo"
 
         Me.JobScheduleCommand.Connection = DBOperations.GetInstance.Connection
 
-        Dim newParam As New OleDbParameter()
-        newParam.SourceColumn = "Job No"
-        newParam.OleDbType = OleDbType.VarWChar
-        newParam.Size = 50
-        newParam.Value = jobNumber
-        Me.JobScheduleCommand.Parameters.Add(newParam)
+        'Dim newParam As New OleDbParameter()
+        'newParam.SourceColumn = "Job No"
+        'newParam.OleDbType = OleDbType.VarWChar
+        'newParam.Size = 50
+        'newParam.Value = jobNumber
+        'Me.JobScheduleCommand.Parameters.Add(newParam)
     End Sub
 
     ''' <summary>
