@@ -55,7 +55,6 @@ Public Class BendingSchedule
     Public Property JobNameList As New List(Of String)
 
     Private Property BendingScheduleData As BendingScheduleData
-    Private Property BendingScheduleSet As New DataSet
 
     Public Sub New()
         BendingScheduleData = New BendingScheduleData()
@@ -74,10 +73,10 @@ Public Class BendingSchedule
         JobNameList.Clear()
         BendingScheduleData.PopulateJobsSet()
 
-        BendingScheduleSet.Clear()
-        BendingScheduleData.Adapter.Fill(BendingScheduleSet)
+        Dim JobNameSet As New DataSet
+        BendingScheduleData.Adapter.Fill(JobNameSet)
 
-        For Each newRow As DataRow In BendingScheduleSet.Tables.Item(0).Rows
+        For Each newRow As DataRow In JobNameSet.Tables.Item(0).Rows
             If (IsNotNull(newRow("JobNo"))) Then
                 JobNameList.Add(newRow("JobNo"))
             End If
@@ -158,22 +157,22 @@ Public Class BendingSchedule
 
         BendingScheduleData.PopulateScheduleSummary(jobNo)
 
-        BendingScheduleSet.Clear()
-        BendingScheduleData.Adapter.Fill(BendingScheduleSet)
+        Dim ScheduleSummarySet As New DataSet
+        BendingScheduleData.Adapter.Fill(ScheduleSummarySet)
 
-        If BendingScheduleSet.Tables(0).Rows.Count = 1 Then
-            TKG = BendingScheduleSet.Tables(0).Rows(0).Item("TKG").ToString()
+        If ScheduleSummarySet.Tables(0).Rows.Count = 1 Then
+            TKG = ScheduleSummarySet.Tables(0).Rows(0).Item("TKG").ToString()
 
-            PrintList.Add(New PageElement(BendingScheduleSet.Tables(0).Rows(0).Item("CompanyName").ToString(), PrintFonts.Normal, 0, True, True, False))
+            PrintList.Add(New PageElement(ScheduleSummarySet.Tables(0).Rows(0).Item("CompanyName").ToString(), PrintFonts.Normal, 0, True, True, False))
 
             PrintList.Add(New PageElement("Job Number:", PrintFonts.Normal, PageConstants.LeftMargin, False, False, False))
             PrintList.Add(New PageElement(jobNo, PrintFonts.Normal, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
 
             PrintList.Add(New PageElement("Job Name:", PrintFonts.Normal, PageConstants.LeftMargin, False, False, False))
-            PrintList.Add(New PageElement(BendingScheduleSet.Tables(0).Rows(0).Item("JobName").ToString(), PrintFonts.Normal, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
+            PrintList.Add(New PageElement(ScheduleSummarySet.Tables(0).Rows(0).Item("JobName").ToString(), PrintFonts.Normal, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
 
             PrintList.Add(New PageElement("Contractor:", PrintFonts.Normal, PageConstants.LeftMargin, False, False, False))
-            PrintList.Add(New PageElement(BendingScheduleSet.Tables(0).Rows(0).Item("ContractorName").ToString(), PrintFonts.Normal, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
+            PrintList.Add(New PageElement(ScheduleSummarySet.Tables(0).Rows(0).Item("ContractorName").ToString(), PrintFonts.Normal, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
 
             PrintList.Add(New PageElement("Date:", PrintFonts.Normal, PageConstants.LeftMargin, False, False, False))
             PrintList.Add(New PageElement(aDate.ToShortDateString(), PrintFonts.Normal, PageConstants.LeftMargin + PageConstants.d1, True, False, False))
@@ -200,36 +199,37 @@ Public Class BendingSchedule
     ' get the cutting sheets and the items for the schedule\
     Private Sub GetScheduleItems(ByVal jobNo As String, ByVal aDate As Date, ByRef prevScheduleNumber As String, ByRef RBeamsPerSchedule() As Double, ByRef YBeamsPerSchedule() As Double, ByRef RTotals() As Double, ByRef YTotals() As Double)
         ' GET ALL THE SCHEDULES AND CUTTING SHEETS FOR THAT JOB IN THAT DATE RANGE
+
         BendingScheduleData.PopulateJobSchedule(jobNo, aDate)
 
-        BendingScheduleSet = New DataSet()
-        BendingScheduleData.Adapter.Fill(BendingScheduleSet)
+        Dim JobScheduleSet As New DataSet
+        BendingScheduleData.Adapter.Fill(JobScheduleSet)
 
         ' /* FOR EACH SCHEDULE AND CUTTING SHEET*/
-        For i As Integer = 0 To BendingScheduleSet.Tables(0).Rows.Count - 1
-            Dim scheduleNumber = BendingScheduleSet.Tables(0).Rows(i).Item("ScheduleNo").ToString().ToUpper
+        For i As Integer = 0 To JobScheduleSet.Tables(0).Rows.Count - 1
+            Dim scheduleNumber = JobScheduleSet.Tables(0).Rows(i).Item("ScheduleNo").ToString().ToUpper
 
             ChangeSchedules(scheduleNumber, prevScheduleNumber, RBeamsPerSchedule, YBeamsPerSchedule)
 
             ' ******************************
             '/*  GET ALL THE CUTTING SHEETS AND ITEMS FOR THE SCHEDULE */
 
-            Dim cuttingSheetNumber = BendingScheduleSet.Tables(0).Rows(i).Item("CutSheetNo").ToString()
+            Dim cuttingSheetNumber = JobScheduleSet.Tables(0).Rows(i).Item("CutSheetNo")
 
             BendingScheduleData.PopulateCuttingSheetPerSchedule(scheduleNumber, cuttingSheetNumber)
 
-            BendingScheduleSet.Clear()
-            BendingScheduleData.Adapter.Fill(BendingScheduleSet)
+            Dim CuttingSheetSet As New DataSet
+            BendingScheduleData.Adapter.Fill(CuttingSheetSet)
 
             '/* IF THERE ARE ITEMS IN THE SCHEDULE */
-            If BendingScheduleSet.Tables(0).Rows.Count <> 0 Then
+            If CuttingSheetSet.Tables(0).Rows.Count <> 0 Then
 
                 '/* LOOP THROUGH EACH ITEM */
-                For r As Integer = 0 To BendingScheduleSet.Tables(0).Rows.Count - 1
-                    Dim currentWeight As Double = BendingScheduleSet.Tables(0).Rows(r).Item("Weight")
-                    Dim currentQuantity As Integer = BendingScheduleSet.Tables(0).Rows(r).Item("Qty")
-                    Dim currentTypeCode As String = BendingScheduleSet.Tables(0).Rows(r).Item("CutItem.TypeCode").ToString()
-                    Dim currentSteel As Double = BendingScheduleSet.Tables(0).Rows(r).Item("Length") * currentQuantity * currentWeight
+                For r As Integer = 0 To CuttingSheetSet.Tables(0).Rows.Count - 1
+                    Dim currentWeight As Double = CuttingSheetSet.Tables(0).Rows(r).Item("Weight")
+                    Dim currentQuantity As Integer = CuttingSheetSet.Tables(0).Rows(r).Item("Qty")
+                    Dim currentTypeCode As String = CuttingSheetSet.Tables(0).Rows(r).Item("CutItem.TypeCode").ToString()
+                    Dim currentSteel As Double = CuttingSheetSet.Tables(0).Rows(r).Item("Length") * currentQuantity * currentWeight
 
                     If TKG = "T" Then
                         currentSteel = currentSteel / 1000000
