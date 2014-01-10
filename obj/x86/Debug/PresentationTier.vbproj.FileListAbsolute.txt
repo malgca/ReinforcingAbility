@@ -1,6 +1,3 @@
-C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.exe
-C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.xml
-C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.pdb
 C:\Users\malgca\Development\ReinforcingAbility\bin\Debug\PresentationTier.exe
 C:\Users\malgca\Development\ReinforcingAbility\bin\Debug\PresentationTier.pdb
 C:\Users\malgca\Development\ReinforcingAbility\bin\Debug\PresentationTier.xml
@@ -38,3 +35,6 @@ C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.Pr
 C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.PrintJobRates.resources
 C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.PrintJobs.resources
 C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.vbproj.GenerateResource.Cache
+C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.exe
+C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.xml
+C:\Users\malgca\Development\ReinforcingAbility\obj\x86\Debug\PresentationTier.pdb

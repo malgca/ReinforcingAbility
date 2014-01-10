@@ -1,11 +1,3 @@
-C:\Users\malgca\Development\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.vbproj.GenerateResource.Cache
-C:\Users\malgca\Development\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.Resources.resources
-C:\Users\malgca\Development\ReinforcingAbility\LogicTier\bin\Debug\LogicTier.dll
-C:\Users\malgca\Development\ReinforcingAbility\LogicTier\bin\Debug\LogicTier.pdb
-C:\Users\malgca\Development\ReinforcingAbility\LogicTier\bin\Debug\LogicTier.xml
-C:\Users\malgca\Development\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.dll
-C:\Users\malgca\Development\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.xml
-C:\Users\malgca\Development\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.pdb
 C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\LogicTier\bin\Debug\LogicTier.dll
 C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\LogicTier\bin\Debug\LogicTier.pdb
 C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\LogicTier\bin\Debug\LogicTier.xml
@@ -18,7 +10,15 @@ C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\LogicTier\obj\Debug\
 C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.dll
 C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.xml
 C:\Users\Flame's Domain\Documents\GitHub\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.pdb
-C:\Users\malgca\Development\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.vbprojResolveAssemblyReference.cache
+C:\Users\malgca\Development\ReinforcingAbility\LogicTier\bin\Debug\LogicTier.dll
+C:\Users\malgca\Development\ReinforcingAbility\LogicTier\bin\Debug\LogicTier.pdb
+C:\Users\malgca\Development\ReinforcingAbility\LogicTier\bin\Debug\LogicTier.xml
 C:\Users\malgca\Development\ReinforcingAbility\LogicTier\bin\Debug\DataTier.dll
 C:\Users\malgca\Development\ReinforcingAbility\LogicTier\bin\Debug\DataTier.pdb
 C:\Users\malgca\Development\ReinforcingAbility\LogicTier\bin\Debug\DataTier.xml
+C:\Users\malgca\Development\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.vbprojResolveAssemblyReference.cache
+C:\Users\malgca\Development\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.Resources.resources
+C:\Users\malgca\Development\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.vbproj.GenerateResource.Cache
+C:\Users\malgca\Development\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.dll
+C:\Users\malgca\Development\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.xml
+C:\Users\malgca\Development\ReinforcingAbility\LogicTier\obj\Debug\LogicTier.pdb
