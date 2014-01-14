@@ -18,7 +18,7 @@ DataTier
 	<summary>
  Populate a complete schedule for a given schedule and date.
  </summary>
-</member><member name="M:DataTier.BendingScheduleData.PopulateCuttingSheetPerSchedule(System.String@,System.String@)">
+</member><member name="M:DataTier.BendingScheduleData.PopulateCuttingSheetPerSchedule(System.String@,System.Int32@)">
 	<summary>
  Populate summary of all cutting sheets and items per schedule
  </summary>

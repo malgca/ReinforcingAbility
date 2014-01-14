@@ -78,7 +78,9 @@ Public Class BendingScheduleData
     ''' <summary>
     ''' Populate summary of all cutting sheets and items per schedule
     ''' </summary>
-    Public Sub PopulateCuttingSheetPerSchedule(ByRef scheduleNumber As String, ByRef cuttingSheet As String)
+    Public Sub PopulateCuttingSheetPerSchedule(ByRef scheduleNumber As String, ByRef cuttingSheet As Integer)
+        Me.CuttingSheetScheduleCommand = New OleDbCommand ' must re-initialise or only first query will be processed properly
+
         Me.Adapter.SelectCommand = Me.CuttingSheetScheduleCommand
 
         Me.CuttingSheetScheduleCommand.CommandText = "SELECT CutItem.ScheduleNo, " & _
@@ -104,7 +106,7 @@ Public Class BendingScheduleData
         newParam = New OleDbParameter()
         newParam.SourceColumn = "CutItem.CutSheetNo"
         newParam.OleDbType = OleDbType.Numeric
-        newParam.Value = Integer.Parse(cuttingSheet)
+        newParam.Value = cuttingSheet
         Me.CuttingSheetScheduleCommand.Parameters.Add(newParam)
     End Sub
 End Class

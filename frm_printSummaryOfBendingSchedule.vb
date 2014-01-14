@@ -141,6 +141,7 @@ Public Class frm_printSummaryOfBendingSchedule
             DocumentToPrint.DocumentName = "Summary of Bending Schedules - Job No: " + cmbJobs.Text
 
             Dim printPreview As New PrintPreviewDialog
+
             printPreview.WindowState = FormWindowState.Maximized
             printPreview.Document = DocumentToPrint
             printPreview.AutoScale = True
@@ -271,6 +272,5 @@ Public Class frm_printSummaryOfBendingSchedule
     End Sub
 
     Private Sub cmbJobs_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles cmbJobs.SelectedIndexChanged
-        Console.WriteLine(cmbJobs.Text)
     End Sub
 End Class

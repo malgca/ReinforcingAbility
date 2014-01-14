@@ -22,6 +22,7 @@ Public Class PageElement
         center = cntr
         rAlign = RightAlign
     End Sub
+
     Sub New(ByVal txt As String, ByRef Fnt As Font, ByVal xc As Integer, ByVal EOL As Boolean, ByVal cntr As Boolean)
         Text = txt
         Font = Fnt
@@ -31,6 +32,7 @@ Public Class PageElement
         center = cntr
         rAlign = False
     End Sub
+
     Sub New(ByVal x1 As Integer, ByVal x_2 As Integer, ByVal EOL As Boolean)
         Text = "#LINE__"
         Font = New Font("Arial", 10)
@@ -41,6 +43,7 @@ Public Class PageElement
         center = False
         rAlign = False
     End Sub
+
     Sub New(ByVal EOL As Boolean, ByVal x1 As Integer, ByVal x_2 As Integer)
         Text = "#DOUBLELINE__"
         Font = New Font("Arial", 10)
@@ -51,6 +54,7 @@ Public Class PageElement
         center = False
         rAlign = False
     End Sub
+
     Sub New(ByVal txt As String, ByRef Fnt As Font, ByVal xc As Integer, ByVal cntr As Boolean)
         Text = txt
         Font = Fnt
@@ -60,6 +64,7 @@ Public Class PageElement
         center = cntr
         rAlign = False
     End Sub
+
     Sub New(ByVal txt As String, ByRef Fnt As Font, ByVal xc As Integer, ByVal yGap As Integer, ByVal cntr As Boolean)
         Text = txt
         Font = Fnt
@@ -69,6 +74,7 @@ Public Class PageElement
         center = cntr
         rAlign = False
     End Sub
+
     Sub New(ByVal txt As String, ByVal imgIndex As Integer, ByVal imgHeight As Integer, ByVal xc As Integer, ByVal EOL As Boolean, ByVal cntr As Boolean)
         Text = txt
         x = xc

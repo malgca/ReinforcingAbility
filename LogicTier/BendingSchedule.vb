@@ -71,6 +71,7 @@ Public Class BendingSchedule
     ''' </summary>
     Public Sub PopulateJobList()
         JobNameList.Clear()
+        JobNameList.Add(String.Empty)
         BendingScheduleData.PopulateJobsSet()
 
         Dim JobNameSet As New DataSet
@@ -105,13 +106,13 @@ Public Class BendingSchedule
     Private Sub PrintRHead()
         PrintList.Add(New PageElement(String.Empty, PrintFonts.Normal, 0, True, False, False))
         PrintList.Add(New PageElement("Total", PrintFonts.Normal, PageConstants.LeftMargin, False, False, False))
-        PrintList.Add(New PageElement(BeamTypes.R.ToString, PrintFonts.Normal, PageConstants.LeftMargin + 40, False, False, False))
+        PrintList.Add(New PageElement(BeamTypes.R.ToString(), PrintFonts.Normal, PageConstants.LeftMargin + 40, False, False, False))
     End Sub
 
     ' adds the default y head beam to the print queue
     Private Sub PrintYHead()
         PrintList.Add(New PageElement(String.Empty, PrintFonts.Normal, 0, True, False, False))
-        PrintList.Add(New PageElement("Y", PrintFonts.Normal, PageConstants.LeftMargin + 40, False, False, False))
+        PrintList.Add(New PageElement(BeamTypes.Y.ToString(), PrintFonts.Normal, PageConstants.LeftMargin + 40, False, False, False))
     End Sub
 
     ' adds the value to be printed to the print queue
