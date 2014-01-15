@@ -63,6 +63,14 @@ LogicTier
 	<summary>
  Notifies listener of a change in a property
  </summary>
+</member><member name="F:LogicTier.PageElement.PageFonts.Normal">
+	<summary>
+ Arial 10, Normal
+ </summary>
+</member><member name="F:LogicTier.PageElement.PageFonts.SmallItalic">
+	<summary>
+ Arial 8, Italic
+ </summary>
 </member><member name="T:LogicTier.FormStates">
 	<summary>
  Company Form States
@@ -97,14 +105,6 @@ LogicTier
 </member><member name="T:LogicTier.MeasurementUnit">
 	<summary>
  Units of measurement used by the Reinforcing Ability system.
- </summary>
-</member><member name="F:LogicTier.BendingSchedule.PrintFonts.Normal">
-	<summary>
- Arial 10, Normal
- </summary>
-</member><member name="F:LogicTier.BendingSchedule.PrintFonts.SmallItalic">
-	<summary>
- Arial 8, Italic
  </summary>
 </member><member name="M:LogicTier.BendingSchedule.PopulateJobList">
 	<summary>

@@ -11,9 +11,9 @@ Public Class BendingScheduleData
     Public Property Adapter As New OleDbDataAdapter
 
     Private Property SelectJobsCommand As New OleDbCommand 'used
-    Private Property ScheduleSummaryCommand As New OleDbCommand 'used
-    Private Property CuttingSheetScheduleCommand As New OleDbCommand 'used
-    Private Property JobScheduleCommand As New OleDbCommand 'used
+    Private Property ScheduleSummaryCommand As OleDbCommand 'used
+    Private Property CuttingSheetScheduleCommand As OleDbCommand 'used
+    Private Property JobScheduleCommand As OleDbCommand 'used
 
     ''' <summary>
     ''' Populates a dataset with data from the Job table.
@@ -30,6 +30,8 @@ Public Class BendingScheduleData
     ''' Populates a schedule for a given job number.
     ''' </summary>
     Public Sub PopulateScheduleSummary(ByRef jobNumber As String)
+        Me.ScheduleSummaryCommand = New OleDbCommand ' must re-initialise or only first query will be processed properly
+
         Me.Adapter.SelectCommand = Me.ScheduleSummaryCommand
 
         Me.ScheduleSummaryCommand.CommandText = "SELECT ContractorName, " & _
@@ -55,6 +57,8 @@ Public Class BendingScheduleData
     ''' Populate a complete schedule for a given schedule and date.
     ''' </summary>
     Public Sub PopulateJobSchedule(ByRef jobNumber As String, ByRef thisDate As Date)
+        Me.JobScheduleCommand = New OleDbCommand ' must re-initialise or only first query will be processed properly
+
         Me.Adapter.SelectCommand = Me.JobScheduleCommand
 
         Me.JobScheduleCommand.CommandText = "SELECT DISTINCT ScheduleNo, " & _

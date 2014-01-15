@@ -185,64 +185,64 @@ Public Class frm_printSummaryOfBendingSchedule
         Dim pageBound As Integer = e.PageSettings.Bounds.Height - BendingSchedule.PageConstants.BottomMargin
 
         If BendingSchedule.PageConstants.ReportType = "Reinforcing Summary" Then
-            e.Graphics.DrawString("Date Generated : " & Today().ToShortDateString, BendingSchedule.PrintFonts.SmallItalic, Brushes.DimGray, BendingSchedule.PageConstants.LeftMargin, 1065)
-            e.Graphics.DrawString("Page " & Logic.CurrentPageNumber, BendingSchedule.PrintFonts.SmallItalic, Brushes.DimGray, 700, 1065)
+            e.Graphics.DrawString("Date Generated : " & Today().ToShortDateString, LogicTier.PageElement.PageFonts.SmallItalic, Brushes.DimGray, BendingSchedule.PageConstants.LeftMargin, 1065)
+            e.Graphics.DrawString("Page " & Logic.CurrentPageNumber, LogicTier.PageElement.PageFonts.SmallItalic, Brushes.DimGray, 700, 1065)
         End If
 
         While (topMargin < pageBound) And (Logic.CurrentListPosition < Logic.PrintList.Count)
-            Select Case Logic.PrintList(Logic.CurrentListPosition).Text.ToString()
-                Case "<SPACE>"
-                    If Logic.PrintList(Logic.CurrentListPosition).includeEOL Then
-                        topMargin += Logic.PrintList(Logic.CurrentListPosition).Font.Size + 30 + Logic.PrintList(Logic.CurrentListPosition).Ygap
+            Select Case Logic.PrintList(Logic.CurrentListPosition).ElementText.ToString()
+                Case LogicTier.PageElement.LineConstants.Space
+                    If Logic.PrintList(Logic.CurrentListPosition).IncludeEOL Then
+                        topMargin += Logic.PrintList(Logic.CurrentListPosition).ElementFont.Size + 30 + Logic.PrintList(Logic.CurrentListPosition).YGap
                     End If
-                Case "#LINE__"
-                    e.Graphics.DrawLine(Pens.Black, Logic.PrintList(Logic.CurrentListPosition).x, topMargin, Logic.PrintList(Logic.CurrentListPosition).x2, topMargin)
+                Case LogicTier.PageElement.LineConstants.Line
+                    e.Graphics.DrawLine(Pens.Black, Logic.PrintList(Logic.CurrentListPosition).xPositionOne, topMargin, Logic.PrintList(Logic.CurrentListPosition).xPositionTwo, topMargin)
 
-                    If Logic.PrintList(Logic.CurrentListPosition).includeEOL Then
-                        topMargin += Logic.PrintList(Logic.CurrentListPosition).Font.Size + 10 + Logic.PrintList(Logic.CurrentListPosition).Ygap
+                    If Logic.PrintList(Logic.CurrentListPosition).IncludeEOL Then
+                        topMargin += Logic.PrintList(Logic.CurrentListPosition).ElementFont.Size + 10 + Logic.PrintList(Logic.CurrentListPosition).YGap
                     End If
-                Case "#DOUBLELINE__"
-                    e.Graphics.DrawLine(Pens.Black, Logic.PrintList(Logic.CurrentListPosition).x, topMargin, Logic.PrintList(Logic.CurrentListPosition).x2, topMargin)
-                    e.Graphics.DrawLine(Pens.Black, Logic.PrintList(Logic.CurrentListPosition).x, topMargin + 3, Logic.PrintList(Logic.CurrentListPosition).x2, topMargin + 3)
+                Case LogicTier.PageElement.LineConstants.DoubleLine
+                    e.Graphics.DrawLine(Pens.Black, Logic.PrintList(Logic.CurrentListPosition).xPositionOne, topMargin, Logic.PrintList(Logic.CurrentListPosition).xPositionTwo, topMargin)
+                    e.Graphics.DrawLine(Pens.Black, Logic.PrintList(Logic.CurrentListPosition).xPositionOne, topMargin + 3, Logic.PrintList(Logic.CurrentListPosition).xPositionTwo, topMargin + 3)
 
-                    If Logic.PrintList(Logic.CurrentListPosition).includeEOL Then
-                        topMargin += Logic.PrintList(Logic.CurrentListPosition).Font.Size + 10 + Logic.PrintList(Logic.CurrentListPosition).Ygap
+                    If Logic.PrintList(Logic.CurrentListPosition).IncludeEOL Then
+                        topMargin += Logic.PrintList(Logic.CurrentListPosition).ElementFont.Size + 10 + Logic.PrintList(Logic.CurrentListPosition).YGap
                     End If
-                Case "<HR/>"
+                Case LogicTier.PageElement.LineConstants.HR
                     e.Graphics.DrawLine(Pens.LightGray, BendingSchedule.PageConstants.LeftMargin, topMargin, 800, topMargin)
 
-                    If Logic.PrintList(Logic.CurrentListPosition).includeEOL Then
-                        topMargin += Logic.PrintList(Logic.CurrentListPosition).Font.Size + 10 + Logic.PrintList(Logic.CurrentListPosition).Ygap
+                    If Logic.PrintList(Logic.CurrentListPosition).IncludeEOL Then
+                        topMargin += Logic.PrintList(Logic.CurrentListPosition).ElementFont.Size + 10 + Logic.PrintList(Logic.CurrentListPosition).YGap
                     End If
-                Case "<HR/BLACK>"
+                Case LogicTier.PageElement.LineConstants.HRBlack
                     e.Graphics.DrawLine(Pens.Black, BendingSchedule.PageConstants.LeftMargin, topMargin, e.PageSettings.Bounds.Width - BendingSchedule.PageConstants.RightMargin, topMargin)
 
-                    If Logic.PrintList(Logic.CurrentListPosition).includeEOL Then
-                        topMargin += Logic.PrintList(Logic.CurrentListPosition).Font.Size + 10 + Logic.PrintList(Logic.CurrentListPosition).Ygap
+                    If Logic.PrintList(Logic.CurrentListPosition).IncludeEOL Then
+                        topMargin += Logic.PrintList(Logic.CurrentListPosition).ElementFont.Size + 10 + Logic.PrintList(Logic.CurrentListPosition).YGap
                     End If
-                Case "<HR/LIGHT>"
+                Case LogicTier.PageElement.LineConstants.HRLight
                     e.Graphics.DrawLine(Pens.WhiteSmoke, BendingSchedule.PageConstants.LeftMargin, topMargin, e.PageSettings.Bounds.Width - BendingSchedule.PageConstants.RightMargin, topMargin)
 
-                    If Logic.PrintList(Logic.CurrentListPosition).includeEOL Then
-                        topMargin += Logic.PrintList(Logic.CurrentListPosition).Font.Size + 5 + Logic.PrintList(Logic.CurrentListPosition).Ygap
+                    If Logic.PrintList(Logic.CurrentListPosition).IncludeEOL Then
+                        topMargin += Logic.PrintList(Logic.CurrentListPosition).ElementFont.Size + 5 + Logic.PrintList(Logic.CurrentListPosition).YGap
                     End If
                 Case Else
-                    If Logic.PrintList(Logic.CurrentListPosition).center Then
+                    If Logic.PrintList(Logic.CurrentListPosition).CenterElement Then
                         Dim stringSize As New SizeF
 
-                        stringSize = e.Graphics.MeasureString(Logic.PrintList(Logic.CurrentListPosition).Text, BendingSchedule.PrintFonts.Normal)
-                        e.Graphics.DrawString(Logic.PrintList(Logic.CurrentListPosition).Text, Logic.PrintList(Logic.CurrentListPosition).Font, Brushes.Black, (e.PageSettings.Bounds.Width / 2) - 0.5 * stringSize.Width, topMargin)
-                    ElseIf Logic.PrintList(Logic.CurrentListPosition).rAlign Then
+                        stringSize = e.Graphics.MeasureString(Logic.PrintList(Logic.CurrentListPosition).ElementText, LogicTier.PageElement.PageFonts.Normal)
+                        e.Graphics.DrawString(Logic.PrintList(Logic.CurrentListPosition).ElementText, Logic.PrintList(Logic.CurrentListPosition).ElementFont, Brushes.Black, (e.PageSettings.Bounds.Width / 2) - 0.5 * stringSize.Width, topMargin)
+                    ElseIf Logic.PrintList(Logic.CurrentListPosition).RightAlignElement Then
                         Dim stringSize As New SizeF
 
-                        stringSize = e.Graphics.MeasureString(Logic.PrintList(Logic.CurrentListPosition).Text, BendingSchedule.PrintFonts.Normal)
-                        e.Graphics.DrawString(Logic.PrintList(Logic.CurrentListPosition).Text, Logic.PrintList(Logic.CurrentListPosition).Font, Brushes.Black, Logic.PrintList(Logic.CurrentListPosition).x - stringSize.Width, topMargin)
+                        stringSize = e.Graphics.MeasureString(Logic.PrintList(Logic.CurrentListPosition).ElementText, LogicTier.PageElement.PageFonts.Normal)
+                        e.Graphics.DrawString(Logic.PrintList(Logic.CurrentListPosition).ElementText, Logic.PrintList(Logic.CurrentListPosition).ElementFont, Brushes.Black, Logic.PrintList(Logic.CurrentListPosition).xPositionOne - stringSize.Width, topMargin)
                     Else
-                        e.Graphics.DrawString(Logic.PrintList(Logic.CurrentListPosition).Text, Logic.PrintList(Logic.CurrentListPosition).Font, Brushes.Black, Logic.PrintList(Logic.CurrentListPosition).x, topMargin)
+                        e.Graphics.DrawString(Logic.PrintList(Logic.CurrentListPosition).ElementText, Logic.PrintList(Logic.CurrentListPosition).ElementFont, Brushes.Black, Logic.PrintList(Logic.CurrentListPosition).xPositionOne, topMargin)
                     End If
 
-                    If Logic.PrintList(Logic.CurrentListPosition).includeEOL Then
-                        topMargin += Logic.PrintList(Logic.CurrentListPosition).Font.Size + 10 + Logic.PrintList(Logic.CurrentListPosition).Ygap
+                    If Logic.PrintList(Logic.CurrentListPosition).IncludeEOL Then
+                        topMargin += Logic.PrintList(Logic.CurrentListPosition).ElementFont.Size + 10 + Logic.PrintList(Logic.CurrentListPosition).YGap
                     End If
             End Select
 
