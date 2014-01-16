@@ -1,5 +1,10 @@
+Imports System
+Imports System.Windows.Forms
+Imports System.Drawing
+Imports LogicTier
+
 Public Class GenCutSheetInvoice
-    Inherits System.Windows.Forms.Form
+    Inherits Form
 
 #Region " Windows Form Designer generated code "
 
@@ -24,181 +29,181 @@ Public Class GenCutSheetInvoice
     End Sub
 
     'Required by the Windows Form Designer
-    Private components As System.ComponentModel.IContainer
+    Private components As ComponentModel.IContainer
 
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents Label7 As System.Windows.Forms.Label
-    Friend WithEvents btnClose As System.Windows.Forms.Button
-    Friend WithEvents txtDelNoteNum As System.Windows.Forms.TextBox
-    Friend WithEvents txtOrderNum As System.Windows.Forms.TextBox
-    Friend WithEvents txtDesign As System.Windows.Forms.TextBox
-    Friend WithEvents txtInvHeading As System.Windows.Forms.TextBox
-    Friend WithEvents dtpInvDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents btnCreateInvoice As System.Windows.Forms.Button
-    Friend WithEvents cmb_AllCutSheets As System.Windows.Forms.ComboBox
-    Friend WithEvents lblNotify As System.Windows.Forms.Label
-    Friend WithEvents btnPrint As System.Windows.Forms.Button
-    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.txtDelNoteNum = New System.Windows.Forms.TextBox
-        Me.txtOrderNum = New System.Windows.Forms.TextBox
-        Me.txtDesign = New System.Windows.Forms.TextBox
-        Me.txtInvHeading = New System.Windows.Forms.TextBox
-        Me.dtpInvDate = New System.Windows.Forms.DateTimePicker
-        Me.btnCreateInvoice = New System.Windows.Forms.Button
-        Me.btnClose = New System.Windows.Forms.Button
-        Me.cmb_AllCutSheets = New System.Windows.Forms.ComboBox
-        Me.lblNotify = New System.Windows.Forms.Label
-        Me.btnPrint = New System.Windows.Forms.Button
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents btnClose As Button
+    Friend WithEvents txtDelNoteNum As TextBox
+    Friend WithEvents txtOrderNum As TextBox
+    Friend WithEvents txtDesign As TextBox
+    Friend WithEvents txtInvHeading As TextBox
+    Friend WithEvents dtpInvDate As DateTimePicker
+    Friend WithEvents btnCreateInvoice As Button
+    Friend WithEvents cmb_AllCutSheets As ComboBox
+    Friend WithEvents lblNotify As Label
+    Friend WithEvents btnPrint As Button
+    <Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+        Me.Label1 = New Label
+        Me.Label2 = New Label
+        Me.Label3 = New Label
+        Me.Label4 = New Label
+        Me.Label5 = New Label
+        Me.Label7 = New Label
+        Me.txtDelNoteNum = New TextBox
+        Me.txtOrderNum = New TextBox
+        Me.txtDesign = New TextBox
+        Me.txtInvHeading = New TextBox
+        Me.dtpInvDate = New DateTimePicker
+        Me.btnCreateInvoice = New Button
+        Me.btnClose = New Button
+        Me.cmb_AllCutSheets = New ComboBox
+        Me.lblNotify = New Label
+        Me.btnPrint = New Button
         Me.SuspendLayout()
         '
         'Label1
         '
-        Me.Label1.Location = New System.Drawing.Point(16, 72)
+        Me.Label1.Location = New Point(16, 72)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(128, 23)
+        Me.Label1.Size = New Size(128, 23)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Delivery Note Number"
         '
         'Label2
         '
-        Me.Label2.Location = New System.Drawing.Point(16, 112)
+        Me.Label2.Location = New Point(16, 112)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(128, 23)
+        Me.Label2.Size = New Size(128, 23)
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "Order Number"
         '
         'Label3
         '
-        Me.Label3.Location = New System.Drawing.Point(16, 152)
+        Me.Label3.Location = New Point(16, 152)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(128, 23)
+        Me.Label3.Size = New Size(128, 23)
         Me.Label3.TabIndex = 0
         Me.Label3.Text = "Design"
         '
         'Label4
         '
-        Me.Label4.Location = New System.Drawing.Point(16, 192)
+        Me.Label4.Location = New Point(16, 192)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(128, 23)
+        Me.Label4.Size = New Size(128, 23)
         Me.Label4.TabIndex = 0
         Me.Label4.Text = "Invoice Date"
         '
         'Label5
         '
-        Me.Label5.Location = New System.Drawing.Point(16, 232)
+        Me.Label5.Location = New Point(16, 232)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(128, 23)
+        Me.Label5.Size = New Size(128, 23)
         Me.Label5.TabIndex = 0
         Me.Label5.Text = "Invoice Heading"
         '
         'Label7
         '
-        Me.Label7.Location = New System.Drawing.Point(16, 32)
+        Me.Label7.Location = New Point(16, 32)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(128, 23)
+        Me.Label7.Size = New Size(128, 23)
         Me.Label7.TabIndex = 0
         Me.Label7.Text = "Cutting Sheet Number "
         '
         'txtDelNoteNum
         '
-        Me.txtDelNoteNum.Location = New System.Drawing.Point(152, 72)
+        Me.txtDelNoteNum.Location = New Point(152, 72)
         Me.txtDelNoteNum.MaxLength = 50
         Me.txtDelNoteNum.Name = "txtDelNoteNum"
-        Me.txtDelNoteNum.Size = New System.Drawing.Size(304, 20)
+        Me.txtDelNoteNum.Size = New Size(304, 20)
         Me.txtDelNoteNum.TabIndex = 2
         Me.txtDelNoteNum.Text = ""
         '
         'txtOrderNum
         '
-        Me.txtOrderNum.Location = New System.Drawing.Point(152, 112)
+        Me.txtOrderNum.Location = New Point(152, 112)
         Me.txtOrderNum.Name = "txtOrderNum"
-        Me.txtOrderNum.Size = New System.Drawing.Size(240, 20)
+        Me.txtOrderNum.Size = New Size(240, 20)
         Me.txtOrderNum.TabIndex = 4
         Me.txtOrderNum.Text = ""
         '
         'txtDesign
         '
-        Me.txtDesign.Location = New System.Drawing.Point(152, 152)
+        Me.txtDesign.Location = New Point(152, 152)
         Me.txtDesign.Name = "txtDesign"
-        Me.txtDesign.Size = New System.Drawing.Size(144, 20)
+        Me.txtDesign.Size = New Size(144, 20)
         Me.txtDesign.TabIndex = 6
         Me.txtDesign.Text = ""
         '
         'txtInvHeading
         '
-        Me.txtInvHeading.Location = New System.Drawing.Point(152, 232)
+        Me.txtInvHeading.Location = New Point(152, 232)
         Me.txtInvHeading.Name = "txtInvHeading"
-        Me.txtInvHeading.Size = New System.Drawing.Size(312, 20)
+        Me.txtInvHeading.Size = New Size(312, 20)
         Me.txtInvHeading.TabIndex = 10
         Me.txtInvHeading.Text = ""
         '
         'dtpInvDate
         '
-        Me.dtpInvDate.Format = System.Windows.Forms.DateTimePickerFormat.Short
-        Me.dtpInvDate.Location = New System.Drawing.Point(152, 192)
+        Me.dtpInvDate.Format = DateTimePickerFormat.Short
+        Me.dtpInvDate.Location = New Point(152, 192)
         Me.dtpInvDate.Name = "dtpInvDate"
-        Me.dtpInvDate.Size = New System.Drawing.Size(144, 20)
+        Me.dtpInvDate.Size = New Size(144, 20)
         Me.dtpInvDate.TabIndex = 8
         '
         'btnCreateInvoice
         '
-        Me.btnCreateInvoice.Location = New System.Drawing.Point(64, 304)
+        Me.btnCreateInvoice.Location = New Point(64, 304)
         Me.btnCreateInvoice.Name = "btnCreateInvoice"
-        Me.btnCreateInvoice.Size = New System.Drawing.Size(112, 23)
+        Me.btnCreateInvoice.Size = New Size(112, 23)
         Me.btnCreateInvoice.TabIndex = 12
         Me.btnCreateInvoice.Text = "Create Invoice"
         '
         'btnClose
         '
-        Me.btnClose.Location = New System.Drawing.Point(336, 304)
+        Me.btnClose.Location = New Point(336, 304)
         Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(112, 23)
+        Me.btnClose.Size = New Size(112, 23)
         Me.btnClose.TabIndex = 14
         Me.btnClose.Text = "Close"
         '
         'cmb_AllCutSheets
         '
-        Me.cmb_AllCutSheets.Location = New System.Drawing.Point(152, 32)
+        Me.cmb_AllCutSheets.Location = New Point(152, 32)
         Me.cmb_AllCutSheets.MaxDropDownItems = 15
         Me.cmb_AllCutSheets.Name = "cmb_AllCutSheets"
-        Me.cmb_AllCutSheets.Size = New System.Drawing.Size(144, 21)
+        Me.cmb_AllCutSheets.Size = New Size(144, 21)
         Me.cmb_AllCutSheets.TabIndex = 0
         '
         'lblNotify
         '
-        Me.lblNotify.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNotify.Location = New System.Drawing.Point(16, 264)
+        Me.lblNotify.Font = New Font("Microsoft Sans Serif", 10.0!, FontStyle.Bold, GraphicsUnit.Point, CType(0, Byte))
+        Me.lblNotify.Location = New Point(16, 264)
         Me.lblNotify.Name = "lblNotify"
-        Me.lblNotify.Size = New System.Drawing.Size(488, 32)
+        Me.lblNotify.Size = New Size(488, 32)
         Me.lblNotify.TabIndex = 15
-        Me.lblNotify.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblNotify.TextAlign = ContentAlignment.MiddleCenter
         '
         'btnPrint
         '
         Me.btnPrint.Enabled = False
-        Me.btnPrint.Location = New System.Drawing.Point(200, 304)
+        Me.btnPrint.Location = New Point(200, 304)
         Me.btnPrint.Name = "btnPrint"
-        Me.btnPrint.Size = New System.Drawing.Size(112, 23)
+        Me.btnPrint.Size = New Size(112, 23)
         Me.btnPrint.TabIndex = 12
         Me.btnPrint.Text = "Print Preview..."
         '
         'GenCutSheetInvoice
         '
-        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
-        Me.ClientSize = New System.Drawing.Size(538, 351)
+        Me.AutoScaleBaseSize = New Size(5, 13)
+        Me.ClientSize = New Size(538, 351)
         Me.Controls.Add(Me.lblNotify)
         Me.Controls.Add(Me.cmb_AllCutSheets)
         Me.Controls.Add(Me.btnCreateInvoice)
@@ -215,9 +220,9 @@ Public Class GenCutSheetInvoice
         Me.Controls.Add(Me.txtInvHeading)
         Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.btnPrint)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.FormBorderStyle = FormBorderStyle.FixedToolWindow
         Me.Name = "GenCutSheetInvoice"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = FormStartPosition.CenterScreen
         Me.Text = "Create a Cutting Sheet Invoice"
         Me.ResumeLayout(False)
 
@@ -252,11 +257,11 @@ Public Class GenCutSheetInvoice
         CallingForm = Nothing
     End Sub
 
-    Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
+    Private Sub btnClose_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnClose.Click
         Close()
     End Sub
 
-    Private Sub btnPrintInvoice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCreateInvoice.Click
+    Private Sub btnPrintInvoice_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCreateInvoice.Click
         generateCuttingSheetInvoice(cmb_AllCutSheets.Text, txtDelNoteNum.Text, txtOrderNum.Text, txtInvHeading.Text, txtDesign.Text, dtpInvDate.Value.ToLongDateString)
     End Sub
 
@@ -346,7 +351,7 @@ Public Class GenCutSheetInvoice
                     Dim NextTypeCode As String
                     Dim TotalLengthForType As Integer = 0
                     Dim TypeMass As Integer = 0
-                    Dim TotalMassForType As Integer= 0
+                    Dim TotalMassForType As Integer = 0
                     Dim TotalCostForType As Integer = 0
                     Dim LineNumberCounter As Integer = 1
                     Dim DESCRIPTION As String = "Description"
@@ -457,7 +462,7 @@ Public Class GenCutSheetInvoice
         End If
     End Sub
 
-    Private Sub GenCutSheetInvoice_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub GenCutSheetInvoice_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
         popCMB()
     End Sub
 
@@ -473,7 +478,7 @@ Public Class GenCutSheetInvoice
         Next d
     End Sub
 
-    Private Sub cmb_AllCutSheets_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmb_AllCutSheets.SelectedIndexChanged
+    Private Sub cmb_AllCutSheets_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles cmb_AllCutSheets.SelectedIndexChanged
         Dim sql As String = "SELECT OrderNo FROM (CuttingSheet INNER JOIN Job ON CuttingSheet.[Job No] = Job.JobNo) WHERE CuttingSheet.CutSheetNo = " & cmb_AllCutSheets.Text
         Dim ds As New Data.DataSet
         Dim Adapter As New OleDb.OleDbDataAdapter(sql, DbConnection)
@@ -488,7 +493,7 @@ Public Class GenCutSheetInvoice
 
     End Sub
 
-    Private Sub btnPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrint.Click
+    Private Sub btnPrint_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnPrint.Click
         Dim Form As PrintCutInv = New PrintCutInv(Me)
         Form.populate_invoiceNumbers()
         Form.txt_InvNumToPrint.SelectedIndex = Form.txt_InvNumToPrint.Items.IndexOf(InvoiceNumber.ToString)
@@ -496,7 +501,7 @@ Public Class GenCutSheetInvoice
 
     End Sub
 
-    Private Sub cmb_AllCutSheets_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmb_AllCutSheets.Leave
+    Private Sub cmb_AllCutSheets_Leave(ByVal sender As Object, ByVal e As EventArgs) Handles cmb_AllCutSheets.Leave
         If Not cmb_AllCutSheets.SelectedIndex >= 0 Then
             If Not IsNumeric(cmb_AllCutSheets.Text) Then
                 cmb_AllCutSheets.Text = "Please Select..."
