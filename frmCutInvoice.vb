@@ -29,7 +29,7 @@ Public Class GenCutSheetInvoice
     End Sub
 
     'Required by the Windows Form Designer
-    Private components As ComponentModel.IContainer
+    Private components As System.ComponentModel.IContainer
 
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
@@ -230,7 +230,8 @@ Public Class GenCutSheetInvoice
 
 #End Region
 
-    Private CallingForm As Object
+    Private Property Logic As CutInvoice
+    Private Property CallingForm As Object
     Dim DbConnection As OleDb.OleDbConnection
 
     Public Sub New(ByRef caller As Object, ByRef dbc As OleDb.OleDbConnection)

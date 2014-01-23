@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BendingSchedule.vb" />
+    <Compile Include="CutInvoice.vb" />
     <Compile Include="FormStates.vb" />
     <Compile Include="Company.vb" />
     <Compile Include="Contractor.vb" />
