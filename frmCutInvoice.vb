@@ -269,26 +269,12 @@ Public Class GenCutSheetInvoice
     Dim InvoiceNumber As Long
 
     Private Sub generateCuttingSheetInvoice(ByVal CuttingSheetNumber As String, ByVal DeliveryNoteNumber As String, ByVal OrderNo As String, ByVal InvoiceHeader As String, ByVal Design As String, ByVal InvoiceDate As Date)
-
-        If CuttingSheetNumber = "" Or CuttingSheetNumber = "Please Select..." Then
-            CuttingSheetNumber = "-1"
-        End If
-        If Design = "" Then
-            Design = "0"
-        End If
-
-        Dim SQL As String = "SELECT * FROM ((((((CuttingSheet INNER JOIN Job ON [CuttingSheet].[Job No] = Job.JobNo ) INNER JOIN Company ON Job.CompanyNo = Company.CompanyNo) INNER JOIN SchedItem ON CuttingSheet.CutSheetNo = SchedItem.CutSheetNo) INNER JOIN CutItem ON SchedItem.CutSheetNo = CutItem.CutSheetNo AND SchedItem.ScheduleNo = CutItem.ScheduleNo) INNER JOIN ProductType ON CutItem.TypeCode = ProductType.TypeCode) INNER JOIN JobRate ON Job.JobNo = JobRate.JobNo AND JobRate.TypeCode = ProductType.TypeCode ) WHERE CuttingSheet.CutSheetNo = " + CuttingSheetNumber + " ORDER BY ProductType.TypeCode"
-        Dim DataSet As New Data.DataSet
-        Dim Adapter As New OleDb.OleDbDataAdapter(SQL, DbConnection)
-        Adapter.Fill(DataSet)
-
-        If DataSet.Tables(0).Rows.Count = 0 Then
+        If Logic.InvoiceCount = 0 Then
             If CuttingSheetNumber = "-1" Then
                 MessageBox.Show("Please enter a valid Cutting Sheet Number.", "Invalid Cutting Sheet Number.")
             Else
                 MessageBox.Show("Cannot generate Invoice. Possible reason :" & Microsoft.VisualBasic.Chr(13) & "1. Rates are not specified for the job." & Microsoft.VisualBasic.Chr(13) & "2. The cutting sheet has no Schedules and/or Items.")
             End If
-
         Else
             If DataSet.Tables(0).Rows(0).Item("InvoiceNo").ToString = "0" Or DataSet.Tables(0).Rows(0).Item("InvoiceNo").ToString = "" Then
                 'This IF STATEMENT checks if the cutting sheet has not been invoiced.
